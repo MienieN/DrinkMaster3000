@@ -9,7 +9,11 @@ public class MainPanel extends JPanel {
     private MainFrame mainFrame;
     private final JButton[] ingredientButtons = new JButton[4];
     private ArrayList<String> chosenIngredients = new ArrayList<>();
+
+    private ArrayList<String> recipes;
     private JLabel label;
+    //private JScrollPane recipesPane;
+    private JList<String> recipesList = new JList<>();
 
     //TODO look into a prettier way to do action listener
     private ActionListener ingredientButtonPressed = new ActionListener() {
@@ -43,10 +47,19 @@ public class MainPanel extends JPanel {
         for (int i = 0; i < ingredientButtons.length; i++) {
             add(ingredientButtons[i]);
         }
-        label = new JLabel();
+        JButton nOTA = new JButton("None of the above");
+        nOTA.setSize(100, 100);
+        nOTA.setLocation(150, 300);
+        nOTA.addActionListener(l -> noneOfTheAbove());
+        add(nOTA);
+        JScrollPane recipesPane = new JScrollPane(recipesList);
+        recipesPane.setLocation(400,50);
+        recipesPane.setSize(100,400);
+        add(recipesPane);
+        /*label = new JLabel();
         label.setSize(100, 100);
         label.setLocation(400, 150);
-        add(label);
+        add(label);*/
     }
 
     public void receiveIngredientsList(ArrayList<String> ingredientNames) {
@@ -64,13 +77,25 @@ public class MainPanel extends JPanel {
         else{
             button.setText(ingredientNames.get(counter++));
         }
+    }
 
-
+    private void noneOfTheAbove(){
+        for (JButton button : ingredientButtons){
+            displayNextButtons(button);
+        }
     }
 
     public void showRecipe(String name) {
-        System.out.println("Test");
-        label.setText(name);
+        if (recipes == null){
+            recipes = new ArrayList<String>();
+            recipes.add(name);
+        }else{
+            recipes.add(name);
+        }
+        //TODO find a prettier way to do this
+        String[] stringArray = recipes.toArray(new String[recipes.size()]);
+        recipesList.setListData(stringArray);
+        //recipesList.setListData(recipes.toArray()); for some reason this won't work
         repaint();
     }
 }

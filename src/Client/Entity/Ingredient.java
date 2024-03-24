@@ -9,6 +9,7 @@ public enum Ingredient {
     Amaretto("Amaretto"),
     Ice("Ice"),
     Orange("Orange"),
+    Ginger("Ginger")
     ;
 
     Ingredient(String name) {
