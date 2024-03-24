@@ -7,13 +7,19 @@ import java.util.ArrayList;
 
 public class MainPanel extends JPanel {
     private MainFrame mainFrame;
-    private JButton[] ingredientButtons = new JButton[4];
+    private final JButton[] ingredientButtons = new JButton[4];
+    private ArrayList<String> chosenIngredients = new ArrayList<>();
+    private JLabel label;
 
     //TODO look into a prettier way to do action listener
     private ActionListener ingredientButtonPressed = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            displayNextButtons((JButton)e.getSource());
+            JButton clickedButton =(JButton)e.getSource();
+            chosenIngredients.add(clickedButton.getText());
+            System.out.println(clickedButton.getText());
+            mainFrame.checkForRecipe(chosenIngredients);
+            displayNextButtons(clickedButton);
         }
     };
     private int counter = 0;
@@ -37,6 +43,10 @@ public class MainPanel extends JPanel {
         for (int i = 0; i < ingredientButtons.length; i++) {
             add(ingredientButtons[i]);
         }
+        label = new JLabel();
+        label.setSize(100, 100);
+        label.setLocation(400, 150);
+        add(label);
     }
 
     public void receiveIngredientsList(ArrayList<String> ingredientNames) {
@@ -56,5 +66,11 @@ public class MainPanel extends JPanel {
         }
 
 
+    }
+
+    public void showRecipe(String name) {
+        System.out.println("Test");
+        label.setText(name);
+        repaint();
     }
 }

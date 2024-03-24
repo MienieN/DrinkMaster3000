@@ -8,9 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 
 public class RecipeController {
-    private HashMap recipies = new HashMap<ArrayList<Ingredient>, String>();
+    private HashMap recipes = new HashMap<ArrayList<Ingredient>, String>();
+    private IMainFrame mainFrame;
 
     public RecipeController(IMainFrame mainFrame){
+        this.mainFrame = mainFrame;
         addTestRecipies();
         sendIngredientsToGui(mainFrame);
     }
@@ -22,9 +24,20 @@ public class RecipeController {
     }
 
     public void addTestRecipies(){
-        recipies.put(new ArrayList<Ingredient>(List.of(Ingredient.Whisky, Ingredient.AngosturaBitters, Ingredient.SimpleSyrup)), "Whisky Sour");
-        recipies.put(new ArrayList<Ingredient>(List.of(Ingredient.Whisky, Ingredient.Orange,Ingredient.Ice, Ingredient.Amaretto)), "GodFather");
-        recipies.put(new ArrayList<Ingredient>(List.of(Ingredient.Whisky, Ingredient.AngosturaBitters, Ingredient.Lemon, Ingredient.SimpleSyrup, Ingredient.EggWhite)), "Whisky Sour");
+        recipes.put(new ArrayList<Ingredient>(List.of(Ingredient.Whisky, Ingredient.AngosturaBitters, Ingredient.SimpleSyrup)), "Old Fashioned");
+        recipes.put(new ArrayList<Ingredient>(List.of(Ingredient.Whisky, Ingredient.Orange,Ingredient.Ice, Ingredient.Amaretto)), "GodFather");
+        recipes.put(new ArrayList<Ingredient>(List.of(Ingredient.Whisky, Ingredient.AngosturaBitters, Ingredient.SimpleSyrup, Ingredient.Lemon, Ingredient.EggWhite)), "Whisky Sour");
+    }
+
+    public void checkForRecipe(ArrayList<String> chosenIngredientsNames){
+        ArrayList<Ingredient> chosenIngredients = new ArrayList<>();
+        for (String ingredientName : chosenIngredientsNames){
+            chosenIngredients.add(Ingredient.getIngredient(ingredientName));
+        }
+        if(recipes.containsKey(chosenIngredients)){
+            mainFrame.showRecipe((String) recipes.get(chosenIngredients));
+        }
+
     }
 }
 

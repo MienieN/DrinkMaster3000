@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args){
         IMainFrame mainFrame = new MainFrame();
         RecipeController recipeController = new RecipeController(mainFrame);
+        mainFrame.setRecipeController(recipeController);
 
     }
 }

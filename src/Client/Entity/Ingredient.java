@@ -25,5 +25,8 @@ public enum Ingredient {
         }
         return ingredientNames;
     }
+    public static Ingredient getIngredient(String name){
+        return Ingredient.valueOf(name);
+    }
 }
 
