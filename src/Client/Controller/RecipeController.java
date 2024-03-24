@@ -24,13 +24,15 @@ public class RecipeController {
     }
 
     public void addTestRecipies(){
-        recipes.put(new ArrayList<Ingredient>(List.of(Ingredient.Whisky, Ingredient.AngosturaBitters, Ingredient.SimpleSyrup)), "Old Fashioned");
-        recipes.put(new ArrayList<Ingredient>(List.of(Ingredient.Whisky, Ingredient.Orange,Ingredient.Ice, Ingredient.Amaretto)), "GodFather");
-        recipes.put(new ArrayList<Ingredient>(List.of(Ingredient.Whisky, Ingredient.AngosturaBitters, Ingredient.SimpleSyrup, Ingredient.Lemon, Ingredient.EggWhite)), "Whisky Sour");
+        //TODO Auto alphabetize recipes
+        recipes.put(new ArrayList<Ingredient>(List.of(Ingredient.AngosturaBitters,Ingredient.SimpleSyrup, Ingredient.Whisky)), "Old Fashioned");
+        recipes.put(new ArrayList<Ingredient>(List.of(Ingredient.Amaretto,Ingredient.Ice,Ingredient.Orange, Ingredient.Whisky)), "GodFather");
+        recipes.put(new ArrayList<Ingredient>(List.of(Ingredient.AngosturaBitters, Ingredient.EggWhite, Ingredient.Lemon, Ingredient.SimpleSyrup, Ingredient.Whisky)), "Whisky Sour");
     }
 
     public void checkForRecipe(ArrayList<String> chosenIngredientsNames){
         ArrayList<Ingredient> chosenIngredients = new ArrayList<>();
+        chosenIngredientsNames.sort(null);
         for (String ingredientName : chosenIngredientsNames){
             chosenIngredients.add(Ingredient.getIngredient(ingredientName));
         }
