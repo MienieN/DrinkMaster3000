@@ -37,7 +37,7 @@ public class RecipeController {
             chosenIngredients.add(Ingredient.getIngredient(ingredientName));
         }
         if(recipes.containsKey(chosenIngredients)){
-            mainFrame.showRecipe((String) recipes.get(chosenIngredients));
+            mainFrame.receiveRecipeName((String) recipes.get(chosenIngredients));
         }
 
     }

@@ -22,7 +22,7 @@ public class MainPanel extends JPanel {
             JButton clickedButton =(JButton)e.getSource();
             chosenIngredients.add(clickedButton.getText());
             System.out.println(clickedButton.getText());
-            mainFrame.checkForRecipe(chosenIngredients);
+            mainFrame.sendChosenIngredients(chosenIngredients);
             displayNextButtons(clickedButton);
         }
     };

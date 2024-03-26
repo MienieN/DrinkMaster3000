@@ -21,7 +21,7 @@ public class MainFrame extends JFrame implements IMainFrame{
     }
 
     @Override
-    public void checkForRecipe(ArrayList<String> chosenIngredients) {
+    public void sendChosenIngredients(ArrayList<String> chosenIngredients) {
         recipeController.checkForRecipe(chosenIngredients);
     }
 
@@ -31,7 +31,17 @@ public class MainFrame extends JFrame implements IMainFrame{
     }
 
     @Override
-    public void showRecipe(String name) {
+    public void receiveRecipeName(String name) {
         mainPanel.showRecipe(name);
+    }
+
+    @Override
+    public void receiveRecipeInstructions(ArrayList<String> recipeInstructions) {
+
+    }
+
+    @Override
+    public void sendChosenDrink(String drinkName) {
+
     }
 }
