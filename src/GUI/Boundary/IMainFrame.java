@@ -1,5 +1,6 @@
 package src.GUI.Boundary;
 
+import src.Client.Controller.IngredientsController;
 import src.Client.Controller.RecipeController;
 
 import java.util.ArrayList;
@@ -11,4 +12,5 @@ public interface IMainFrame {
     void sendChosenDrink(String drinkName);
     void sendChosenIngredients(ArrayList<String> chosenIngredients);
     void setRecipeController(RecipeController recipeController);
+    void setIngredientsController(IngredientsController ingredientsController);
 }

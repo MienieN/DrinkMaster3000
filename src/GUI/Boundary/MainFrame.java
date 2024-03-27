@@ -1,5 +1,6 @@
 package src.GUI.Boundary;
 
+import src.Client.Controller.IngredientsController;
 import src.Client.Controller.RecipeController;
 
 import javax.swing.*;
@@ -28,6 +29,11 @@ public class MainFrame extends JFrame implements IMainFrame{
     @Override
     public void setRecipeController(RecipeController recipeController) {
         this.recipeController = recipeController;
+    }
+
+    @Override
+    public void setIngredientsController(IngredientsController ingredientsController) {
+
     }
 
     @Override
