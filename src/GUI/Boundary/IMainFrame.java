@@ -10,4 +10,5 @@ public interface IMainFrame {
     void sendChosenDrink(String drinkName);
     void sendChosenIngredients(ArrayList<String> chosenIngredients);
     // TODO void setRecipeController(RecipeController recipeController);
+    // TODO void setIngriedientsController(IngredientsController ingredientsController);
 }
