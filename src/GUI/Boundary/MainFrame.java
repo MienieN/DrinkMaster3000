@@ -37,8 +37,8 @@ public class MainFrame extends JFrame implements IMainFrame{
     }
 
     @Override
-    public void receiveRecipeName(String name) {
-        mainPanel.showRecipe(name);
+    public void receiveDrinkName(String drinkName) {
+        mainPanel.showRecipe(drinkName);
     }
 
     @Override
