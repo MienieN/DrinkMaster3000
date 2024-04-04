@@ -1,10 +1,10 @@
 package src;
 
-import javafx.application.Application;
+/*import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.stage.Stage;*/
 import src.Client.Controller.RecipeController;
 import src.GUI.Boundary.DM3000Gui;
 import src.GUI.Boundary.IMainFrame;
@@ -13,7 +13,7 @@ import src.GUI.Boundary.MainFrame;
 import java.io.IOException;
 import java.util.Objects;
 
-public class Main extends Application {
+/*public class Main extends Application {
 
     public static void main(String[] args){
         IMainFrame mainFrame = new MainFrame();
@@ -35,4 +35,4 @@ public class Main extends Application {
             throw new RuntimeException(e);
         }
     }
-}
+}*/
