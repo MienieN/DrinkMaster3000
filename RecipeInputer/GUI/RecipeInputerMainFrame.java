@@ -19,7 +19,7 @@ public class RecipeInputerMainFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    public void addRecipeToDatabase(String name, HashMap<String, Boolean> ingredients) {
-        controller.addRecipe(name, ingredients);
+    public void addRecipeToDatabase(String name, HashMap<String, Boolean> ingredients, String instructions) {
+        controller.addRecipe(name, ingredients, instructions);
     }
 }

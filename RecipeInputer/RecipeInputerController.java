@@ -17,16 +17,17 @@ public class RecipeInputerController {
         new RecipeInputerMainFrame(500, 600, this);
     }
 
-    public void addRecipe(String recipeName, HashMap<String, Boolean> ingredients) {
+    public void addRecipe(String recipeName, HashMap<String, Boolean> ingredients, String instructions) {
         Savepoint savepoint = null;
         try {
             savepoint = connection.setSavepoint();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        String sql = "INSERT INTO recipes values (?)";
+        String sql = "INSERT INTO recipes values (?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, recipeName);
+            statement.setString(2, instructions);
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected != 1) {
                 System.out.println("Error: Failed to insert recipe");

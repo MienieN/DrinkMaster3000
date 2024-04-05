@@ -11,12 +11,14 @@ public class RecipeInputerMainPanel extends JPanel {
     private RecipeInputerMainFrame mainFrame;
     private JTextField recipeNameTextField;
     private InputPanel inputPanel;
+    private JTextArea instructionsTextArea;
 
     public RecipeInputerMainPanel(RecipeInputerMainFrame mainFrame, int width, int height) {
         this.mainFrame = mainFrame;
         setLayout(null);
         setSize(width, height);
         setBackground(Color.ORANGE);
+        createLabels();
 
         ButtonPanel buttonPanel = new ButtonPanel(this);
         buttonPanel.setLocation(width/2-(buttonPanel.addRecipeButton.getWidth()/2), height - 75);
@@ -28,7 +30,32 @@ public class RecipeInputerMainPanel extends JPanel {
         recipeNameTextField.setLocation(95, 50);
         add(recipeNameTextField);
 
-        //Create and add labels for clarity
+        //Create a panel to hold the input fields
+        inputPanel = new InputPanel(this, width, height);
+        inputPanel.setLocation(10, 150);
+        add(inputPanel);
+
+        instructionsTextArea = new JTextArea();
+        instructionsTextArea.setSize(235, height - 130);
+        instructionsTextArea.setLocation(235, 40);
+        add(instructionsTextArea);
+    }
+
+    public void addRecipeToDatabase() {
+        String name;
+        String instructions;
+        HashMap<String, Boolean> ingredients = new HashMap<>();
+        name = recipeNameTextField.getText();
+        instructions = instructionsTextArea.getText();
+        for (int i = 0; i < inputPanel.ingredientNameTextFields.size(); i++){
+            ingredients.put(inputPanel.ingredientNameTextFields.get(i).getText(), inputPanel.alcoholicIngredientCheckBox.get(i).isSelected());
+        }
+        mainFrame.addRecipeToDatabase(name, ingredients, instructions);
+    }
+
+    //Create and add labels for clarity
+    public void createLabels(){
+
         JLabel label = new JLabel("Recipe Name:");
         label.setSize(label.getPreferredSize());
         label.setLocation(15, 50);
@@ -43,22 +70,6 @@ public class RecipeInputerMainPanel extends JPanel {
         recipeInstructionsLabel.setSize(recipeInstructionsLabel.getPreferredSize());
         recipeInstructionsLabel.setLocation(300, 20);
         add(recipeInstructionsLabel);
-
-        //Create a panel to hold the input fields
-        inputPanel = new InputPanel(this, width, height);
-        inputPanel.setLocation(10, 150);
-        add(inputPanel);
-
-    }
-
-    public void addRecipeToDatabase() {
-        String name;
-        HashMap<String, Boolean> ingredients = new HashMap<>();
-        name = recipeNameTextField.getText();
-        for (int i = 0; i < inputPanel.ingredientNameTextFields.size(); i++){
-            ingredients.put(inputPanel.ingredientNameTextFields.get(i).getText(), inputPanel.alcoholicIngredientCheckBox.get(i).isSelected());
-        }
-        mainFrame.addRecipeToDatabase(name, ingredients);
     }
 }
 
