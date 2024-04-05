@@ -1,5 +1,7 @@
 package RecipeInputer;
 
+import RecipeInputer.GUI.RecipeInputerMainFrame;
+
 import javax.sound.midi.Soundbank;
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ public class RecipeInputer {
     private static Connection connection;
     private static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args){
+        new RecipeInputerMainFrame(700, 500);
         connect();
         int choice;
 
