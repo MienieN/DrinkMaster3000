@@ -14,7 +14,7 @@ public class RecipeInputerController {
 
     public RecipeInputerController(Connection connection) {
         this.connection = connection;
-        new RecipeInputerMainFrame(700, 500, this);
+        new RecipeInputerMainFrame(500, 600, this);
     }
 
     public void addRecipe(String recipeName, HashMap<String, Boolean> ingredients) {
