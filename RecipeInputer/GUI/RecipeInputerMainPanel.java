@@ -45,10 +45,21 @@ public class RecipeInputerMainPanel extends JPanel {
         String name;
         String instructions;
         HashMap<String, Boolean> ingredients = new HashMap<>();
-        name = recipeNameTextField.getText();
+        if(!(recipeNameTextField.getText().isBlank() || recipeNameTextField.getText().isEmpty() || recipeNameTextField == null)){
+            name = recipeNameTextField.getText();
+        }else{
+            System.out.println("Recipe name is empty");
+            return;
+        }
+
         instructions = instructionsTextArea.getText();
         for (int i = 0; i < inputPanel.ingredientNameTextFields.size(); i++){
-            ingredients.put(inputPanel.ingredientNameTextFields.get(i).getText(), inputPanel.alcoholicIngredientCheckBox.get(i).isSelected());
+            if(!((inputPanel.ingredientNameTextFields.get(i).getText() == null) || (inputPanel.ingredientNameTextFields.get(i).getText().isEmpty()) || (inputPanel.ingredientNameTextFields.get(i).getText().isBlank()))){
+                ingredients.put(inputPanel.ingredientNameTextFields.get(i).getText(), inputPanel.alcoholicIngredientCheckBox.get(i).isSelected());
+            }else{
+                System.out.println("ingredient is empty");
+            }
+
         }
         mainFrame.addRecipeToDatabase(name, ingredients, instructions);
     }

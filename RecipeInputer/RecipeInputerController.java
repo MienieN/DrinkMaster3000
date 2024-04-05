@@ -49,7 +49,7 @@ public class RecipeInputerController {
                 if (rowsAffected != 1) {
                     System.err.println("Error: Failed to insert ingredient");
                     // Rollback to the savepoint
-                    connection.rollback(savepoint);
+
                 }
             }
 
@@ -57,7 +57,11 @@ public class RecipeInputerController {
             connection.commit();
             System.out.println("Array elements inserted successfully.");
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            try {
+                connection.rollback(savepoint);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 }
