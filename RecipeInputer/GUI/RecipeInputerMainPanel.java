@@ -17,13 +17,34 @@ public class RecipeInputerMainPanel extends JPanel {
         setLayout(null);
         setSize(width, height);
         setBackground(Color.ORANGE);
+
         ButtonPanel buttonPanel = new ButtonPanel(this);
         buttonPanel.setLocation(width/2-(buttonPanel.addRecipeButton.getWidth()/2), height - 75);
         add(buttonPanel);
-        recipeNameTextField = new JTextField("Recipe Name:");
-        recipeNameTextField.setSize(100, 30);
-        recipeNameTextField.setLocation(100, 30);
+
+        //Textfield to input the name of the recipe
+        recipeNameTextField = new JTextField(10);
+        recipeNameTextField.setSize(recipeNameTextField.getPreferredSize());
+        recipeNameTextField.setLocation(95, 50);
         add(recipeNameTextField);
+
+        //Create and add labels for clarity
+        JLabel label = new JLabel("Recipe Name:");
+        label.setSize(label.getPreferredSize());
+        label.setLocation(15, 50);
+        add(label);
+
+        JLabel ingredientColumn = new JLabel("Ingredient Name");
+        ingredientColumn.setSize(ingredientColumn.getPreferredSize());
+        ingredientColumn.setLocation(20, 130);
+        add(ingredientColumn);
+
+        JLabel recipeInstructionsLabel = new JLabel("Recipe Instructions");
+        recipeInstructionsLabel.setSize(recipeInstructionsLabel.getPreferredSize());
+        recipeInstructionsLabel.setLocation(300, 20);
+        add(recipeInstructionsLabel);
+
+        //Create a panel to hold the input fields
         inputPanel = new InputPanel(this, width, height);
         inputPanel.setLocation(10, 150);
         add(inputPanel);
