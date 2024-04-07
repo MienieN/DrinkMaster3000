@@ -2,10 +2,7 @@ package RecipeInputer;
 
 import RecipeInputer.GUI.RecipeInputerMainFrame;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Savepoint;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,10 +19,11 @@ public class RecipeInputerController {
         try {
             savepoint = connection.setSavepoint();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("Failed to connect to database, aborting");
+            System.exit(0);
         }
-        String sql = "INSERT INTO recipes values (?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        String insertRecipe = "INSERT INTO recipes values (?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(insertRecipe)) {
             statement.setString(1, recipeName);
             statement.setString(2, instructions);
             int rowsAffected = statement.executeUpdate();
@@ -33,35 +31,51 @@ public class RecipeInputerController {
                 System.out.println("Error: Failed to insert recipe");
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+            if (e.getMessage().contains("duplicate key value violates unique constraint")) {
+                System.out.println("A recipe with that name already exsists");
+            } else {
+                throw new RuntimeException(e);
+            }
 
-        String sql2 = "INSERT INTO ingredients values (?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql2)) {
+        }
+        String insertIngredient = "INSERT INTO ingredients values (?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(insertIngredient)) {
+
             // Loop through the array and insert each element individually
             for (String ingredient : ingredients.keySet()) {
-                // Set the array element as a parameter in the prepared statement
-                statement.setString(1, ingredient);
-                statement.setBoolean(2, ingredients.get(ingredient));
+                savepoint = connection.setSavepoint();
+                try {
+                    statement.setString(1, ingredient);
+                    statement.setBoolean(2, ingredients.get(ingredient));
 
-                // Execute the SQL INSERT statement for each array element
-                int rowsAffected = statement.executeUpdate();
-                if (rowsAffected != 1) {
-                    System.err.println("Error: Failed to insert ingredient");
-                    // Rollback to the savepoint
-
+                    // Execute the SQL INSERT statement for each array element
+                    int rowsAffected = statement.executeUpdate();
+                    if (rowsAffected != 1) {
+                        System.err.println("Error: Failed to insert ingredient");
+                        try {
+                            connection.rollback();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else {
+                        System.out.println("test");
+                    }
+                } catch (SQLException sqlException) {
+                    if (sqlException.getMessage().contains("duplicate key value violates unique constraint")) {
+                        System.out.println("An ingredient with that name already exsists, skipping");
+                        connection.rollback(savepoint);
+                    } else {
+                        throw new RuntimeException(sqlException);
+                    }
                 }
             }
+
 
             // Commit the transaction if all inserts were successful
             connection.commit();
             System.out.println("Array elements inserted successfully.");
-        } catch (SQLException e) {
-            try {
-                connection.rollback(savepoint);
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
+        } catch (SQLException se) {
+            throw new RuntimeException(se);
         }
     }
 }
