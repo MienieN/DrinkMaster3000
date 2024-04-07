@@ -38,12 +38,14 @@ public class RecipeInputerController {
             }
 
         }
+
+
         String insertIngredient = "INSERT INTO ingredients values (?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(insertIngredient)) {
-
+            Savepoint ingredientSavepoint;
             // Loop through the array and insert each element individually
             for (String ingredient : ingredients.keySet()) {
-                savepoint = connection.setSavepoint();
+                ingredientSavepoint = connection.setSavepoint();
                 try {
                     statement.setString(1, ingredient);
                     statement.setBoolean(2, ingredients.get(ingredient));
@@ -63,7 +65,7 @@ public class RecipeInputerController {
                 } catch (SQLException sqlException) {
                     if (sqlException.getMessage().contains("duplicate key value violates unique constraint")) {
                         System.out.println("An ingredient with that name already exsists, skipping");
-                        connection.rollback(savepoint);
+                        connection.rollback(ingredientSavepoint);
                     } else {
                         throw new RuntimeException(sqlException);
                     }
@@ -71,11 +73,35 @@ public class RecipeInputerController {
             }
 
 
-            // Commit the transaction if all inserts were successful
-            connection.commit();
             System.out.println("Array elements inserted successfully.");
         } catch (SQLException se) {
             throw new RuntimeException(se);
+        }
+
+        String insertRecipesIngredients = "INSERT INTO recipes_ingredients values (?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(insertRecipesIngredients)) {
+            statement.setString(1, recipeName);
+
+            for (String ingredient : ingredients.keySet()) {
+                statement.setString(2, ingredient);
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected != 1) {
+                    System.err.println("Error: Failed to insert recipe to ingredient connection");
+                    try {
+                        connection.rollback();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+
+            connection.commit();
+        } catch (SQLException se) {
+            try {
+                connection.rollback(savepoint);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
