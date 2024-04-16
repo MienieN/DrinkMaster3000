@@ -15,7 +15,7 @@ public class GUIAlcDrinkScreenController {
 
     public void chooseBaseDrinkFromDropdown(javafx.event.ActionEvent chooseBaseDrink) {
         try{
-            root = FXMLLoader.load(getClass().getResource("/fxml/AlcDrinkScreen.fxml"));
+            root = FXMLLoader.load(getClass().getResource("Boundary/resources/fxml/AlcDrinkScreen.fxml"));
             stage = (Stage)((Node)chooseBaseDrink.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -28,7 +28,7 @@ public class GUIAlcDrinkScreenController {
 
     public void switchToStartScreen(javafx.event.ActionEvent backToStartButtonEvent) {
         try{
-            root = FXMLLoader.load(getClass().getResource("/fxml/StartScreen.fxml"));
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("src/Client/resources/fxml/StartScreen.fxml"));
             stage = (Stage)((Node)backToStartButtonEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);

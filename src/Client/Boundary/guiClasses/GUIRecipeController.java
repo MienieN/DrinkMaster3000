@@ -16,7 +16,7 @@ public class GUIRecipeController extends Application {
 
     @Override
     public void start(Stage ViewRecipeStage) throws IOException {
-        Parent viewRecipeScrollPane = FXMLLoader.load(getClass().getResource("/fxml/ViewRecipeScreen.fxml"));
+        Parent viewRecipeScrollPane = FXMLLoader.load(getClass().getClassLoader().getResource("src/Client/resources/fxml/ViewRecipeScreen.fxml"));
         ViewRecipeStage.setTitle("DrinkMaster 3000");
         ViewRecipeStage.setScene(new Scene(viewRecipeScrollPane));
         ViewRecipeStage.show();

@@ -15,7 +15,7 @@ public class GUIStartScreenController{
 
     public void switchToAlcDrinkScreen(javafx.event.ActionEvent drinksButtonEvent) {
         try{
-            root = FXMLLoader.load(getClass().getResource("/fxml/AlcDrinkScreen.fxml"));
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("src/Client/resources/fxml/AlcDrinkScreen.fxml"));
             stage = (Stage)((Node)drinksButtonEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);

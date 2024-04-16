@@ -1,4 +1,4 @@
-package src.Client.Boundary.guiClasses;
+package src.Client;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +11,7 @@ import java.io.IOException;
 public class ClientMain extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/StartScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("resources/fxml/StartScreen.fxml"));
         Scene startScene = new Scene(root);
         primaryStage.setScene(startScene);
         primaryStage.setTitle("DrinkMaster 3000");
