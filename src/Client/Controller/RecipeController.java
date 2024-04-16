@@ -1,4 +1,4 @@
-package src.Client.Controller;
+/*package src.Client.Controller;
 
 import src.Client.Entity.Ingredient;
 
@@ -8,7 +8,7 @@ import java.util.List;
 
 public class RecipeController {
     private HashMap recipes = new HashMap<ArrayList<Ingredient>, String>();
-    private IMainFrame mainFrame;
+    //private IMainFrame mainFrame;
 
     public RecipeController(IMainFrame mainFrame){
         this.mainFrame = mainFrame;
@@ -40,5 +40,5 @@ public class RecipeController {
         }
 
     }
-}
+}*/
 
