@@ -6,11 +6,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import src.Client.Controller.IngredientsController;
+import src.Client.Controller.RecipeController;
 
 import java.io.IOException;
 
 public class ClientMain extends Application {
     private static IngredientsController ingredientsController;
+    private static RecipeController recipeController;
+
+    public static RecipeController getRecipeController() {
+        return recipeController;
+    }
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -23,6 +29,7 @@ public class ClientMain extends Application {
 
     public static void main(String[] args) {
         ingredientsController = new IngredientsController();
+        recipeController = new RecipeController();
         launch();
     }
 

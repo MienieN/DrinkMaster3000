@@ -1,5 +1,8 @@
 package src.Client.Boundary.guiClasses;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -7,11 +10,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import src.Client.ClientMain;
 import src.Client.Controller.IngredientsController;
+import src.Client.Controller.RecipeController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,18 +37,53 @@ public class GUIAlcDrinkScreenController implements Initializable {
     private Button ingredientChoiceButton3;
     @FXML
     private Button ingredientChoiceButton4;
+    @FXML
+    private ListView<String> recipeList;
 
     private ArrayList<String> baseDrinkNames;
     private IngredientsController ingredientsController;
+    private RecipeController recipeController;
+    private int counter = 0;
 
 
     public GUIAlcDrinkScreenController() {
         ingredientsController = ClientMain.getIngredientsController();
+        recipeController = ClientMain.getRecipeController();
         baseDrinkNames = ingredientsController.getIngredientNames();
     }
 
-    public void chooseBaseDrinkFromDropdown(javafx.event.ActionEvent chooseBaseDrink) {
+    @FXML
+    private void clickIngredientChoiceButton(ActionEvent event){
+        Button button = (Button) event.getSource();
+        String ingredientName = button.getText();
+        baseDrinkNames.remove(ingredientName);
+        recipeController.checkForRecipe(ingredientName);
+        showIngredients(button);
+    }
+
+    private void enableIngredientChoiceButtons(){
         ingredientChoiceButton1.setDisable(false);
+        ingredientChoiceButton2.setDisable(false);
+        ingredientChoiceButton3.setDisable(false);
+        ingredientChoiceButton4.setDisable(false);
+    }
+
+    private void showIngredients(Button button){
+        if(!(counter >= baseDrinkNames.size())){
+            button.setText(baseDrinkNames.get(counter++));
+        }
+
+
+    }
+
+    public void chooseBaseDrinkFromDropdown(javafx.event.ActionEvent chooseBaseDrink) {
+        enableIngredientChoiceButtons();
+        baseDrinkDropdownMenu.setDisable(true);
+        baseDrinkNames.remove(baseDrinkDropdownMenu.getValue());
+        showIngredients(ingredientChoiceButton1);
+        showIngredients(ingredientChoiceButton2);
+        showIngredients(ingredientChoiceButton3);
+        showIngredients(ingredientChoiceButton4);
     }
 
     public void switchToStartScreen(javafx.event.ActionEvent backToStartButtonEvent) {
@@ -65,5 +104,20 @@ public class GUIAlcDrinkScreenController implements Initializable {
         baseDrinkDropdownMenu.getItems().addAll(baseDrinkNames);
         baseDrinkDropdownMenu.setOnAction(this::chooseBaseDrinkFromDropdown);
 
+        recipeList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                popupRecipe();
+            }
+        });
+
+    }
+
+    private void popupRecipe() {
+        System.out.println("test");
+    }
+
+    public void receiveRecipeName(String recipeName) {
+        recipeList.getItems().add(recipeName);
     }
 }

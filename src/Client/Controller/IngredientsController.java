@@ -26,7 +26,7 @@ public class IngredientsController {
             System.out.println("Error in connection");
             throw new RuntimeException(e);
         }
-    }
+    } //TODO move this into main and send the connection to the controllers
 
     /**
      * Method that gets all ingredients from the database and puts them in an arraylist of ingredients objects
@@ -34,7 +34,7 @@ public class IngredientsController {
      */
     public ArrayList<Ingredient> getAllIngredientsFromDatabase() {
         ingredients = new ArrayList<>();
-        String allIngredients = "SELECT * FROM ingredients"; //query depending on how the alcohol marker is set
+        String allIngredients = "SELECT ingredient_name FROM ingredients"; //query depending on how the alcohol marker is set
 
         try (PreparedStatement statement = connection.prepareStatement(allIngredients); 
              ResultSet resultSet = statement.executeQuery()) {
