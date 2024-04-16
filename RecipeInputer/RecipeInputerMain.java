@@ -13,7 +13,6 @@ public class RecipeInputerMain {
     public static void main(String[] args) {
         connect();
         new RecipeInputerController(connection);
-
     }
 
 
