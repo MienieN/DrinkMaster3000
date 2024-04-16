@@ -1,14 +1,16 @@
 package src.GUI.Boundary;
 
+import src.Client.Controller.IngredientsController;
+import src.Client.Controller.RecipeController;
+
 import java.util.ArrayList;
 
 public interface IMainFrame {
-
     void receiveIngredientsList(ArrayList<String> ingredientNames);
-    void receiveDrinkName(String drinkName);
+    void receiveRecipeName(String recipeName);
     void receiveRecipeInstructions(ArrayList<String> recipeInstructions);
     void sendChosenDrink(String drinkName);
     void sendChosenIngredients(ArrayList<String> chosenIngredients);
-    // TODO void setRecipeController(RecipeController recipeController);
-    // TODO void setIngriedientsController(IngredientsController ingredientsController);
+    void setRecipeController(RecipeController recipeController);
+    void setIngredientsController(IngredientsController ingredientsController);
 }
