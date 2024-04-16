@@ -1,22 +1,14 @@
 package src.Client.Entity;
 
-public enum Ingredient {
-    Whisky("Whisky"),
-    AngosturaBitters("Angostura Bitters"),
-    SimpleSyrup("Simple Syrup"),
-    EggWhite("Egg White"),
-    Lemon("Lemon"),
-    Amaretto("Amaretto"),
-    Ice("Ice"),
-    Orange("Orange"),
-    Ginger("Ginger")
-    ;
+public class Ingredient {
+    private String name;
 
     Ingredient(String name) {
+        this.name = name;
     }
 
     public String getName() {
-        return this.name();
+        return name;
     }
 
     public static String[] getIngredientNames(){
