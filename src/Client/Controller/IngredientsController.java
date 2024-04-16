@@ -40,7 +40,7 @@ public class IngredientsController {
              ResultSet resultSet = statement.executeQuery()) {
 
                 while (resultSet.next()) {
-                    String ingredientName = resultSet.getString("ingredient"); //idk what the column name is
+                    String ingredientName = resultSet.getString("ingredient_name"); //idk what the column name is
                     Ingredient ingredient = new Ingredient(ingredientName);
                     ingredients.add(ingredient);
             }
