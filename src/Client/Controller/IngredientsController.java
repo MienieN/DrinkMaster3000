@@ -67,4 +67,12 @@ public class IngredientsController {
         }
         return null;
     }
+
+    public ArrayList<String> getIngredientNames(){
+        ArrayList<String> ingredientNames = new ArrayList<>();
+        for(Ingredient ingredient : ingredients){
+            ingredientNames.add(ingredient.getName());
+        }
+        return ingredientNames;
+    }
 }

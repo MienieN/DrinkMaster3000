@@ -5,10 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import src.Client.Controller.IngredientsController;
 
 import java.io.IOException;
 
 public class ClientMain extends Application {
+    private static IngredientsController ingredientsController;
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("resources/fxml/StartScreen.fxml"));
@@ -19,6 +22,11 @@ public class ClientMain extends Application {
     }
 
     public static void main(String[] args) {
+        ingredientsController = new IngredientsController();
         launch();
+    }
+
+    public static IngredientsController getIngredientsController(){
+        return ingredientsController;
     }
 }
