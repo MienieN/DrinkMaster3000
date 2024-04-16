@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.Client.Boundary.guiClasses.GUIAlcDrinkScreenController">
+   <children>
+      <ComboBox fx:id="baseDrinkDropdownMenu" layoutX="120.0" layoutY="14.0" prefHeight="25.0" prefWidth="168.0" promptText="Choose Base Alcohol" AnchorPane.bottomAnchor="361.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="312.0" AnchorPane.topAnchor="14.0" />
+      <Button fx:id="lockInBaseAlcoholButton" layoutX="300.0" layoutY="14.0" mnemonicParsing="false" text="OK" AnchorPane.bottomAnchor="361.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="248.0" AnchorPane.topAnchor="14.0" />
+      <Button fx:id="instructionsButton" disable="true" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Instructions" AnchorPane.bottomAnchor="361.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="508.0" AnchorPane.topAnchor="14.0" />
+      <Button fx:id="ingredientChoiceButton1" disable="true" layoutX="41.0" layoutY="103.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="141.0" />
+      <Button fx:id="ingredientChoiceButton4" disable="true" layoutX="241.0" layoutY="223.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="141.0" />
+      <Button fx:id="ingredientChoiceButton3" disable="true" layoutX="41.0" layoutY="223.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="141.0" />
+      <Button fx:id="ingredientChoiceButton2" disable="true" layoutX="241.0" layoutY="103.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="141.0" />
+      <ScrollPane layoutX="400.0" prefHeight="400.0" prefWidth="200.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="401.0" prefWidth="200.0">
+               <children>
+                  <ListView layoutY="1.0" prefHeight="385.0" prefWidth="184.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <Button fx:id="showRecipeButton" layoutX="276.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Show Recipe" />
+      <Button fx:id="backToStartScreenButton" layoutX="22.0" layoutY="361.0" mnemonicParsing="false" onAction="#switchToStartScreen" prefHeight="25.0" prefWidth="106.0" text="Start Screen" />
+   </children>
+</AnchorPane>
