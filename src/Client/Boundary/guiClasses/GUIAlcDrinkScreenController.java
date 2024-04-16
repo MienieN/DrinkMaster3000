@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
@@ -24,6 +25,15 @@ public class GUIAlcDrinkScreenController implements Initializable {
 
     @FXML
     private ComboBox<String> baseDrinkDropdownMenu;
+    @FXML
+    private Button ingredientChoiceButton1;
+    @FXML
+    private Button ingredientChoiceButton2;
+    @FXML
+    private Button ingredientChoiceButton3;
+    @FXML
+    private Button ingredientChoiceButton4;
+
     private ArrayList<String> baseDrinkNames;
     private IngredientsController ingredientsController;
 
@@ -34,7 +44,7 @@ public class GUIAlcDrinkScreenController implements Initializable {
     }
 
     public void chooseBaseDrinkFromDropdown(javafx.event.ActionEvent chooseBaseDrink) {
-
+        ingredientChoiceButton1.setDisable(false);
     }
 
     public void switchToStartScreen(javafx.event.ActionEvent backToStartButtonEvent) {
@@ -53,6 +63,7 @@ public class GUIAlcDrinkScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         baseDrinkDropdownMenu.getItems().addAll(baseDrinkNames);
+        baseDrinkDropdownMenu.setOnAction(this::chooseBaseDrinkFromDropdown);
 
     }
 }
