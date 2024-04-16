@@ -1,7 +1,6 @@
 package src.Client.Controller;
 
 import src.Client.Entity.Ingredient;
-import src.GUI.Boundary.IMainFrame;
 
 import java.util.ArrayList;
 import java.util.HashMap;

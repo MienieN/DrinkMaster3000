@@ -1,7 +1,5 @@
 package RecipeInputer.GUI;
 
-import src.GUI.Boundary.MainFrame;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;

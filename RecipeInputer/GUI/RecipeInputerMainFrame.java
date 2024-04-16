@@ -1,8 +1,7 @@
 package RecipeInputer.GUI;
 
 import RecipeInputer.RecipeInputerController;
-import src.Client.Controller.RecipeController;
-import src.GUI.Boundary.MainPanel;
+
 
 import javax.swing.*;
 import java.util.HashMap;
