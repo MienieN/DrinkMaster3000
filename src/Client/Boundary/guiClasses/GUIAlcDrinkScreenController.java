@@ -30,7 +30,7 @@ public class GUIAlcDrinkScreenController implements Initializable {
 
     public GUIAlcDrinkScreenController() {
         ingredientsController = ClientMain.getIngredientsController();
-        baseDrinkNames.addAll(ingredientsController.getIngredientNames());
+        baseDrinkNames = ingredientsController.getIngredientNames();
     }
 
     public void chooseBaseDrinkFromDropdown(javafx.event.ActionEvent chooseBaseDrink) {

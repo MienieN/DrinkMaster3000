@@ -33,16 +33,19 @@ public class IngredientsController {
      * @return An arraylist of ingredients
      */
     public ArrayList<Ingredient> getAllIngredientsFromDatabase() {
-        ArrayList<Ingredient> ingredients = new ArrayList<>();
+        ingredients = new ArrayList<>();
         String allIngredients = "SELECT * FROM ingredients"; //query depending on how the alcohol marker is set
 
         try (PreparedStatement statement = connection.prepareStatement(allIngredients); 
              ResultSet resultSet = statement.executeQuery()) {
 
                 while (resultSet.next()) {
-                    String ingredientName = resultSet.getString("ingredient_name"); //idk what the column name is
-                    Ingredient ingredient = new Ingredient(ingredientName);
-                    ingredients.add(ingredient);
+                    for (int i = 1; i <= resultSet.getMetaData().getColumnCount() ; i++) {
+                        String ingredientName = resultSet.getString(i); //idk what the column name is
+                        Ingredient ingredient = new Ingredient(ingredientName);
+                        ingredients.add(ingredient);
+                    }
+
             }
                 resultSet.close();
                 statement.close();
