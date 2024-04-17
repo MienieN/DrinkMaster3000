@@ -26,6 +26,10 @@ public class GUIAlcDrinkScreenController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    private ArrayList<String> baseDrinkNames;
+    private IngredientsController ingredientsController;
+    private RecipeController recipeController;
+    private int counter = 0;
 
     @FXML
     private ComboBox<String> baseDrinkDropdownMenu;
@@ -40,16 +44,12 @@ public class GUIAlcDrinkScreenController implements Initializable {
     @FXML
     private ListView<String> recipeList;
 
-    private ArrayList<String> baseDrinkNames;
-    private IngredientsController ingredientsController;
-    private RecipeController recipeController;
-    private int counter = 0;
-
 
     public GUIAlcDrinkScreenController() {
         ingredientsController = ClientMain.getIngredientsController();
         recipeController = ClientMain.getRecipeController();
         baseDrinkNames = ingredientsController.getIngredientNames();
+        recipeController.setGUI(this);
     }
 
     @FXML
@@ -72,8 +72,6 @@ public class GUIAlcDrinkScreenController implements Initializable {
         if(!(counter >= baseDrinkNames.size())){
             button.setText(baseDrinkNames.get(counter++));
         }
-
-
     }
 
     public void chooseBaseDrinkFromDropdown(javafx.event.ActionEvent chooseBaseDrink) {

@@ -25,5 +25,4 @@ public class GUIStartScreenController{
             throw new RuntimeException(e);
         }
     }
-
 }

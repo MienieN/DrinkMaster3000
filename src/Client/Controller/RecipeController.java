@@ -6,6 +6,7 @@ import src.Client.Entity.Ingredient;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class RecipeController {
     private HashMap<String, ArrayList<Ingredient>> recipes = new HashMap<>();
@@ -13,7 +14,7 @@ public class RecipeController {
     private ArrayList<Ingredient> chosenIngredients = new ArrayList<>();
     private Connection connection;
 
-    public RecipeController(){
+    public RecipeController() {
         connect();
         getRecipesFromDatabase();
     }
@@ -31,21 +32,21 @@ public class RecipeController {
     private void getRecipesFromDatabase() {
         String sql = "Select recipe_name from recipes";
         String sql2 = "Select ingredient_name from recipes_ingredients where recipe_name = ?";
-        try(PreparedStatement  statement = connection.prepareStatement(sql)){
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet resultSet = statement.executeQuery();
             PreparedStatement statement2 = connection.prepareStatement(sql2);
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
                     ArrayList<Ingredient> ingredientArrayList = new ArrayList<>();
                     String recipeName = resultSet.getString(i);
                     statement2.setString(1, recipeName);
                     ResultSet resultSet2 = statement2.executeQuery();
-                    while(resultSet2.next()){
-                        for (int j = 1; j <= resultSet2.getMetaData().getColumnCount() ; j++) {
+                    while (resultSet2.next()) {
+                        for (int j = 1; j <= resultSet2.getMetaData().getColumnCount(); j++) {
                             ingredientArrayList.add(new Ingredient(resultSet2.getString(j)));
                         }
                     }
-                    recipes.put(recipeName,ingredientArrayList);
+                    recipes.put(recipeName, ingredientArrayList);
                 }
             }
         } catch (SQLException e) {
@@ -55,16 +56,14 @@ public class RecipeController {
     }
 
 
-    public void checkForRecipe(String chosenIngredientName){
+    public void checkForRecipe(String chosenIngredientName) {
         chosenIngredients.add(new Ingredient(chosenIngredientName));
-        for (String recipeName : recipes.keySet()){
-            for(Ingredient ingredient : recipes.get(recipeName)){
-                //everythin works fine up until this if
-                int counter = recipes.get(recipeName).size();
-                if(chosenIngredients.contains(ingredient)){
-                    System.out.println("test");
-                    counter--;
-                    if(counter == 0){
+        for (String recipeName : recipes.keySet()) {
+            for (Ingredient ingredient : recipes.get(recipeName)) {
+
+                for (int i = 0; i < chosenIngredients.size(); i++) {
+                    if (Objects.equals(chosenIngredients.get(i).getName(), ingredient.getName())) {
+                        System.out.println("test");
                         GUIController.receiveRecipeName(recipeName);
                     }
                 }
@@ -72,7 +71,7 @@ public class RecipeController {
         }
     }
 
-    public void setGUI(GUIAlcDrinkScreenController GUIController){
+    public void setGUI(GUIAlcDrinkScreenController GUIController) {
         this.GUIController = GUIController;
     }
 }
