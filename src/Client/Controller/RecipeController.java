@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RecipeController {
-    private HashMap recipes = new HashMap<String, ArrayList<Ingredient>>();
+    private HashMap<String, ArrayList<Ingredient>> recipes = new HashMap<>();
     private GUIAlcDrinkScreenController GUIController;
     private ArrayList<Ingredient> chosenIngredients = new ArrayList<>();
     private Connection connection;
@@ -57,8 +57,8 @@ public class RecipeController {
 
     public String checkForRecipe(String chosenIngredientName){
         chosenIngredients.add(new Ingredient(chosenIngredientName));
-        for (String recipename : recipes.keySet()){
-            for(Ingredient ingredient : recipes.get(recipename)){
+        for (String recipeName : recipes.keySet()){
+            for(Ingredient ingredient : recipes.get(recipeName)){
                 if(chosenIngredients.contains(ingredient)){
 
                 }
