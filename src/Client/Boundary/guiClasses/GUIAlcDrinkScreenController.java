@@ -79,7 +79,9 @@ public class GUIAlcDrinkScreenController implements Initializable {
     public void chooseBaseDrinkFromDropdown(javafx.event.ActionEvent chooseBaseDrink) {
         enableIngredientChoiceButtons();
         baseDrinkDropdownMenu.setDisable(true);
-        baseDrinkNames.remove(baseDrinkDropdownMenu.getValue());
+        String baseDrinkName = baseDrinkDropdownMenu.getValue();
+        recipeController.checkForRecipe(baseDrinkName);
+        baseDrinkNames.remove(baseDrinkName);
         showIngredients(ingredientChoiceButton1);
         showIngredients(ingredientChoiceButton2);
         showIngredients(ingredientChoiceButton3);

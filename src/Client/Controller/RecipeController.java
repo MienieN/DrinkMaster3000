@@ -55,12 +55,18 @@ public class RecipeController {
     }
 
 
-    public String checkForRecipe(String chosenIngredientName){
+    public void checkForRecipe(String chosenIngredientName){
         chosenIngredients.add(new Ingredient(chosenIngredientName));
         for (String recipeName : recipes.keySet()){
             for(Ingredient ingredient : recipes.get(recipeName)){
+                //everythin works fine up until this if
+                int counter = recipes.get(recipeName).size();
                 if(chosenIngredients.contains(ingredient)){
-
+                    System.out.println("test");
+                    counter--;
+                    if(counter == 0){
+                        GUIController.receiveRecipeName(recipeName);
+                    }
                 }
             }
         }
