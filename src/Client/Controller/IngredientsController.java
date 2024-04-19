@@ -11,7 +11,7 @@ public class IngredientsController {
     private Connection connection;
 
     public IngredientsController() {
-        connect();
+        connect(); //TODO do this in ClientMain and send it along
         getAllIngredientsFromDatabase();
     }
 
@@ -32,17 +32,17 @@ public class IngredientsController {
      * Method that gets all ingredients from the database and puts them in an arraylist of ingredients objects
      * @return An arraylist of ingredients
      */
-    public ArrayList<Ingredient> getAllIngredientsFromDatabase() {
+    public void getAllIngredientsFromDatabase() {
         ingredients = new ArrayList<>();
         String allIngredients = "SELECT ingredient_name FROM ingredients"; //query depending on how the alcohol marker is set
 
-        try (PreparedStatement statement = connection.prepareStatement(allIngredients); 
+        try (PreparedStatement statement = connection.prepareStatement(allIngredients);
              ResultSet resultSet = statement.executeQuery()) {
 
                 while (resultSet.next()) {
                     for (int i = 1; i <= resultSet.getMetaData().getColumnCount() ; i++) {
-                        String ingredientName = resultSet.getString(i); //idk what the column name is
-                        Ingredient ingredient = new Ingredient(ingredientName);
+                        String ingredientName = resultSet.getString(i);
+                        Ingredient ingredient = new Ingredient(ingredientName); //TODO either get 2 lists or sort based on alc content
                         ingredients.add(ingredient);
                     }
 
@@ -54,7 +54,6 @@ public class IngredientsController {
             System.out.println("Error in getting ingredients from database");
             throw new RuntimeException(e);
         }
-        return ingredients;
     }
 
     /**
