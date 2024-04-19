@@ -13,6 +13,8 @@ import java.io.IOException;
 /**
  * The ClientMain class is the entry point of the application.
  */
+//TODO: check how to correctly remove "static" from methods and variables whilst
+// keeping the connection to the javafx stuff
 public class ClientMain extends Application {
     private static IngredientsController ingredientsController;     // Controller for managing ingredients
     private static RecipeController recipeController;               // Controller for managing recipes
@@ -32,6 +34,7 @@ public class ClientMain extends Application {
      * @param primaryStage The primary stage of the application.
      * @throws IOException if an error occurs while loading the FXML file for the start screen.
      */
+    //TODO: add database connections here instead of in their own controllers
     @Override
     public void start(Stage primaryStage) throws IOException {
         // Load the FXML file for the start screen

@@ -25,6 +25,7 @@ public class IngredientsController {
     /**
      * Establishes a connection to the database.
      */
+    //TODO move this into main and send the connection to the controllers
     public void connect() {
         try {
             // Establish connection to the PostgreSQL database
@@ -34,12 +35,13 @@ public class IngredientsController {
             System.out.println("Error in connection");
             throw new RuntimeException(e);
         }
-    } //TODO move this into main and send the connection to the controllers
+    }
 
     /**
      * Receives all ingredients from the database and puts them in an arraylist of ingredients objects
      * @return An arraylist of ingredients
      */
+    //TODO either get 2 lists or sort the list based on alc content
     public void getAllIngredientsFromDatabase() {
         ingredients = new ArrayList<>();
         String allIngredients = "SELECT ingredient_name FROM ingredients"; //query depending on how the alcohol marker is set
@@ -50,7 +52,7 @@ public class IngredientsController {
                 while (resultSet.next()) {
                     for (int i = 1; i <= resultSet.getMetaData().getColumnCount() ; i++) {
                         String ingredientName = resultSet.getString(i);
-                        Ingredient ingredient = new Ingredient(ingredientName); //TODO either get 2 lists or sort based on alc content
+                        Ingredient ingredient = new Ingredient(ingredientName);
                         ingredients.add(ingredient);
                     }
 

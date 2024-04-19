@@ -72,6 +72,9 @@ public class RecipeController {
      *
      * @param chosenIngredientName The name of the chosen ingredient.
      */
+    //TODO: this method should show all the drink recipes, it should not show duplicates, and
+    // the method should not add drinks only containing the latest ingredient chosen, it should update
+    // the drinks shown based on the accumulated ingredients thus far and "refine" the search.
     public void checkForRecipe(String chosenIngredientName) {
         chosenIngredients.add(new Ingredient(chosenIngredientName));
         for (String recipeName : recipes.keySet()) {
@@ -86,6 +89,9 @@ public class RecipeController {
             }
         }
     }
+
+    //TODO: add a separate method like the checkForRecipe() for non-alcoholic drinks,
+    // potentially another for the speciality drinks.
 
     /**
      * Sets the GUI controller for displaying recipes.
