@@ -26,7 +26,7 @@ public class GUIAlcDrinkScreenController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    private ArrayList<String> baseDrinkNames;
+    private ArrayList<String> baseDrinkNames; //TODO needs to be just base drinks, need another array for ingredients
     private IngredientsController ingredientsController;
     private RecipeController recipeController;
     private int counter = 0;
@@ -114,7 +114,7 @@ public class GUIAlcDrinkScreenController implements Initializable {
     }
 
     private void popupRecipe() {
-        System.out.println("test");
+        System.out.println("testtestetteat");
     }
 
     public void receiveRecipeName(String recipeName) {

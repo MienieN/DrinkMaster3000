@@ -33,12 +33,12 @@ public class RecipeController {
         String sql = "Select recipe_name from recipes";
         String sql2 = "Select ingredient_name from recipes_ingredients where recipe_name = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            ResultSet resultSet = statement.executeQuery();
+            ResultSet recipeNames = statement.executeQuery();
             PreparedStatement statement2 = connection.prepareStatement(sql2);
-            while (resultSet.next()) {
-                for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+            while (recipeNames.next()) {
+                for (int i = 1; i <= recipeNames.getMetaData().getColumnCount(); i++) {
                     ArrayList<Ingredient> ingredientArrayList = new ArrayList<>();
-                    String recipeName = resultSet.getString(i);
+                    String recipeName = recipeNames.getString(i);
                     statement2.setString(1, recipeName);
                     ResultSet resultSet2 = statement2.executeQuery();
                     while (resultSet2.next()) {
