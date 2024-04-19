@@ -1,4 +1,4 @@
-package AddRecipe;
+package addRecipe;
 
 import java.sql.*;
 

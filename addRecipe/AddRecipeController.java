@@ -1,6 +1,6 @@
-package AddRecipe;
+package addRecipe;
 
-import AddRecipe.GUI.AddRecipeMainFrame;
+import addRecipe.gui.AddRecipeMainFrame;
 
 import java.sql.*;
 import java.util.HashMap;

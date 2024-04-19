@@ -1,6 +1,6 @@
-package AddRecipe.GUI;
+package addRecipe.gui;
 
-import AddRecipe.AddRecipeController;
+import addRecipe.AddRecipeController;
 
 
 import javax.swing.*;

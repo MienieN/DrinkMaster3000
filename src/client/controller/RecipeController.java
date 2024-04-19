@@ -1,26 +1,36 @@
-package src.Client.Controller;
+package src.client.controller;
 
-import src.Client.Boundary.guiClasses.GUIAlcDrinkScreenController;
-import src.Client.Entity.Ingredient;
+import src.client.boundary.AlcDrinkScreenManager;
+import src.client.entity.Ingredient;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * The RecipeController class manages the recipes and their interactions with the GUI.
+ */
 public class RecipeController {
-    private HashMap<String, ArrayList<Ingredient>> recipes = new HashMap<>();
-    private GUIAlcDrinkScreenController GUIController;
-    private ArrayList<Ingredient> chosenIngredients = new ArrayList<>();
-    private Connection connection;
+    private HashMap<String, ArrayList<Ingredient>> recipes = new HashMap<>();   // HashMap to store recipes and their ingredients
+    private AlcDrinkScreenManager GUIController;                                // GUI controller for displaying recipes
+    private ArrayList<Ingredient> chosenIngredients = new ArrayList<>();        // List of chosen ingredients
+    private Connection connection;                                              // Database connection
 
+    /**
+     * Constructs a RecipeController object and initializes the database connection.
+     */
     public RecipeController() {
         connect();
         getRecipesFromDatabase();
     }
 
+    /**
+     * Establishes a connection to the database.
+     */
     public void connect() {
         try {
+            // Establish connection to the PostgreSQL database
             connection = DriverManager.getConnection("jdbc:postgresql://pgserver.mau.se:5432/drinkmaster3000", "ao7503", "t360bxdp");
             System.out.println("Connection established");
         } catch (SQLException e) {
@@ -29,6 +39,9 @@ public class RecipeController {
         }
     }
 
+    /**
+     * Retrieves recipes from the database and populates the recipes HashMap with recipe names and their corresponding ingredients.
+     */
     private void getRecipesFromDatabase() {
         String sql = "Select recipe_name from recipes";
         String sql2 = "Select ingredient_name from recipes_ingredients where recipe_name = ?";
@@ -52,10 +65,13 @@ public class RecipeController {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
-
+    /**
+     * Checks if a recipe can be made with the given chosen ingredient and notifies the GUI controller.
+     *
+     * @param chosenIngredientName The name of the chosen ingredient.
+     */
     public void checkForRecipe(String chosenIngredientName) {
         chosenIngredients.add(new Ingredient(chosenIngredientName));
         for (String recipeName : recipes.keySet()) {
@@ -71,7 +87,12 @@ public class RecipeController {
         }
     }
 
-    public void setGUI(GUIAlcDrinkScreenController GUIController) {
+    /**
+     * Sets the GUI controller for displaying recipes.
+     *
+     * @param GUIController The GUI controller for displaying recipes.
+     */
+    public void setGUI(AlcDrinkScreenManager GUIController) {
         this.GUIController = GUIController;
     }
 }

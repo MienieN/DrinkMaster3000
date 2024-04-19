@@ -1,25 +1,33 @@
-package src.Client.Controller;
+package src.client.controller;
 
-import src.Client.Entity.Ingredient;
+import src.client.entity.Ingredient;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-//class that's supposed to get ingredients from database
+/**
+ * The IngredientsController class manages interactions with ingredients in the database.
+ */
 public class IngredientsController {
-    private ArrayList<Ingredient> ingredients;
-    private Connection connection;
+    private ArrayList<Ingredient> ingredients;      // The list of ingredients
+    private Connection connection;                  // The database connection
 
+    /**
+     * Constructs an IngredientsController object and initializes the database connection.
+     */
     public IngredientsController() {
+        // Establish database connection
         connect(); //TODO do this in ClientMain and send it along
+        // Retrieve all ingredients from the database
         getAllIngredientsFromDatabase();
     }
 
     /**
-     * Method that connects to the database
+     * Establishes a connection to the database.
      */
     public void connect() {
         try {
+            // Establish connection to the PostgreSQL database
             connection = DriverManager.getConnection("jdbc:postgresql://pgserver.mau.se:5432/drinkmaster3000", "ao7503", "t360bxdp");
             System.out.println("Connection established");
         } catch (SQLException e) {
@@ -29,7 +37,7 @@ public class IngredientsController {
     } //TODO move this into main and send the connection to the controllers
 
     /**
-     * Method that gets all ingredients from the database and puts them in an arraylist of ingredients objects
+     * Receives all ingredients from the database and puts them in an arraylist of ingredients objects
      * @return An arraylist of ingredients
      */
     public void getAllIngredientsFromDatabase() {
@@ -57,9 +65,10 @@ public class IngredientsController {
     }
 
     /**
-     * Method that gets an ingredient from the ArrayList based on the name of the ingredient
-     * @param ingredientName The name of the ingredient
-     * @return The ingredient object
+     * Retrieves an ingredient object from the ArrayList based on the name of the ingredient.
+     *
+     * @param ingredientName The name of the ingredient.
+     * @return The Ingredient object corresponding to the given name, or null if not found.
      */
     public Ingredient getIngredientFromArrayList(String ingredientName) {
         for (Ingredient ingredient : ingredients) {
@@ -70,6 +79,11 @@ public class IngredientsController {
         return null;
     }
 
+    /**
+     * Retrieves a list of ingredient names.
+     *
+     * @return An ArrayList containing the names of all ingredients.
+     */
     public ArrayList<String> getIngredientNames(){
         ArrayList<String> ingredientNames = new ArrayList<>();
         for(Ingredient ingredient : ingredients){

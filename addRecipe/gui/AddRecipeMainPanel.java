@@ -1,4 +1,4 @@
-package AddRecipe.GUI;
+package addRecipe.gui;
 
 import javax.swing.*;
 import java.awt.*;
