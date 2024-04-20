@@ -12,7 +12,7 @@ import java.io.IOException;
  * The RecipeScreenManager class serves as the entry point for the "View Recipe" screen of the application.
  * It extends the Application class and initializes the JavaFX stage with the corresponding FXML file.
  */
-public class RecipeScreenManager extends Application {
+public class  RecipeScreenManager extends Application {
 
     /**
      * The main method of the GUIRecipeController class.
@@ -31,15 +31,15 @@ public class RecipeScreenManager extends Application {
      * @throws IOException if an error occurs while loading the FXML file.
      */
     @Override
-    public void start(Stage ViewRecipeStage) throws IOException {
+    public void start(Stage viewRecipeStage) throws IOException {
         // Load the FXML file for the "View Recipe" screen
         Parent viewRecipeScrollPane = FXMLLoader.load(getClass().getClassLoader().getResource("src/Client/resources/fxml/ViewRecipeScreen.fxml"));
         // Set the title for the stage
-        ViewRecipeStage.setTitle("DrinkMaster 3000");
+        viewRecipeStage.setTitle("DrinkMaster 3000");
         // Set the scene of the stage with the loaded FXML content
-        ViewRecipeStage.setScene(new Scene(viewRecipeScrollPane));
+        viewRecipeStage.setScene(new Scene(viewRecipeScrollPane));
         // Display the stage
-        ViewRecipeStage.show();
+        viewRecipeStage.show();
     }
 }
 
