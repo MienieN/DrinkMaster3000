@@ -70,7 +70,7 @@ public class AlcDrinkScreenManager implements Initializable {
         String ingredientName = button.getText();
         baseDrinkNames.remove(ingredientName);
         recipeController.checkForRecipe(ingredientName);
-        showIngredients(button);
+        showIngredients(button, 0);
     }
 
 
@@ -89,9 +89,14 @@ public class AlcDrinkScreenManager implements Initializable {
      *
      * @param button The button to display the ingredient on.
      */
-    private void showIngredients(Button button){
+    private void showIngredients(Button button, int indexModifier){
         if(!(counter >= baseDrinkNames.size())){
-            button.setText(baseDrinkNames.get(counter++));
+            button.setText(baseDrinkNames.get(counter));
+            counter = counter + indexModifier;
+
+        }else{
+            button.setText("End");
+            button.setDisable(true);
         }
     }
 
@@ -107,10 +112,10 @@ public class AlcDrinkScreenManager implements Initializable {
         String baseDrinkName = baseDrinkDropdownMenu.getValue();
         recipeController.checkForRecipe(baseDrinkName);
         baseDrinkNames.remove(baseDrinkName);
-        showIngredients(ingredientChoiceButton1);
-        showIngredients(ingredientChoiceButton2);
-        showIngredients(ingredientChoiceButton3);
-        showIngredients(ingredientChoiceButton4);
+        showIngredients(ingredientChoiceButton1, 1);
+        showIngredients(ingredientChoiceButton2, 1);
+        showIngredients(ingredientChoiceButton3, 1);
+        showIngredients(ingredientChoiceButton4,1);
     }
 
     /**

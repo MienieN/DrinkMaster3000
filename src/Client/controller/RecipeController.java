@@ -70,34 +70,18 @@ public class RecipeController {
 
     /**
      * Checks if a recipe can be made with the given chosen ingredient and notifies the GUI controller.
-     *
+     * The method uses a {@link HashSet} due to performance of finding things based on name/key rather than index
+     * The mothod uses an {@link Iterator} to be able to remove the found recipe while avoiding a {@link ConcurrentModificationException}
      * @param chosenIngredientName The name of the chosen ingredient.
      */
-    //TODO: this method should show all the drink recipes, it should not show duplicates, and
-    // the method should not add drinks only containing the latest ingredient chosen, it should update
-    // the drinks shown based on the accumulated ingredients thus far and "refine" the search.
-    /*public void checkForRecipe(String chosenIngredientName) {
-        ArrayList<String> recipeNames = new ArrayList();
-        chosenIngredients.add(ingredientsController.getIngredientFromArrayList(chosenIngredientName));
-        for (String recipeName : recipes.keySet()) {
-            if (chosenIngredients.containsAll(recipes.get(recipeName))) {
-                System.out.println("test");
-                recipeNames.add(recipeName);
-                GUIController.receiveRecipeName(recipeNames);
-                recipes.remove(recipeName);
-            }
-        }
-    }*/
+
     public void checkForRecipe(String chosenIngredientName) {
         ArrayList<String> recipeNames = new ArrayList();
         chosenIngredients.add(ingredientsController.getIngredientFromArrayList(chosenIngredientName));
         Iterator<Map.Entry<String, HashSet<Ingredient>>> iterator = recipes.entrySet().iterator();
         while (iterator.hasNext()){
             Map.Entry<String, HashSet<Ingredient>> entry = iterator.next();
-            System.out.println(chosenIngredients.toString());
-            //System.out.println(entry.getValue().toString());
             if (chosenIngredients.containsAll(entry.getValue())) {
-                System.out.println("test");
                 recipeNames.add(entry.getKey());
                 GUIController.receiveRecipeName(recipeNames);
                 iterator.remove();

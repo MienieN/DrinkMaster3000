@@ -39,6 +39,7 @@ public class IngredientsController {
 
     /**
      * Receives all ingredients from the database and puts them in an arraylist of ingredients objects
+     *
      * @return An arraylist of ingredients
      */
     //TODO either get 2 lists or sort the list based on alc content
@@ -49,16 +50,16 @@ public class IngredientsController {
         try (PreparedStatement statement = connection.prepareStatement(allIngredients);
              ResultSet resultSet = statement.executeQuery()) {
 
-                while (resultSet.next()) {
-                    for (int i = 1; i <= resultSet.getMetaData().getColumnCount() ; i++) {
-                        String ingredientName = resultSet.getString(i);
-                        Ingredient ingredient = new Ingredient(ingredientName);
-                        ingredients.add(ingredient);
-                    }
+            while (resultSet.next()) {
+                for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                    String ingredientName = resultSet.getString(i);
+                    Ingredient ingredient = new Ingredient(ingredientName);
+                    ingredients.add(ingredient);
+                }
 
             }
-                resultSet.close();
-                statement.close();
+            resultSet.close();
+            statement.close();
 
         } catch (SQLException e) {
             System.out.println("Error in getting ingredients from database");
@@ -86,9 +87,9 @@ public class IngredientsController {
      *
      * @return An ArrayList containing the names of all ingredients.
      */
-    public ArrayList<String> getIngredientNames(){
+    public ArrayList<String> getIngredientNames() {
         ArrayList<String> ingredientNames = new ArrayList<>();
-        for(Ingredient ingredient : ingredients){
+        for (Ingredient ingredient : ingredients) {
             ingredientNames.add(ingredient.getName());
         }
         return ingredientNames;
