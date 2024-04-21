@@ -32,5 +32,10 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <Button fx:id="backToStartScreenButton1" layoutX="151.0" layoutY="361.0" mnemonicParsing="false" onAction="#switchToStartScreen" prefHeight="25.0" prefWidth="106.0" text="None of the above">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
