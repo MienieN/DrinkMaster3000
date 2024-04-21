@@ -1,21 +1,21 @@
-package src.client.controller;
+package src.Client.controller;
 
-import src.client.boundary.AlcDrinkScreenManager;
-import src.client.entity.Ingredient;
+import src.Client.boundary.AlcDrinkScreenManager;
+import src.Client.entity.Ingredient;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
+
 
 /**
  * The RecipeController class manages the recipes and their interactions with the GUI.
  */
 public class RecipeController {
-    private HashMap<String, ArrayList<Ingredient>> recipes = new HashMap<>();   // HashMap to store recipes and their ingredients
+    private HashMap<String, HashSet<Ingredient>> recipes = new HashMap<>();   // HashMap to store recipes and their ingredients
     private AlcDrinkScreenManager GUIController;                                // GUI controller for displaying recipes
-    private ArrayList<Ingredient> chosenIngredients = new ArrayList<>();        // List of chosen ingredients
+    private HashSet<Ingredient> chosenIngredients = new HashSet<>();        // List of chosen ingredients
     private Connection connection;                                              // Database connection
+    private IngredientsController ingredientsController;
 
     /**
      * Constructs a RecipeController object and initializes the database connection.
@@ -50,18 +50,19 @@ public class RecipeController {
             PreparedStatement statement2 = connection.prepareStatement(sql2);
             while (recipeNames.next()) {
                 for (int i = 1; i <= recipeNames.getMetaData().getColumnCount(); i++) {
-                    ArrayList<Ingredient> ingredientArrayList = new ArrayList<>();
+                    HashSet<Ingredient> ingredientHashSet = new HashSet<>();
                     String recipeName = recipeNames.getString(i);
                     statement2.setString(1, recipeName);
                     ResultSet resultSet2 = statement2.executeQuery();
                     while (resultSet2.next()) {
                         for (int j = 1; j <= resultSet2.getMetaData().getColumnCount(); j++) {
-                            ingredientArrayList.add(new Ingredient(resultSet2.getString(j)));
+                            ingredientHashSet.add(new Ingredient(resultSet2.getString(j)));
                         }
                     }
-                    recipes.put(recipeName, ingredientArrayList);
+                    recipes.put(recipeName, ingredientHashSet);
                 }
             }
+            System.out.println(recipes);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -75,23 +76,39 @@ public class RecipeController {
     //TODO: this method should show all the drink recipes, it should not show duplicates, and
     // the method should not add drinks only containing the latest ingredient chosen, it should update
     // the drinks shown based on the accumulated ingredients thus far and "refine" the search.
-    public void checkForRecipe(String chosenIngredientName) {
-        chosenIngredients.add(new Ingredient(chosenIngredientName));
+    /*public void checkForRecipe(String chosenIngredientName) {
+        ArrayList<String> recipeNames = new ArrayList();
+        chosenIngredients.add(ingredientsController.getIngredientFromArrayList(chosenIngredientName));
         for (String recipeName : recipes.keySet()) {
-            for (Ingredient ingredient : recipes.get(recipeName)) {
-
-                for (int i = 0; i < chosenIngredients.size(); i++) {
-                    if (Objects.equals(chosenIngredients.get(i).getName(), ingredient.getName())) {
-                        System.out.println("test");
-                        GUIController.receiveRecipeName(recipeName);
-                    }
-                }
+            if (chosenIngredients.containsAll(recipes.get(recipeName))) {
+                System.out.println("test");
+                recipeNames.add(recipeName);
+                GUIController.receiveRecipeName(recipeNames);
+                recipes.remove(recipeName);
             }
         }
+    }*/
+    public void checkForRecipe(String chosenIngredientName) {
+        ArrayList<String> recipeNames = new ArrayList();
+        chosenIngredients.add(ingredientsController.getIngredientFromArrayList(chosenIngredientName));
+        Iterator<Map.Entry<String, HashSet<Ingredient>>> iterator = recipes.entrySet().iterator();
+        while (iterator.hasNext()){
+            Map.Entry<String, HashSet<Ingredient>> entry = iterator.next();
+            System.out.println(chosenIngredients.toString());
+            //System.out.println(entry.getValue().toString());
+            if (chosenIngredients.containsAll(entry.getValue())) {
+                System.out.println("test");
+                recipeNames.add(entry.getKey());
+                GUIController.receiveRecipeName(recipeNames);
+                iterator.remove();
+            }
+        }
+
+
     }
 
     //TODO: add a separate method like the checkForRecipe() for non-alcoholic drinks,
-    // potentially another for the speciality drinks.
+    // potentially another for the speciality drinks. Mimmis note: why would we do this?
 
     /**
      * Sets the GUI controller for displaying recipes.
@@ -100,6 +117,15 @@ public class RecipeController {
      */
     public void setGUI(AlcDrinkScreenManager GUIController) {
         this.GUIController = GUIController;
+    }
+
+    /**
+     * A setter for the {@link IngredientsController}
+     *
+     * @param ingredientsController the {@link IngredientsController} created in {@link src.Client.ClientMain}
+     */
+    public void setIngredientsController(src.Client.controller.IngredientsController ingredientsController) {
+        this.ingredientsController = ingredientsController;
     }
 }
 

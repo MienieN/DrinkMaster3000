@@ -1,4 +1,4 @@
-package src.client.controller;
+package src.Client.controller;
 
 public class TestClientController {
 }

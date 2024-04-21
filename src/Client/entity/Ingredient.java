@@ -1,4 +1,6 @@
-package src.client.entity;
+package src.Client.entity;
+
+import java.util.Objects;
 
 /**
  * The Ingredient class represents an ingredient entity.
@@ -24,5 +26,18 @@ public class Ingredient {
         return name;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj){
+            return true;
+        }
+        Ingredient otherIngredient = (Ingredient) obj;
+        return Objects.equals(this.name, otherIngredient.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 }
 
