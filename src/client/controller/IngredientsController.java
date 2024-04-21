@@ -29,7 +29,7 @@ public class IngredientsController {
     public void connect() {
         try {
             // Establish connection to the PostgreSQL database
-            connection = DriverManager.getConnection("jdbc:postgresql://pgserver.mau.se:5432/drinkmaster3000", "ao8616", "PpCFKk!4cQZTrMf");
+            connection = DriverManager.getConnection("jdbc:postgresql://pgserver.mau.se:5432/drinkmaster3000", "ao7503", "t360bxdp");
             System.out.println("Connection established");
         } catch (SQLException e) {
             System.out.println("Error in connection");
