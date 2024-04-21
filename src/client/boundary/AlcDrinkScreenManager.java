@@ -77,9 +77,15 @@ public class AlcDrinkScreenManager implements Initializable {
 
     @FXML
     private void clickNoneOfTheAboveButton(ActionEvent event){
-        //baseDrinkDropdownMenu.setDisable(false);
-        enableIngredientChoiceButtons();
-        recipeList.getItems().clear();
+        ingredientChoiceButton1.setText("");
+        ingredientChoiceButton2.setText("");
+        ingredientChoiceButton3.setText("");
+        ingredientChoiceButton4.setText("");
+
+        showIngredients(ingredientChoiceButton1);
+        showIngredients(ingredientChoiceButton2);
+        showIngredients(ingredientChoiceButton3);
+        showIngredients(ingredientChoiceButton4);
     }
 
 
