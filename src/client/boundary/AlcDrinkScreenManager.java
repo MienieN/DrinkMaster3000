@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import src.client.ClientMain;
 import src.client.controller.IngredientsController;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 /**
  * The AlcDrinkScreenManager class controls the GUI for selecting alcoholic drinks.
