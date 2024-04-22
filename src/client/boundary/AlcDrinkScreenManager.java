@@ -113,6 +113,20 @@ public class AlcDrinkScreenManager implements Initializable {
         showIngredients(ingredientChoiceButton4);
     }
 
+    public TextField baseIngredientFilterTextField;
+
+    public void filterBaseIngredientByFirstLetter () {
+        String typedLetter = baseIngredientFilterTextField.getText();
+        
+        ArrayList<String> filteredBaseDrinks = baseDrinkNames.stream()
+            .filter(name -> name.toUpperCase().startsWith(typedLetter.toUpperCase()))
+            .collect(Collectors.toCollection(ArrayList::new));
+
+            baseDrinkDropdownMenu.getItems().setAll(filteredBaseDrinks);
+
+            baseDrinkDropdownMenu.getSelectionModel().selectFirst();
+    }
+
     /**
      * Switches the scene to the start screen.
      *
