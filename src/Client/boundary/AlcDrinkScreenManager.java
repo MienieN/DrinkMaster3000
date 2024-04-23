@@ -46,6 +46,8 @@ public class AlcDrinkScreenManager implements Initializable {
     private Button ingredientChoiceButton4;                 // Button for choosing ingredients
     @FXML
     private ListView<String> recipeList;                    // List view for displaying recipes
+    @FXML
+    private Button noneOfTheAboveButton;                     // Button for selecting none of the above
 
     /**
      * Constructs a AlcDrinkScreenManager object.
@@ -71,6 +73,27 @@ public class AlcDrinkScreenManager implements Initializable {
         baseDrinkNames.remove(ingredientName);
         recipeController.checkForRecipe(ingredientName);
         showIngredients(button, 0);
+    }
+
+    /**
+     * Handles the click event on the "None of the above" button.
+     * Resets the ingredient choice buttons and shows ingredients on them.
+     *
+     * @param event The ActionEvent object representing the click event.
+     */
+    @FXML
+    private void clickNoneOfTheAboveButton(ActionEvent event) { // TODO: not show ingredients again when you've clicked the none of the above button
+        baseDrinkNames = ingredientsController.getIngredientNames(); //get all ingredients again, not sure if needed
+
+        ingredientChoiceButton1.setText(""); //reset buttons
+        ingredientChoiceButton2.setText("");
+        ingredientChoiceButton3.setText("");
+        ingredientChoiceButton4.setText("");
+
+        showIngredients(ingredientChoiceButton1); //show ingredients
+        showIngredients(ingredientChoiceButton2);
+        showIngredients(ingredientChoiceButton3);
+        showIngredients(ingredientChoiceButton4);
     }
 
 
