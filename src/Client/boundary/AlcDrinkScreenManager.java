@@ -83,17 +83,14 @@ public class AlcDrinkScreenManager implements Initializable {
      */
     @FXML
     private void clickNoneOfTheAboveButton(ActionEvent event) { // TODO: not show ingredients again when you've clicked the none of the above button
-        baseDrinkNames = ingredientsController.getIngredientNames(); //get all ingredients again, not sure if needed
-
-        ingredientChoiceButton1.setText(""); //reset buttons
-        ingredientChoiceButton2.setText("");
-        ingredientChoiceButton3.setText("");
-        ingredientChoiceButton4.setText("");
-
-        showIngredients(ingredientChoiceButton1); //show ingredients
-        showIngredients(ingredientChoiceButton2);
-        showIngredients(ingredientChoiceButton3);
-        showIngredients(ingredientChoiceButton4);
+        baseDrinkNames.remove(ingredientChoiceButton1.getText());
+        showIngredients(ingredientChoiceButton1, 0);
+        baseDrinkNames.remove(ingredientChoiceButton2.getText());//show ingredients
+        showIngredients(ingredientChoiceButton2, 0);
+        baseDrinkNames.remove(ingredientChoiceButton3.getText());
+        showIngredients(ingredientChoiceButton3, 0);
+        baseDrinkNames.remove(ingredientChoiceButton4.getText());
+        showIngredients(ingredientChoiceButton4, 0);
     }
 
 

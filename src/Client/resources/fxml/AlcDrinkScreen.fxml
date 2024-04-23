@@ -32,7 +32,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="noneOfTheAbove" layoutX="151.0" layoutY="361.0" mnemonicParsing="false" onAction="#clickNoneOfTheAboveButton" prefHeight="25.0" prefWidth="106.0" text="None of the above">
+      <Button fx:id="noneOfTheAboveButton" layoutX="151.0" layoutY="361.0" mnemonicParsing="false" onAction="#clickNoneOfTheAboveButton" prefHeight="25.0" prefWidth="106.0" text="None of the above">
          <font>
             <Font size="10.0" />
          </font>
