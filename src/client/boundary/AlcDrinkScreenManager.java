@@ -82,8 +82,8 @@ public class AlcDrinkScreenManager implements Initializable {
      * @param event The ActionEvent object representing the click event.
      */
     @FXML
-    private void clickNoneOfTheAboveButton(ActionEvent event) { //TODO: parameter not needed??
-        baseDrinkNames = ingredientsController.getIngredientNames(); //get all ingredients again
+    private void clickNoneOfTheAboveButton(ActionEvent event) { // TODO: not show ingredients again when you've clicked the none of the above button
+        baseDrinkNames = ingredientsController.getIngredientNames(); //get all ingredients again, not sure if needed
 
         ingredientChoiceButton1.setText(""); //reset buttons
         ingredientChoiceButton2.setText("");
