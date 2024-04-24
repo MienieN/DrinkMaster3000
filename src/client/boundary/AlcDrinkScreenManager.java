@@ -118,9 +118,11 @@ public class AlcDrinkScreenManager implements Initializable {
 
     private TextField baseIngredientFilterTextField;
 
-    public void filterBaseIngredientByFirstLetter () {
-        String typedLetter = baseIngredientFilterTextField.getText();
-        
+    public void filterBaseIngredientByFirstLetter () { //TODO make it not possible to be null value
+        String typedLetter = baseIngredientFilterTextField.getText(); //baseDrinkDropdownMenu ? doesn't work with textProperty
+
+
+        baseIngredientFilterTextField.textProperty().addListener((observable, oldValue, newValue) -> {
         ArrayList<String> filteredBaseDrinks = baseDrinkNames.stream()
             .filter(name -> name.toUpperCase().startsWith(typedLetter.toUpperCase()))
             .collect(Collectors.toCollection(ArrayList::new));
@@ -128,6 +130,7 @@ public class AlcDrinkScreenManager implements Initializable {
             baseDrinkDropdownMenu.getItems().setAll(filteredBaseDrinks);
 
             baseDrinkDropdownMenu.getSelectionModel().selectFirst();
+        });
     }
 
     /**
