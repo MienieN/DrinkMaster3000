@@ -2,8 +2,14 @@ package addRecipe;
 
 import addRecipe.gui.AddRecipeMainFrame;
 
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * The AddRecipeController class manages the addition of recipes to the database.
@@ -20,6 +26,7 @@ public class AddRecipeController {
     public AddRecipeController(Connection connection) {
         this.connection = connection;
         new AddRecipeMainFrame(500, 600, this);
+
     }
 
     /**
@@ -130,6 +137,29 @@ public class AddRecipeController {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
+        }
+    }
+
+    public List<String> queryRecipeName(String textSearch) {
+
+        try {
+            String autoRecipe = "SELECT * FROM recipes WHERE recipe_name LIKE ?";
+            PreparedStatement autoRecipeStatement = connection.prepareStatement(autoRecipe);
+            autoRecipeStatement.setString(1, textSearch + "%");
+            //TODO currently because it is case sensitive, you must start with an uppercase letter
+
+            ResultSet resultSet = autoRecipeStatement.executeQuery();
+
+            List<String> recipeNames = new ArrayList<>();
+            while (resultSet.next()) {
+                //String recipeName = resultSet.getString("recipe_name");
+                recipeNames.add(resultSet.getString("recipe_name"));
+            }
+            return recipeNames;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

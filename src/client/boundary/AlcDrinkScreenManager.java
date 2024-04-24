@@ -38,6 +38,7 @@ public class AlcDrinkScreenManager implements Initializable {
 
     @FXML
     private ComboBox<String> baseDrinkDropdownMenu;         // Dropdown menu for selecting base drinks
+
     @FXML
     private Button ingredientChoiceButton1;                 // Button for choosing ingredients
     @FXML
@@ -115,7 +116,7 @@ public class AlcDrinkScreenManager implements Initializable {
         showIngredients(ingredientChoiceButton4);
     }
 
-    public TextField baseIngredientFilterTextField;
+    private TextField baseIngredientFilterTextField;
 
     public void filterBaseIngredientByFirstLetter () {
         String typedLetter = baseIngredientFilterTextField.getText();

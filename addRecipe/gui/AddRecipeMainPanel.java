@@ -1,9 +1,12 @@
 package addRecipe.gui;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * The AddRecipeMainPanel class represents the main panel of the "Add Recipe" GUI.
@@ -43,6 +46,13 @@ public class AddRecipeMainPanel extends JPanel {
         recipeNameTextField.setLocation(95, 50);
         add(recipeNameTextField);
 
+        // Combobox for recipe name suggestions
+        JComboBox<Object> recipeNameSuggestions = new JComboBox<>();
+        recipeNameSuggestions.setEditable(true);
+        recipeNameSuggestions.setSize(recipeNameTextField.getSize());
+        recipeNameSuggestions.setLocation(95, 50);
+        add(recipeNameSuggestions);
+
         // Create a panel to hold the input fields for the ingredients
         inputPanel = new InputPanel(this, width, height);
         inputPanel.setLocation(10, 150);
@@ -53,6 +63,28 @@ public class AddRecipeMainPanel extends JPanel {
         instructionsTextArea.setSize(235, height - 130);
         instructionsTextArea.setLocation(235, 40);
         add(instructionsTextArea);
+
+        //To dynamically respond to changes in the recipeNameTextField
+        recipeNameTextField.getDocument().addDocumentListener(new DocumentListener() {
+            public void insertUpdate(DocumentEvent e) {
+                updateSuggestions();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                updateSuggestions();
+            }
+            public void changedUpdate(DocumentEvent e) {
+                updateSuggestions();
+            }
+
+            private void updateSuggestions() {
+                String searchText = recipeNameTextField.getText();
+                recipeNameSuggestions.removeAllItems();
+
+                for (String suggestion : mainFrame.getController().queryRecipeName(searchText)) {
+                    recipeNameSuggestions.addItem(suggestion);
+                }
+            }
+        });
     }
 
     /**
