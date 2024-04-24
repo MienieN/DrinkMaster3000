@@ -3,13 +3,10 @@ package addRecipe;
 import addRecipe.gui.AddRecipeMainFrame;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * The AddRecipeController class manages the addition of recipes to the database.

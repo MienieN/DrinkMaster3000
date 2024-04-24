@@ -6,7 +6,6 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
 /**
  * The AddRecipeMainPanel class represents the main panel of the "Add Recipe" GUI.
