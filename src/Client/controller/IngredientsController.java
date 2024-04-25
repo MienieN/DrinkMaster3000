@@ -15,27 +15,15 @@ public class IngredientsController {
     /**
      * Constructs an IngredientsController object and initializes the database connection.
      */
-    public IngredientsController() {
+    public IngredientsController(Connection connection) {
+        this.connection = connection;
         // Establish database connection
-        connect(); //TODO do this in ClientMain and send it along
+        //TODO do this in ClientMain and send it along
         // Retrieve all ingredients from the database
         getAllIngredientsFromDatabase();
     }
 
-    /**
-     * Establishes a connection to the database.
-     */
-    //TODO move this into main and send the connection to the controllers
-    public void connect() {
-        try {
-            // Establish connection to the PostgreSQL database
-            connection = DriverManager.getConnection("jdbc:postgresql://pgserver.mau.se:5432/drinkmaster3000", "ao7503", "t360bxdp");
-            System.out.println("Connection established");
-        } catch (SQLException e) {
-            System.out.println("Error in connection");
-            throw new RuntimeException(e);
-        }
-    }
+
 
     /**
      * Receives all ingredients from the database and puts them in an arraylist of ingredients objects
@@ -45,18 +33,19 @@ public class IngredientsController {
     //TODO either get 2 lists or sort the list based on alc content
     public void getAllIngredientsFromDatabase() {
         ingredients = new ArrayList<>();
-        String allIngredients = "SELECT ingredient_name FROM ingredients"; //query depending on how the alcohol marker is set
+        String allIngredients = "SELECT ingredient_name, alcoholic FROM ingredients"; //query depending on how the alcohol marker is set
 
         try (PreparedStatement statement = connection.prepareStatement(allIngredients);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
                 for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-                    String ingredientName = resultSet.getString(i);
-                    Ingredient ingredient = new Ingredient(ingredientName);
+                    String ingredientName = resultSet.getString(i++);
+                    boolean isAlcoholic = resultSet.getBoolean(i);
+
+                    Ingredient ingredient = new Ingredient(ingredientName, isAlcoholic);
                     ingredients.add(ingredient);
                 }
-
             }
             resultSet.close();
             statement.close();
@@ -91,6 +80,16 @@ public class IngredientsController {
         ArrayList<String> ingredientNames = new ArrayList<>();
         for (Ingredient ingredient : ingredients) {
             ingredientNames.add(ingredient.getName());
+        }
+        return ingredientNames;
+    }
+
+    public ArrayList<String> getAlcoholicIngredientNames() {
+        ArrayList<String> ingredientNames = new ArrayList<>();
+        for (Ingredient ingredient : ingredients) {
+            if (ingredient.getAlcoholic()) {
+                ingredientNames.add(ingredient.getName());
+            }
         }
         return ingredientNames;
     }

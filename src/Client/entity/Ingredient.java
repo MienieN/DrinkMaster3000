@@ -7,14 +7,16 @@ import java.util.Objects;
  */
 public class Ingredient {
     private String name;        // The name of the ingredient
+    private boolean alcoholic;
 
     /**
      * Constructs an Ingredient object with the specified name.
      *
      * @param name The name of the ingredient.
      */
-    public Ingredient(String name) {
+    public Ingredient(String name, boolean alcoholic) {
         this.name = name;
+        this.alcoholic = alcoholic;
     }
 
     /**
@@ -43,6 +45,10 @@ public class Ingredient {
     @Override
     public String toString() {
         return name;
+    }
+
+    public boolean getAlcoholic() {
+        return alcoholic;
     }
 }
 

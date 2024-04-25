@@ -20,6 +20,7 @@ import src.Client.controller.RecipeController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 /**
@@ -56,7 +57,9 @@ public class AlcDrinkScreenManager implements Initializable {
     public AlcDrinkScreenManager() {
         ingredientsController = ClientMain.getIngredientsController();
         recipeController = ClientMain.getRecipeController();
-        baseDrinkNames = ingredientsController.getIngredientNames();
+        ArrayList<String> alcoholicIngredients = ingredientsController.getAlcoholicIngredientNames();
+        Collections.sort(alcoholicIngredients);
+        baseDrinkNames = alcoholicIngredients;
         recipeController.setGUI(this);
     }
 

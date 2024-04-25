@@ -9,6 +9,9 @@ import src.Client.controller.IngredientsController;
 import src.Client.controller.RecipeController;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  * The ClientMain class is the entry point of the application.
@@ -18,6 +21,7 @@ import java.io.IOException;
 public class ClientMain extends Application {
     private static IngredientsController ingredientsController;     // Controller for managing ingredients
     private static RecipeController recipeController;               // Controller for managing recipes
+    private static Connection connection;
 
     /**
      * Retrieves the RecipeController instance.
@@ -53,8 +57,9 @@ public class ClientMain extends Application {
      * @param args The command-line arguments.
      */
     public static void main(String[] args) {
-        ingredientsController = new IngredientsController();
-        recipeController = new RecipeController();
+        connect();
+        ingredientsController = new IngredientsController(connection);
+        recipeController = new RecipeController(connection);
         recipeController.setIngredientsController(ingredientsController);
         // Launch the JavaFX application
         launch();
@@ -67,5 +72,20 @@ public class ClientMain extends Application {
      */
     public static IngredientsController getIngredientsController(){
         return ingredientsController;
+    }
+
+    /**
+     * Establishes a connection to the database.
+     */
+    //TODO move this into main and send the connection to the controllers
+    public static void connect() {
+        try {
+            // Establish connection to the PostgreSQL database
+            connection = DriverManager.getConnection("jdbc:postgresql://pgserver.mau.se:5432/drinkmaster3000", "ao7503", "t360bxdp");
+            System.out.println("Connection established");
+        } catch (SQLException e) {
+            System.out.println("Error in connection");
+            throw new RuntimeException(e);
+        }
     }
 }
