@@ -117,6 +117,7 @@ public class AlcDrinkScreenManager implements Initializable {
     }
 
     private TextField baseIngredientFilterTextField;
+    //TODO change so it is an "invisible" field but you can type filter the drop-down choices
 
     public void filterBaseIngredientByFirstLetter () { //TODO make it not possible to be null value
         String typedLetter = baseIngredientFilterTextField.getText(); //baseDrinkDropdownMenu ? doesn't work with textProperty
