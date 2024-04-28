@@ -147,16 +147,40 @@ public class AddRecipeController {
 
             ResultSet resultSet = autoRecipeStatement.executeQuery();
 
-            List<String> recipeNames = new ArrayList<>();
+            List<String> autoRecipeNames = new ArrayList<>();
             while (resultSet.next()) {
-                //String recipeName = resultSet.getString("recipe_name");
-                recipeNames.add(resultSet.getString("recipe_name"));
+                autoRecipeNames.add(resultSet.getString("recipe_name"));
             }
-            return recipeNames;
+            System.out.println(autoRecipeNames);
+            return autoRecipeNames;
         }
         catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
     }
+
+    public List<String> queryIngredientsName(String textSearch) {
+
+        try {
+            String autoRecipe = "SELECT * FROM ingredients WHERE ingredient_name LIKE ?";
+            PreparedStatement autoIngredientStatement = connection.prepareStatement(autoRecipe);
+            autoIngredientStatement.setString(1, textSearch + "%");
+            //TODO currently because it is case sensitive, you must start with an uppercase letter
+
+            ResultSet resultSet = autoIngredientStatement.executeQuery();
+
+            List<String> autoIngredientNames = new ArrayList<>();
+            while (resultSet.next()) {
+                autoIngredientNames.add(resultSet.getString("ingredient_name"));
+            }
+            System.out.println(autoIngredientNames);
+            return autoIngredientNames;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }
