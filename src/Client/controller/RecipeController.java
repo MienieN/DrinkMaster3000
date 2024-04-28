@@ -48,7 +48,6 @@ public class RecipeController {
                     recipes.put(recipeName, ingredientHashSet);
                 }
             }
-            System.out.println(recipes);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
