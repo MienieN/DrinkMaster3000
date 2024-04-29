@@ -1,4 +1,4 @@
-package src.client.boundary;
+package src.Client.boundary;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +27,7 @@ public class  RecipeScreenManager extends Application {
     /**
      * Starts the JavaFX application.
      *
-     * @param ViewRecipeStage The primary stage for the "View Recipe" screen.
+     * @param viewRecipeStage The primary stage for the "View Recipe" screen.
      * @throws IOException if an error occurs while loading the FXML file.
      */
     @Override

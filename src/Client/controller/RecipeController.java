@@ -1,7 +1,7 @@
-package src.client.controller;
+package src.Client.controller;
 
-import src.client.boundary.AlcDrinkScreenManager;
-import src.client.entity.Ingredient;
+import src.Client.boundary.AlcDrinkScreenManager;
+import src.Client.entity.Ingredient;
 
 import java.sql.*;
 import java.util.*;
@@ -11,7 +11,7 @@ import java.util.*;
  * The RecipeController class manages the recipes and their interactions with the GUI.
  */
 public class RecipeController {
-    private HashMap<String, HashSet<String>> recipes = new HashMap<>();   // HashMap to store recipes and their ingredients
+    private HashMap<String, HashSet<Ingredient>> recipes = new HashMap<String, HashSet<Ingredient>>();   // HashMap to store recipes and their ingredients
     private AlcDrinkScreenManager GUIController;                                // GUI controller for displaying recipes
     private HashSet<Ingredient> chosenIngredients = new HashSet<>();        // List of chosen ingredients
     private Connection connection;                                              // Database connection
@@ -30,19 +30,21 @@ public class RecipeController {
      */
     private void getRecipesFromDatabase() {
         String sql = "Select recipe_name from recipes";
-        String sql2 = "Select ingredient_name from recipes_ingredients where recipe_name = ?";
+        String sql2 = "select recipes_ingredients.ingredient_name, ingredients.alcoholic from recipes_ingredients " +
+                "join ingredients ON recipes_ingredients.ingredient_name = ingredients.ingredient_name " +
+                "WHERE recipe_name = ?;";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet recipeNames = statement.executeQuery();
             PreparedStatement statement2 = connection.prepareStatement(sql2);
             while (recipeNames.next()) {
                 for (int i = 1; i <= recipeNames.getMetaData().getColumnCount(); i++) {
-                    HashSet<String> ingredientHashSet = new HashSet<>();
+                    HashSet<Ingredient> ingredientHashSet = new HashSet<>();
                     String recipeName = recipeNames.getString(i);
                     statement2.setString(1, recipeName);
                     ResultSet resultSet2 = statement2.executeQuery();
                     while (resultSet2.next()) {
                         for (int j = 1; j <= resultSet2.getMetaData().getColumnCount(); j++) {
-                            ingredientHashSet.add(resultSet2.getString(j));
+                            ingredientHashSet.add(new Ingredient(resultSet2.getString(j++), resultSet2.getBoolean(j) ));
                         }
                     }
                     recipes.put(recipeName, ingredientHashSet);
@@ -63,11 +65,12 @@ public class RecipeController {
     public void checkForRecipe(String chosenIngredientName) {
         ArrayList<String> recipeNames = new ArrayList();
         chosenIngredients.add(ingredientsController.getIngredientFromArrayList(chosenIngredientName));
-        Iterator<Map.Entry<String, HashSet<String>>> iterator = recipes.entrySet().iterator();
+        Iterator<Map.Entry<String, HashSet<Ingredient>>> iterator = recipes.entrySet().iterator();
         while (iterator.hasNext()){
-            Map.Entry<String, HashSet<String>> entry = iterator.next();
+            Map.Entry<String, HashSet<Ingredient>> entry = iterator.next();
             if (chosenIngredients.containsAll(entry.getValue())) {
                 recipeNames.add(entry.getKey());
+                System.out.println(recipeNames);
                 GUIController.receiveRecipeName(recipeNames);
                 iterator.remove();
             }

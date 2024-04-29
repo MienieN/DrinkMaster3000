@@ -1,4 +1,4 @@
-package src.client.boundary;
+package src.Client.boundary;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,9 +13,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import src.client.ClientMain;
-import src.client.controller.IngredientsController;
-import src.client.controller.RecipeController;
+import src.Client.ClientMain;
+import src.Client.controller.IngredientsController;
+import src.Client.controller.RecipeController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,6 +30,7 @@ public class AlcDrinkScreenManager implements Initializable {
     private Stage stage;                                    // The stage for the scene
     private Scene scene;                                    // The scene of the GUI
     private Parent root;                                    // The root node of the scene
+    private ArrayList<String> ingredientNames;              //The list of all ingrediets
     private ArrayList<String> baseDrinkNames;               // The list of base drink names //TODO needs to be just base drinks, need another array for ingredients
     private IngredientsController ingredientsController;    // The controller for managing ingredients
     private RecipeController recipeController;              // The controller for managing recipes
@@ -60,6 +61,7 @@ public class AlcDrinkScreenManager implements Initializable {
         ArrayList<String> alcoholicIngredients = ingredientsController.getAlcoholicIngredientNames();
         Collections.sort(alcoholicIngredients);
         baseDrinkNames = alcoholicIngredients;
+        ingredientNames = ingredientsController.getIngredientNames();
         recipeController.setGUI(this);
     }
 
@@ -73,7 +75,7 @@ public class AlcDrinkScreenManager implements Initializable {
     private void clickIngredientChoiceButton(ActionEvent event){
         Button button = (Button) event.getSource();
         String ingredientName = button.getText();
-        baseDrinkNames.remove(ingredientName);
+        ingredientNames.remove(ingredientName);
         recipeController.checkForRecipe(ingredientName);
         showIngredients(button, 0);
     }
@@ -86,13 +88,13 @@ public class AlcDrinkScreenManager implements Initializable {
      */
     @FXML
     private void clickNoneOfTheAboveButton(ActionEvent event) { // TODO: not show ingredients again when you've clicked the none of the above button
-        baseDrinkNames.remove(ingredientChoiceButton1.getText());
+        ingredientNames.remove(ingredientChoiceButton1.getText());
         showIngredients(ingredientChoiceButton1, 0);
-        baseDrinkNames.remove(ingredientChoiceButton2.getText());//show ingredients
+        ingredientNames.remove(ingredientChoiceButton2.getText());//show ingredients
         showIngredients(ingredientChoiceButton2, 0);
-        baseDrinkNames.remove(ingredientChoiceButton3.getText());
+        ingredientNames.remove(ingredientChoiceButton3.getText());
         showIngredients(ingredientChoiceButton3, 0);
-        baseDrinkNames.remove(ingredientChoiceButton4.getText());
+        ingredientNames.remove(ingredientChoiceButton4.getText());
         showIngredients(ingredientChoiceButton4, 0);
     }
 
@@ -113,8 +115,8 @@ public class AlcDrinkScreenManager implements Initializable {
      * @param button The button to display the ingredient on.
      */
     private void showIngredients(Button button, int indexModifier){
-        if(!(counter >= baseDrinkNames.size())){
-            button.setText(baseDrinkNames.get(counter));
+        if(!(counter >= ingredientNames.size())){
+            button.setText(ingredientNames.get(counter));
             counter = counter + indexModifier;
 
         }else{
@@ -134,7 +136,7 @@ public class AlcDrinkScreenManager implements Initializable {
         baseDrinkDropdownMenu.setDisable(true);
         String baseDrinkName = baseDrinkDropdownMenu.getValue();
         recipeController.checkForRecipe(baseDrinkName);
-        baseDrinkNames.remove(baseDrinkName);
+        ingredientNames.remove(baseDrinkName);
         showIngredients(ingredientChoiceButton1, 1);
         showIngredients(ingredientChoiceButton2, 1);
         showIngredients(ingredientChoiceButton3, 1);

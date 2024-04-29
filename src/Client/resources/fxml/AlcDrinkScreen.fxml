@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.client.boundary.AlcDrinkScreenManager">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.Client.boundary.AlcDrinkScreenManager">
    <children>
       <ComboBox fx:id="baseDrinkDropdownMenu" layoutX="120.0" layoutY="14.0" onAction="#chooseBaseDrinkFromDropdown" prefHeight="25.0" prefWidth="168.0" promptText="Choose Base Alcohol" AnchorPane.bottomAnchor="361.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="312.0" AnchorPane.topAnchor="14.0" />
       <Button fx:id="instructionsButton" disable="true" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Instructions" AnchorPane.bottomAnchor="361.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="508.0" AnchorPane.topAnchor="14.0" />
