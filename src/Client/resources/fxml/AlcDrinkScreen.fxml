@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.Client.boundary.AlcDrinkScreenManager">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.client.boundary.AlcDrinkScreenManager">
    <children>
       <ComboBox fx:id="baseDrinkDropdownMenu" layoutX="120.0" layoutY="14.0" onAction="#chooseBaseDrinkFromDropdown" prefHeight="25.0" prefWidth="168.0" promptText="Choose Base Alcohol" AnchorPane.bottomAnchor="361.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="312.0" AnchorPane.topAnchor="14.0" />
       <Button fx:id="instructionsButton" disable="true" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Instructions" AnchorPane.bottomAnchor="361.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="508.0" AnchorPane.topAnchor="14.0" />
@@ -16,11 +16,11 @@
       <Button fx:id="ingredientChoiceButton4" disable="true" layoutX="241.0" layoutY="223.0" mnemonicParsing="false" onAction="#clickIngredientChoiceButton" prefHeight="87.0" prefWidth="141.0" />
       <Button fx:id="ingredientChoiceButton3" disable="true" layoutX="41.0" layoutY="223.0" mnemonicParsing="false" onAction="#clickIngredientChoiceButton" prefHeight="87.0" prefWidth="141.0" />
       <Button fx:id="ingredientChoiceButton2" disable="true" layoutX="241.0" layoutY="103.0" mnemonicParsing="false" onAction="#clickIngredientChoiceButton" prefHeight="87.0" prefWidth="141.0" />
-      <ScrollPane layoutX="400.0" layoutY="39.0" prefHeight="361.0" prefWidth="200.0">
+      <ScrollPane layoutX="400.0" layoutY="37.0" prefHeight="361.0" prefWidth="206.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="382.0" prefWidth="199.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="361.0" prefWidth="206.0">
                <children>
-                  <ListView fx:id="recipeList" layoutX="-4.0" layoutY="1.0" prefHeight="375.0" prefWidth="206.0" />
+                  <ListView fx:id="recipeList" layoutX="-2.0" layoutY="-1.0" prefHeight="348.0" prefWidth="193.0" />
                </children>
             </AnchorPane>
         </content>
