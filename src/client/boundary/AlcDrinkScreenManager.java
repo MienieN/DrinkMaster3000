@@ -66,6 +66,7 @@ public class AlcDrinkScreenManager implements Initializable {
         baseDrinkNames = alcoholicIngredients;
         ingredientNames = ingredientsController.getIngredientNames();
         recipeController.setGUI(this);
+        this.chosenRecipe = new ListView<>();
     }
 
     /**
@@ -144,7 +145,7 @@ public class AlcDrinkScreenManager implements Initializable {
         showIngredients(ingredientChoiceButton1, 1);
         showIngredients(ingredientChoiceButton2, 1);
         showIngredients(ingredientChoiceButton3, 1);
-        showIngredients(ingredientChoiceButton4,1);
+        showIngredients(ingredientChoiceButton4, 1);
     }
 
 
