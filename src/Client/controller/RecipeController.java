@@ -1,8 +1,11 @@
 package src.client.controller;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 import src.client.boundary.AlcDrinkScreenManager;
 import src.client.entity.Ingredient;
 
+import java.awt.*;
 import java.sql.*;
 import java.util.*;
 
@@ -12,10 +15,13 @@ import java.util.*;
  */
 public class RecipeController {
     private HashMap<String, HashSet<Ingredient>> recipes = new HashMap<String, HashSet<Ingredient>>();   // HashMap to store recipes and their ingredients
-    private AlcDrinkScreenManager GUIController;                                // GUI controller for displaying recipes
-    private HashSet<Ingredient> chosenIngredients = new HashSet<>();        // List of chosen ingredients
-    private Connection connection;                                              // Database connection
+    private AlcDrinkScreenManager GUIController;                               // GUI controller for displaying recipes
+    private HashSet<Ingredient> chosenIngredients = new HashSet<>();           // List of chosen ingredients
+    private Connection connection;                                             // Database connection
     private IngredientsController ingredientsController;
+
+    @FXML
+    private TextArea showChosenRecipe;
 
     /**
      * Constructs a RecipeController object and initializes the database connection.
@@ -55,14 +61,17 @@ public class RecipeController {
         }
     }
 
-    /**
-     * Checks if a recipe can be made with the given chosen ingredient and notifies the GUI controller.
-     * The method uses a {@link HashSet} due to performance of finding things based on name/key rather than index
-     * The mothod uses an {@link Iterator} to be able to remove the found recipe while avoiding a {@link ConcurrentModificationException}
-     * @param chosenIngredientName The name of the chosen ingredient.
-     */
+    public void getRecipesForRecipeList() {
+       String showRecipeSQL = "Select recipe_name, instructions from recipes";
+        try (PreparedStatement statement = connection.prepareStatement(showRecipeSQL)) {
+            ResultSet chosenRecipe = statement.executeQuery();
+            showChosenRecipe.setText(chosenRecipe.toString());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-    public void checkForRecipe(String chosenIngredientName) {
+        public void checkForRecipe(String chosenIngredientName) {
         ArrayList<String> recipeNames = new ArrayList();
         chosenIngredients.add(ingredientsController.getIngredientFromArrayList(chosenIngredientName));
         Iterator<Map.Entry<String, HashSet<Ingredient>>> iterator = recipes.entrySet().iterator();

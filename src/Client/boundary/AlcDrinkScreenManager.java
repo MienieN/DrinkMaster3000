@@ -35,6 +35,7 @@ public class AlcDrinkScreenManager implements Initializable {
     private IngredientsController ingredientsController;    // The controller for managing ingredients
     private RecipeController recipeController;              // The controller for managing recipes
     private int counter = 0;                                // Counter for iterating through base drink names
+   // private String chosenRecipe;
 
     @FXML
     private ComboBox<String> baseDrinkDropdownMenu;         // Dropdown menu for selecting base drinks
@@ -50,6 +51,8 @@ public class AlcDrinkScreenManager implements Initializable {
     private ListView<String> recipeList;                    // List view for displaying recipes
     @FXML
     private Button noneOfTheAboveButton;                     // Button for selecting none of the above
+    @FXML
+    private ListView chosenRecipe;
 
     /**
      * Constructs a AlcDrinkScreenManager object.
@@ -107,6 +110,7 @@ public class AlcDrinkScreenManager implements Initializable {
         ingredientChoiceButton2.setDisable(false);
         ingredientChoiceButton3.setDisable(false);
         ingredientChoiceButton4.setDisable(false);
+        noneOfTheAboveButton.setDisable(false);
     }
 
     /**
@@ -142,6 +146,7 @@ public class AlcDrinkScreenManager implements Initializable {
         showIngredients(ingredientChoiceButton3, 1);
         showIngredients(ingredientChoiceButton4,1);
     }
+
 
     /**
      * Switches the scene to the start screen.
@@ -183,14 +188,14 @@ public class AlcDrinkScreenManager implements Initializable {
                 popupRecipe();
             }
         });
-
     }
 
     /**
      * Displays a popup with the selected recipe.
      */
     private void popupRecipe() {
-        System.out.println("testtestetteat");
+        chosenRecipe.getSelectionModel().getSelectedItem();
+        recipeController.getRecipesForRecipeList();
     }
 
     /**
@@ -199,7 +204,10 @@ public class AlcDrinkScreenManager implements Initializable {
      * @param recipeNames The names of the recipe to be added to the list.
      */
     public void receiveRecipeName(ArrayList<String> recipeNames) {
-
         recipeList.getItems().addAll(recipeNames);
+    }
+
+    public ListView getChosenRecipe(){
+        return chosenRecipe;
     }
 }
