@@ -1,7 +1,7 @@
-package src.Client.controller;
+package src.client.controller;
 
-import src.Client.boundary.AlcDrinkScreenManager;
-import src.Client.entity.Ingredient;
+import src.client.boundary.AlcDrinkScreenManager;
+import src.client.entity.Ingredient;
 
 import java.sql.*;
 import java.util.*;
@@ -92,7 +92,7 @@ public class RecipeController {
     /**
      * A setter for the {@link IngredientsController}
      *
-     * @param ingredientsController the {@link IngredientsController} created in {@ClientMain}
+     * @param ingredientsController the {@link IngredientsController} created in {@clientMain}
      */
     public void setIngredientsController(IngredientsController ingredientsController) {
         this.ingredientsController = ingredientsController;
