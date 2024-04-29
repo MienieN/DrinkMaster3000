@@ -1,4 +1,4 @@
-package src.Client.boundary;
+package src.client.boundary;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,9 +13,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import src.Client.ClientMain;
-import src.Client.controller.IngredientsController;
-import src.Client.controller.RecipeController;
+import src.client.ClientMain;
+import src.client.controller.IngredientsController;
+import src.client.controller.RecipeController;
 
 import java.io.IOException;
 import java.net.URL;
