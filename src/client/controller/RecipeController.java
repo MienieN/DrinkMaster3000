@@ -2,7 +2,6 @@ package src.client.controller;
 
 import src.client.boundary.AlcDrinkScreenManager;
 import src.client.entity.Ingredient;
-import src.client.entity.Instructions;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
