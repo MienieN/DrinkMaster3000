@@ -60,6 +60,7 @@ public class RecipeController {
     }
 
     public void getRecipeInstructionsForChosenRecipe() {
+        recipeInstructions.clear();
         //  declares an SQL query string that selects the recipe_name and instructions column from the table named recipes
         //  filtering by recipe_name. The ? is a placeholder for a parameter that will be filled in later.
         String showRecipeSQL = "SELECT recipe_name, instructions FROM recipes WHERE recipe_name = ?";
@@ -69,7 +70,7 @@ public class RecipeController {
         try (PreparedStatement statement = connection.prepareStatement(showRecipeSQL)) {
             // This line sets the value of the first parameter (denoted by 1) in the prepared statement.
             // It sets the selected recipe name retrieved from alcDrinkScreenManager.
-            statement.setString(1, alcDrinkScreenManager.getSelectedRecipeName());
+            statement.setString(1, alcDrinkScreenManager.getSelectedRecipeNameForViewingRecipe());
             // This line executes the query defined in the prepared statement and stores the result in a ResultSet
             // object named resultSet.
             ResultSet resultSet = statement.executeQuery();

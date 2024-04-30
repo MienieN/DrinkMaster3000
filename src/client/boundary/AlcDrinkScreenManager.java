@@ -1,7 +1,9 @@
 package src.client.boundary;
 
+import com.sun.javafx.fxml.builder.JavaFXFontBuilder;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import src.client.ClientMain;
 import src.client.controller.IngredientsController;
@@ -19,6 +22,7 @@ import src.client.controller.RecipeController;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ResourceBundle;
@@ -35,7 +39,7 @@ public class AlcDrinkScreenManager implements Initializable {
     private IngredientsController ingredientsController;    // The controller for managing ingredients
     private RecipeController recipeController;              // The controller for managing recipes
     private int counter = 0;                                // Counter for iterating through base drink names
-    private String selectedRecipeName;
+    Popup recipeInstructionsPopUP = new Popup();
 
     @FXML
     private ComboBox<String> baseDrinkDropdownMenu;         // Dropdown menu for selecting base drinks
@@ -204,7 +208,7 @@ public class AlcDrinkScreenManager implements Initializable {
         recipeList.getItems().addAll(recipeNames);
     }
 
-    public String getSelectedRecipeName(){
+    public String getSelectedRecipeNameForViewingRecipe(){
         return recipeList.getSelectionModel().getSelectedItem();
     }
 }
