@@ -19,6 +19,10 @@ public class Ingredient {
         this.alcoholic = alcoholic;
     }
 
+    public Ingredient(String name){
+        this.name = name;
+    }
+
     /**
      * Gets the name of the ingredient.
      *
