@@ -13,11 +13,11 @@ import java.util.*;
  * The RecipeController class manages the recipes and their interactions with the GUI.
  */
 public class RecipeController {
-    private HashMap<String, HashSet<Ingredient>> recipes = new HashMap<String, HashSet<Ingredient>>();              // HashMap to store recipes and their ingredients
-    private HashMap<String, String> recipeInstructions = new HashMap<>();  // HashMap to store recipes and their instructions
-    private AlcDrinkScreenManager GUIController;                                          // GUI controller for displaying recipes
-    private HashSet<Ingredient> chosenIngredients = new HashSet<>();                      // List of chosen ingredients
-    private Connection connection;                                                        // Database connection
+    private HashMap<String, HashSet<Ingredient>> recipes = new HashMap<>(); // HashMap to store recipes and their ingredients
+    private HashMap<String, String> recipeInstructions = new HashMap<>();   // HashMap to store recipes and their instructions
+    private AlcDrinkScreenManager alcDrinkScreenManager;                    // GUI controller for displaying recipes
+    private HashSet<Ingredient> chosenIngredients = new HashSet<>();        // List of chosen ingredients
+    private Connection connection;                                          // Database connection
     private IngredientsController ingredientsController;
 
 
@@ -60,15 +60,24 @@ public class RecipeController {
     }
 
     public void getRecipeInstructionsForChosenRecipe() {
-        //  declares an SQL query string that selects the recipe_name and instructions column from the table named recipes.
+        //  declares an SQL query string that selects the recipe_name and instructions column from the table named recipes
+        //  filtering by recipe_name. The ? is a placeholder for a parameter that will be filled in later.
         String showRecipeSQL = "SELECT recipe_name, instructions FROM recipes WHERE recipe_name = ?";
 
-        // a PreparedStatement is prepared using the SQL query showRecipeSQL. The connection object is a database connection.
+        // This line begins a try-with-resources block. It prepares a PreparedStatement object using the SQL query
+        // string showRecipeSQL. The connection object is assumed to be a database connection.
         try (PreparedStatement statement = connection.prepareStatement(showRecipeSQL)) {
-            statement.setString(1, GUIController.getSelectedRecipeName());
+            // This line sets the value of the first parameter (denoted by 1) in the prepared statement.
+            // It sets the selected recipe name retrieved from alcDrinkScreenManager.
+            statement.setString(1, alcDrinkScreenManager.getSelectedRecipeName());
+            // This line executes the query defined in the prepared statement and stores the result in a ResultSet
+            // object named resultSet.
             ResultSet resultSet = statement.executeQuery();
 
+            // This line moves the cursor of the resultSet to the next row and checks if there is a row present.
             if(resultSet.next()) {
+                // These lines retrieve the value of the recipe_name and instructions column from the current row of
+                // the resultSet and stores it in a variable named recipeName.
                 String recipeName = resultSet.getString("recipe_name");
                 String instructions = resultSet.getString("instructions");
 
@@ -90,7 +99,7 @@ public class RecipeController {
             if (chosenIngredients.containsAll(entry.getValue())) {
                 recipeNames.add(entry.getKey());
                 System.out.println(recipeNames);
-                GUIController.receiveRecipeName(recipeNames);
+                alcDrinkScreenManager.receiveRecipeName(recipeNames);
                 iterator.remove();
             }
         }
@@ -105,7 +114,7 @@ public class RecipeController {
      * @param GUIController The GUI controller for displaying recipes.
      */
     public void setGUI(AlcDrinkScreenManager GUIController) {
-        this.GUIController = GUIController;
+        this.alcDrinkScreenManager = GUIController;
     }
 
     /**

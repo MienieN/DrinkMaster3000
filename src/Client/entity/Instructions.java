@@ -1,3 +1,4 @@
+/*
 package src.client.entity;
 
 import java.util.Objects;
@@ -35,3 +36,4 @@ public class Instructions {
         return instruction;
     }
 }
+*/
