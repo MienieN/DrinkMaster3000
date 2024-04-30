@@ -15,7 +15,7 @@ import java.util.*;
  */
 public class RecipeController {
     private HashMap<String, HashSet<Ingredient>> recipes = new HashMap<String, HashSet<Ingredient>>();              // HashMap to store recipes and their ingredients
-    private HashMap<String, HashSet<Instructions>> recipeInstructions = new HashMap<>();  // HashMap to store recipes and their instructions
+    private HashMap<String, String> recipeInstructions = new HashMap<>();  // HashMap to store recipes and their instructions
     private AlcDrinkScreenManager GUIController;                                          // GUI controller for displaying recipes
     private HashSet<Ingredient> chosenIngredients = new HashSet<>();                      // List of chosen ingredients
     private Connection connection;                                                        // Database connection
@@ -61,49 +61,22 @@ public class RecipeController {
     }
 
     public void getRecipeInstructionsForChosenRecipe() {
-        //  declares an SQL query string that selects the recipe_name column from the table named recipes.
-        String showRecipeSQL = "Select recipe_name from recipes";
-        // This line declares another SQL query string. This query selects instructions.
-        String showInstructionsSQL = "select instructions from recipes WHERE recipe_name = ?;";
+        //  declares an SQL query string that selects the recipe_name and instructions column from the table named recipes.
+        String showRecipeSQL = "SELECT recipe_name, instructions FROM recipes WHERE recipe_name = ?";
 
         // a PreparedStatement is prepared using the SQL query showRecipeSQL. The connection object is a database connection.
         try (PreparedStatement statement = connection.prepareStatement(showRecipeSQL)) {
-            // This line executes the query stored in statement and stores the result in a ResultSet named recipeNames.
-            ResultSet recipeNames = statement.executeQuery();
-            // This line prepares another PreparedStatement using the second SQL query showInstructionsSQL.
-            PreparedStatement statement2 = connection.prepareStatement(showInstructionsSQL);
+            statement.setString(1, GUIController.getSelectedRecipeName());
+            ResultSet resultSet = statement.executeQuery();
 
-            // This line starts a while loop iterating over each row in the chosenRecipe ResultSet.
-            while (recipeNames.next()) {
+            if(resultSet.next()) {
+                String recipeName = resultSet.getString("recipe_name");
+                String instructions = resultSet.getString("instructions");
 
-                // This line starts a loop iterating over each column in the current row of the recipeNames ResultSet.
-                for (int i = 1; i <= recipeNames.getMetaData().getColumnCount(); i++) {
-                    // This line declares a HashSet named instructionsHashSet, which is intended to hold Instruction objects.
-                    HashSet<Instructions> instructionsHashSet = new HashSet<>();
-
-                    // This line retrieves the value of the 'i'th column in the current row of recipeNames
-                    // and stores it in a variable named recipeName.
-                    String recipeName = recipeNames.getString(i);
-
-                    // This line sets the value of the first parameter in the prepared statement statement2 to the value of recipeName.
-                    statement2.setString(1, recipeName);
-                    // This line executes the query stored in statement2 and stores the result in a ResultSet named resultSet2.
-                    ResultSet resultSet2 = statement2.executeQuery();
-
-                    // This line executes the query stored in statement2 and stores the result in a ResultSet named resultSet2.
-                    while (resultSet2.next()) {
-                        // This line starts a loop iterating over each column in the current row of resultSet2.
-                        for (int j = 1; j <= resultSet2.getMetaData().getColumnCount(); j++) {
-                            // This line creates a new Instructions object using the values of the jth and j+1th columns in
-                            // the current row of resultSet2, and adds it to instructionsHashSet.
-                            instructionsHashSet.add(new Instructions(resultSet2.getString(j++)));
-                        }
-                    }
-                    // This line adds the recipeName and corresponding instructionsHashSet to a map named recipeInstructions.
-                    recipeInstructions.put(recipeName, instructionsHashSet);
-                    System.out.println(recipeInstructions);
-                }
+                // This line adds the recipeName and corresponding instructionsHashSet to a map named recipeInstructions.
+                recipeInstructions.put(recipeName, instructions);
             }
+            System.out.println(recipeInstructions);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
