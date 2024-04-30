@@ -39,7 +39,6 @@ public class AlcDrinkScreenManager implements Initializable {
     private IngredientsController ingredientsController;    // The controller for managing ingredients
     private RecipeController recipeController;              // The controller for managing recipes
     private int counter = 0;                                // Counter for iterating through base drink names
-    Popup recipeInstructionsPopUP = new Popup();
 
     @FXML
     private ComboBox<String> baseDrinkDropdownMenu;         // Dropdown menu for selecting base drinks
