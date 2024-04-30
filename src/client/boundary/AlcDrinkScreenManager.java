@@ -50,9 +50,7 @@ public class AlcDrinkScreenManager implements Initializable {
     @FXML
     private ListView<String> recipeList;                    // List view for displaying recipes
     @FXML
-    private Button noneOfTheAboveButton;                     // Button for selecting none of the above
-    @FXML
-    private ListView chosenRecipe;
+    private Button noneOfTheAboveButton;                    // Button for selecting none of the above
 
     /**
      * Constructs a AlcDrinkScreenManager object.
@@ -195,7 +193,7 @@ public class AlcDrinkScreenManager implements Initializable {
      * Displays a popup with the selected recipe.
      */
     private void popupRecipe() {
-        chosenRecipe.getSelectionModel().getSelectedItem();
+        recipeList.getSelectionModel().getSelectedItem();
         recipeController.getRecipesForRecipeList();
     }
 
@@ -208,7 +206,7 @@ public class AlcDrinkScreenManager implements Initializable {
         recipeList.getItems().addAll(recipeNames);
     }
 
-    public ListView getChosenRecipe(){
-        return chosenRecipe;
+    public String getChosenRecipe(){
+        return recipeList.getSelectionModel().getSelectedItem();
     }
 }
