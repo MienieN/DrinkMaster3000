@@ -6,9 +6,11 @@ import src.client.entity.Ingredient;
 import src.client.entity.Instructions;
 
 import java.awt.*;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
-
 
 /**
  * The RecipeController class manages the recipes and their interactions with the GUI.
@@ -29,6 +31,7 @@ public class RecipeController {
      */
     public RecipeController(Connection connection) {
         this.connection = connection;
+        this.showChosenRecipe = new TextArea();
         getRecipesFromDatabase();
     }
 
