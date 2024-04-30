@@ -30,12 +30,11 @@ public class AlcDrinkScreenManager implements Initializable {
     private Stage stage;                                    // The stage for the scene
     private Scene scene;                                    // The scene of the GUI
     private Parent root;                                    // The root node of the scene
-    private ArrayList<String> ingredientNames;              //The list of all ingrediets
+    private ArrayList<String> ingredientNames;              //The list of all ingredients
     private ArrayList<String> baseDrinkNames;               // The list of base drink names //TODO needs to be just base drinks, need another array for ingredients
     private IngredientsController ingredientsController;    // The controller for managing ingredients
     private RecipeController recipeController;              // The controller for managing recipes
     private int counter = 0;                                // Counter for iterating through base drink names
-   // private String chosenRecipe;
 
     @FXML
     private ComboBox<String> baseDrinkDropdownMenu;         // Dropdown menu for selecting base drinks
@@ -64,7 +63,6 @@ public class AlcDrinkScreenManager implements Initializable {
         baseDrinkNames = alcoholicIngredients;
         ingredientNames = ingredientsController.getIngredientNames();
         recipeController.setGUI(this);
-        this.chosenRecipe = new ListView<>();
     }
 
     /**
@@ -194,7 +192,7 @@ public class AlcDrinkScreenManager implements Initializable {
      */
     private void popupRecipe() {
         recipeList.getSelectionModel().getSelectedItem();
-        recipeController.getRecipesForRecipeList();
+        recipeController.getRecipeInstructionsForChosenRecipe();
     }
 
     /**
@@ -204,9 +202,5 @@ public class AlcDrinkScreenManager implements Initializable {
      */
     public void receiveRecipeName(ArrayList<String> recipeNames) {
         recipeList.getItems().addAll(recipeNames);
-    }
-
-    public String getChosenRecipe(){
-        return recipeList.getSelectionModel().getSelectedItem();
     }
 }

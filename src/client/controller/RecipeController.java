@@ -1,11 +1,9 @@
 package src.client.controller;
 
-import javafx.fxml.FXML;
 import src.client.boundary.AlcDrinkScreenManager;
 import src.client.entity.Ingredient;
 import src.client.entity.Instructions;
 
-import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,15 +21,12 @@ public class RecipeController {
     private Connection connection;                                                        // Database connection
     private IngredientsController ingredientsController;
 
-    @FXML
-    private TextArea showChosenRecipe; // might not need this
 
     /**
      * Constructs a RecipeController object and initializes the database connection.
      */
     public RecipeController(Connection connection) {
         this.connection = connection;
-        this.showChosenRecipe = new TextArea();
         getRecipesFromDatabase();
     }
 
@@ -65,7 +60,7 @@ public class RecipeController {
         }
     }
 
-    public void getRecipesForRecipeList() {
+    public void getRecipeInstructionsForChosenRecipe() {
         //  declares an SQL query string that selects the recipe_name column from the table named recipes.
         String showRecipeSQL = "Select recipe_name from recipes";
         // This line declares another SQL query string. This query selects instructions.
