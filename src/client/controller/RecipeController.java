@@ -1,5 +1,6 @@
 package src.client.controller;
 
+import javafx.scene.control.Alert;
 import src.client.boundary.AlcDrinkScreenManager;
 import src.client.entity.Ingredient;
 
@@ -59,6 +60,9 @@ public class RecipeController {
         }
     }
 
+    /**
+     * Retrieves the recipe instructions for the chosen recipe and displays them in an alert.
+     */
     public void getRecipeInstructionsForChosenRecipe() {
         recipeInstructions.clear();
         //  declares an SQL query string that selects the recipe_name and instructions column from the table named recipes
@@ -84,13 +88,25 @@ public class RecipeController {
 
                 // This line adds the recipeName and corresponding instructionsHashSet to a map named recipeInstructions.
                 recipeInstructions.put(recipeName, instructions);
+
+                //Pop up box
+                Alert alert = new Alert(Alert.AlertType.INFORMATION); //creates an alert object
+                alert.setTitle("Recipe"); //sets the title of the alert
+                alert.setHeaderText(null); //sets the header text of the alert
+                alert.setContentText("Recipe name: " + recipeName + "\nInstructions: " + instructions); //sets the content text of the alert
+                alert.showAndWait(); //displays the alert and waits for the user to close it
             }
-            System.out.println(recipeInstructions);
+            //System.out.println(recipeInstructions);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * Checks if the chosen ingredients match any recipes in the database.
+     * If a match is found, the recipe name is sent to the GUI controller.
+     * @param chosenIngredientName The name of the chosen ingredient.
+     */
     public void checkForRecipe(String chosenIngredientName) {
         ArrayList<String> recipeNames = new ArrayList();
         chosenIngredients.add(ingredientsController.getIngredientFromArrayList(chosenIngredientName));
@@ -127,4 +143,3 @@ public class RecipeController {
         this.ingredientsController = ingredientsController;
     }
 }
-
