@@ -137,11 +137,13 @@ public class AlcDrinkScreenManager implements Initializable {
         baseDrinkDropdownMenu.setDisable(true);
         String baseDrinkName = baseDrinkDropdownMenu.getValue();
         recipeController.checkForRecipe(baseDrinkName);
+        // TODO where are we storing the chosen base drink before removing it?
         ingredientNames.remove(baseDrinkName);
         showIngredients(ingredientChoiceButton1, 1);
         showIngredients(ingredientChoiceButton2, 1);
         showIngredients(ingredientChoiceButton3, 1);
         showIngredients(ingredientChoiceButton4, 1);
+        System.out.println(baseDrinkName);
     }
 
 
@@ -157,6 +159,7 @@ public class AlcDrinkScreenManager implements Initializable {
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+            recipeController.resetChosenIngredients();
 
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -122,9 +122,6 @@ public class RecipeController {
         }
     }
 
-    //TODO: add a separate method like the checkForRecipe() for non-alcoholic drinks,
-    // potentially another for the speciality drinks. Mimmis note: why would we do this?
-
     /**
      * Sets the GUI controller for displaying recipes.
      *
@@ -134,6 +131,10 @@ public class RecipeController {
         this.alcDrinkScreenManager = GUIController;
     }
 
+    // TODO reset all lists and stuff so that we start again, this is not completed
+    public void resetChosenIngredients(){
+        chosenIngredients.clear();
+    }
     /**
      * A setter for the {@link IngredientsController}
      *

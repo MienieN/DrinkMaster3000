@@ -17,12 +17,9 @@ public class IngredientsController {
      */
     public IngredientsController(Connection connection) {
         this.connection = connection;
-        // Establish database connection
-        //TODO do this in ClientMain and send it along
         // Retrieve all ingredients from the database
         getAllIngredientsFromDatabase();
     }
-
 
 
     /**
@@ -48,7 +45,7 @@ public class IngredientsController {
                 }
             }
             resultSet.close();
-v           //statement.close();
+            statement.close();
 
         } catch (SQLException e) {
             System.out.println("Error in getting ingredients from database");
