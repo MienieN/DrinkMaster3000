@@ -206,13 +206,4 @@ public class AlcDrinkScreenManager implements Initializable {
     public String getSelectedRecipeNameForViewingRecipe(){
         return recipeList.getSelectionModel().getSelectedItem();
     }
-
-    /**
-     * Handles the click event on the "Show Recipe" button.
-     * @param event The ActionEvent object representing the click event.
-     */
-    @FXML
-    public void showRecipeButtonClicked(ActionEvent event) {
-        recipeController.getRecipeInstructionsForChosenRecipe();
-    }
 }
