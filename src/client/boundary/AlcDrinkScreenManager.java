@@ -34,7 +34,6 @@ public class AlcDrinkScreenManager implements Initializable {
     private ArrayList<String> baseDrinkNames;               // The list of base drink names //TODO needs to be just base drinks, need another array for ingredients
     private IngredientsController ingredientsController;    // The controller for managing ingredients
     private RecipeController recipeController;              // The controller for managing recipes
-    private int counter = 0;                                // Counter for iterating through base drink names
 
     @FXML
     private ComboBox<String> baseDrinkDropdownMenu;         // Dropdown menu for selecting base drinks
@@ -75,7 +74,7 @@ public class AlcDrinkScreenManager implements Initializable {
     private void clickIngredientChoiceButton(ActionEvent event){
         Button button = (Button) event.getSource();
         String ingredientName = button.getText();
-        ingredientNames.remove(ingredientName);
+        //ingredientNames.remove(ingredientName);
         recipeController.checkForRecipe(ingredientName);
         showIngredients(button, 0);
     }
@@ -116,9 +115,10 @@ public class AlcDrinkScreenManager implements Initializable {
      * @param button The button to display the ingredient on.
      */
     private void showIngredients(Button button, int indexModifier){
-        if(!(counter >= ingredientNames.size())){
-            button.setText(ingredientNames.get(counter));
-            counter = counter + indexModifier;
+        if(!(ingredientNames.isEmpty())){
+            String temp = ingredientNames.getFirst();
+            button.setText(temp);
+            ingredientNames.remove(temp);
 
         }else{
             button.setText("End");
@@ -142,8 +142,8 @@ public class AlcDrinkScreenManager implements Initializable {
         showIngredients(ingredientChoiceButton1, 1);
         showIngredients(ingredientChoiceButton2, 1);
         showIngredients(ingredientChoiceButton3, 1);
-        showIngredients(ingredientChoiceButton4, 1);
-        System.out.println(baseDrinkName);
+        showIngredients(ingredientChoiceButton4, 0);
+        //System.out.println(baseDrinkName);
     }
 
 

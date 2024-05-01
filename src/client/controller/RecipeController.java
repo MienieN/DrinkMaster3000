@@ -111,6 +111,8 @@ public class RecipeController {
         ArrayList<String> recipeNames = new ArrayList();
         chosenIngredients.add(ingredientsController.getIngredientFromArrayList(chosenIngredientName));
         Iterator<Map.Entry<String, HashSet<Ingredient>>> iterator = recipes.entrySet().iterator();
+        System.out.println(chosenIngredientName);
+        System.out.println(chosenIngredients);
         while (iterator.hasNext()) {
             Map.Entry<String, HashSet<Ingredient>> entry = iterator.next();
             if (chosenIngredients.containsAll(entry.getValue())) {
