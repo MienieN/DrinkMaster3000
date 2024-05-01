@@ -48,8 +48,7 @@ public class IngredientsController {
                 }
             }
             resultSet.close();
-
-            statement.close();
+v           //statement.close();
 
         } catch (SQLException e) {
             System.out.println("Error in getting ingredients from database");
