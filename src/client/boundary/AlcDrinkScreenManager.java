@@ -137,7 +137,6 @@ public class AlcDrinkScreenManager implements Initializable {
         baseDrinkDropdownMenu.setDisable(true);
         String baseDrinkName = baseDrinkDropdownMenu.getValue();
         recipeController.checkForRecipe(baseDrinkName);
-        // TODO where are we storing the chosen base drink before removing it?
         ingredientNames.remove(baseDrinkName);
         showIngredients(ingredientChoiceButton1, 1);
         showIngredients(ingredientChoiceButton2, 1);
