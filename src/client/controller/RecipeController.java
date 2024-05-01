@@ -14,7 +14,7 @@ import java.util.*;
  * The RecipeController class manages the recipes and their interactions with the GUI.
  */
 public class RecipeController {
-    private HashMap<String, HashSet<Ingredient>> recipes = new HashMap<>(); // HashMap to store recipes and their ingredients
+    private HashMap<String, HashSet<Ingredient>> recipes; // HashMap to store recipes and their ingredients
     private HashMap<String, String> recipeInstructions = new HashMap<>();   // HashMap to store recipes and their instructions
     private AlcDrinkScreenManager alcDrinkScreenManager;                    // GUI controller for displaying recipes
     private HashSet<Ingredient> chosenIngredients = new HashSet<>();        // List of chosen ingredients
@@ -34,6 +34,7 @@ public class RecipeController {
      * Retrieves recipes from the database and populates the recipes HashMap with recipe names and their corresponding ingredients.
      */
     private void getRecipesFromDatabase() {
+        recipes = new HashMap<>();
         String sql = "Select recipe_name from recipes";
         String sql2 = "select recipes_ingredients.ingredient_name, ingredients.alcoholic from recipes_ingredients " +
                 "join ingredients ON recipes_ingredients.ingredient_name = ingredients.ingredient_name " +
@@ -93,7 +94,7 @@ public class RecipeController {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION); //creates an alert object
                 alert.setTitle("Recipe"); //sets the title of the alert
                 alert.setHeaderText(null); //sets the header text of the alert
-                alert.setContentText("Recipe name: " + recipeName + "\nInstructions: " + instructions); //sets the content text of the alert
+                alert.setContentText("Recipe name: " + recipeName + "\nInstructions:\n" + instructions); //sets the content text of the alert
                 alert.showAndWait(); //displays the alert and waits for the user to close it
             }
             //System.out.println(recipeInstructions);
@@ -108,17 +109,12 @@ public class RecipeController {
      * @param chosenIngredientName The name of the chosen ingredient.
      */
     public void checkForRecipe(String chosenIngredientName) {
-        ArrayList<String> recipeNames = new ArrayList();
         chosenIngredients.add(ingredientsController.getIngredientFromArrayList(chosenIngredientName));
         Iterator<Map.Entry<String, HashSet<Ingredient>>> iterator = recipes.entrySet().iterator();
-        System.out.println(chosenIngredientName);
-        System.out.println(chosenIngredients);
         while (iterator.hasNext()) {
             Map.Entry<String, HashSet<Ingredient>> entry = iterator.next();
             if (chosenIngredients.containsAll(entry.getValue())) {
-                recipeNames.add(entry.getKey());
-                System.out.println(recipeNames);
-                alcDrinkScreenManager.receiveRecipeName(recipeNames);
+                alcDrinkScreenManager.receiveRecipeName(entry.getKey());
                 iterator.remove();
             }
         }
@@ -135,6 +131,7 @@ public class RecipeController {
 
     // TODO reset all lists and stuff so that we start again, this is not completed
     public void resetChosenIngredients(){
+        getRecipesFromDatabase();
         chosenIngredients.clear();
     }
     /**

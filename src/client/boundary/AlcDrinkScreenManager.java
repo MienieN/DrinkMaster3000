@@ -199,11 +199,13 @@ public class AlcDrinkScreenManager implements Initializable {
     /**
      * Receives the names of all viable recipes and displays them to the user.
      *
-     * @param recipeNames The names of the recipe to be added to the list.
+     * @param recipeName The names of the recipe to be added to the list.
      */
-    public void receiveRecipeName(ArrayList<String> recipeNames) {
-        recipeList.getItems().addAll(recipeNames);
+    public void receiveRecipeName(String recipeName) {
+        recipeList.getItems().addAll(recipeName);
     }
+
+
 
     public String getSelectedRecipeNameForViewingRecipe(){
         return recipeList.getSelectionModel().getSelectedItem();
