@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import src.client.controller.IngredientsController;
 import src.client.controller.RecipeController;
 
+import java.awt.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;

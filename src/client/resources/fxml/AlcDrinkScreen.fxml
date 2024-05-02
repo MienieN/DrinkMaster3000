@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -16,15 +15,11 @@
       <Button fx:id="ingredientChoiceButton4" disable="true" layoutX="241.0" layoutY="223.0" mnemonicParsing="false" onAction="#clickIngredientChoiceButton" prefHeight="87.0" prefWidth="141.0" />
       <Button fx:id="ingredientChoiceButton3" disable="true" layoutX="41.0" layoutY="223.0" mnemonicParsing="false" onAction="#clickIngredientChoiceButton" prefHeight="87.0" prefWidth="141.0" />
       <Button fx:id="ingredientChoiceButton2" disable="true" layoutX="241.0" layoutY="103.0" mnemonicParsing="false" onAction="#clickIngredientChoiceButton" prefHeight="87.0" prefWidth="141.0" />
-      <ScrollPane layoutX="400.0" layoutY="37.0" prefHeight="361.0" prefWidth="206.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="361.0" prefWidth="206.0">
-               <children>
-                  <ListView fx:id="recipeList" layoutX="-2.0" layoutY="-1.0" prefHeight="348.0" prefWidth="193.0" />
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
+    <AnchorPane layoutX="400.0" layoutY="38.0" minHeight="0.0" minWidth="0.0" prefHeight="360.0" prefWidth="195.0">
+         <children>
+            <ListView fx:id="recipeList" layoutX="-2.0" layoutY="-1.0" prefHeight="360.0" prefWidth="195.0" />
+         </children>
+      </AnchorPane>
       <Button fx:id="backToStartScreenButton" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#switchToStartScreen" prefHeight="25.0" prefWidth="84.0" text="Start Screen" />
       <Label fx:id="recipeListTitle" layoutX="400.0" layoutY="18.0" prefHeight="17.0" prefWidth="182.0" text="Recipes To Choose From:">
          <font>

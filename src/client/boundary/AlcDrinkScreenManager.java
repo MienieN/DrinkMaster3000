@@ -17,6 +17,7 @@ import src.client.ClientMain;
 import src.client.controller.IngredientsController;
 import src.client.controller.RecipeController;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
