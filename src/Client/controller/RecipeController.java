@@ -1,7 +1,7 @@
-package src.client.controller;
+package src.Client.controller;
 
-import src.client.boundary.AlcDrinkScreenManager;
-import src.client.entity.Ingredient;
+import src.Client.boundary.AlcDrinkScreenManager;
+import src.Client.entity.Ingredient;
 
 import java.sql.*;
 import java.util.*;

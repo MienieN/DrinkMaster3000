@@ -1,12 +1,12 @@
-package src.client;
+package src.Client;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import src.client.controller.IngredientsController;
-import src.client.controller.RecipeController;
+import src.Client.controller.IngredientsController;
+import src.Client.controller.RecipeController;
 
 import java.io.IOException;
 import java.sql.Connection;

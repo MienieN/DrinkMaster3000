@@ -1,4 +1,4 @@
-package src.client.boundary;
+package src.Client.boundary;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,9 +13,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import src.client.ClientMain;
-import src.client.controller.IngredientsController;
-import src.client.controller.RecipeController;
+import src.Client.ClientMain;
+import src.Client.controller.IngredientsController;
+import src.Client.controller.RecipeController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -35,6 +35,7 @@ public class AlcDrinkScreenManager implements Initializable {
     private IngredientsController ingredientsController;    // The controller for managing ingredients
     private RecipeController recipeController;              // The controller for managing recipes
     private int counter = 0;                                // Counter for iterating through base drink names
+    private InstructionScreenManager instructionscreen;
 
     @FXML
     private ComboBox<String> baseDrinkDropdownMenu;         // Dropdown menu for selecting base drinks
@@ -50,6 +51,7 @@ public class AlcDrinkScreenManager implements Initializable {
     private ListView<String> recipeList;                    // List view for displaying recipes
     @FXML
     private Button noneOfTheAboveButton;                     // Button for selecting none of the above
+    @FXML Button instructionsButton;
 
     /**
      * Constructs a AlcDrinkScreenManager object.
@@ -201,5 +203,11 @@ public class AlcDrinkScreenManager implements Initializable {
     public void receiveRecipeName(ArrayList<String> recipeNames) {
 
         recipeList.getItems().addAll(recipeNames);
+    }
+
+    @FXML
+    private void startInstructions(javafx.event.ActionEvent openHelpScreen){
+        instructionscreen = new InstructionScreenManager();
+        instructionscreen.openHelpWindow();
     }
 }

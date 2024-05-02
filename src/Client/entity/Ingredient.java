@@ -1,4 +1,4 @@
-package src.client.entity;
+package src.Client.entity;
 
 import java.util.Objects;
 
