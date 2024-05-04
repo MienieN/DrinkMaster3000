@@ -1,5 +1,6 @@
 package src.client.controller;
 
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import src.client.boundary.AlcDrinkScreenManager;
 import src.client.entity.Ingredient;
@@ -121,11 +122,10 @@ public class RecipeController {
     }
     /*
             //Entry >> is recipe
-            //Basedrink should be
+            //Basedrink should be taken into account
 
             //Some loop for recipeIngredient of recipeIngredients
             int matches = 0;
-
             for (Ingredient recipeIngredient : entry.getValue()) {
                 //TODO: Add "&& (BASEDRINKMATCH)"
                 //Something like && entry.getValue().contains(getIngredient("Baileys"))

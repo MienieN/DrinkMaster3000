@@ -1,0 +1,62 @@
+.DarkBrown{
+    -fx-background-color: #774936;
+}
+
+.MediumBrown{
+    -fx-background-color: #9D6B53;
+}
+
+.MediumLightBrown{
+    -fx-background-color: #C38E70;
+}
+
+.LightBrown{
+    -fx-background-color: #DEAB90;
+}
+
+.DarkOrange{
+    -fx-background-color: #CC5803;
+}
+
+.MediumOrange{
+    -fx-background-color: #E2711D;
+}
+
+.MediumLightOrange{
+    -fx-background-color: #FF9505;
+}
+
+.LightOrange{
+    -fx-background-color: #FFB627;
+}
+
+.SuperLightOrange{
+    -fx-background-color: #FFC971;
+}
+
+.BorderDark{
+    -fx-border-color: #774936;
+    -fx-border-width: 2px;
+    -fx-border-style: dashed;
+}
+
+.BorderWhite{
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-border-style: dashed;
+}
+
+.BorderMedium{
+    -fx-border-color: #9D6B53;
+    -fx-border-width: 2px;
+    -fx-border-style: dashed;
+}
+
+.shadow{
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);
+}
+
+.WhiteText{
+    -fx-text-fill: white;
+}
+

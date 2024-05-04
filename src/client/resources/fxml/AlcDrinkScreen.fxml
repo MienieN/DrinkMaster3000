@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -7,29 +8,80 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.client.boundary.AlcDrinkScreenManager">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="DarkBrown" stylesheets="@../css/Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.client.boundary.AlcDrinkScreenManager">
    <children>
-      <ComboBox fx:id="baseDrinkDropdownMenu" layoutX="119.0" layoutY="16.0" onAction="#chooseBaseDrinkFromDropdown" prefHeight="25.0" prefWidth="168.0" promptText="Choose Base Alcohol" AnchorPane.bottomAnchor="359.0" AnchorPane.leftAnchor="119.0" AnchorPane.rightAnchor="313.0" AnchorPane.topAnchor="16.0" />
-      <Button fx:id="HelpButton" disable="true" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Help" AnchorPane.bottomAnchor="361.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="508.0" AnchorPane.topAnchor="14.0" />
-      <Button fx:id="ingredientChoiceButton1" disable="true" layoutX="41.0" layoutY="103.0" mnemonicParsing="false" onAction="#clickIngredientChoiceButton" prefHeight="87.0" prefWidth="141.0" />
-      <Button fx:id="ingredientChoiceButton4" disable="true" layoutX="241.0" layoutY="223.0" mnemonicParsing="false" onAction="#clickIngredientChoiceButton" prefHeight="87.0" prefWidth="141.0" />
-      <Button fx:id="ingredientChoiceButton3" disable="true" layoutX="41.0" layoutY="223.0" mnemonicParsing="false" onAction="#clickIngredientChoiceButton" prefHeight="87.0" prefWidth="141.0" />
-      <Button fx:id="ingredientChoiceButton2" disable="true" layoutX="241.0" layoutY="103.0" mnemonicParsing="false" onAction="#clickIngredientChoiceButton" prefHeight="87.0" prefWidth="141.0" />
+      <ComboBox fx:id="baseDrinkDropdownMenu" layoutX="119.0" layoutY="16.0" onAction="#chooseBaseDrinkFromDropdown" prefHeight="25.0" prefWidth="168.0" promptText="Choose Base Alcohol" stylesheets="@../css/Styles.css" AnchorPane.bottomAnchor="359.0" AnchorPane.leftAnchor="119.0" AnchorPane.rightAnchor="313.0" AnchorPane.topAnchor="16.0">
+         <styleClass>
+            <String fx:value="BorderMedium" />
+            <String fx:value="DarkBrown" />
+            <String fx:value="WhiteText" />
+         </styleClass></ComboBox>
+      <Button fx:id="HelpButton" disable="true" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" stylesheets="@../css/Styles.css" text="Help" AnchorPane.bottomAnchor="361.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="508.0" AnchorPane.topAnchor="14.0">
+         <styleClass>
+            <String fx:value="shadow" />
+            <String fx:value="DarkBrown" />
+            <String fx:value="WhiteText" />
+            <String fx:value="BorderMedium" />
+         </styleClass></Button>
+      <Button fx:id="ingredientChoiceButton1" disable="true" layoutX="41.0" layoutY="103.0" mnemonicParsing="false" onAction="#clickIngredientChoiceButton" prefHeight="87.0" prefWidth="141.0" stylesheets="@../css/Styles.css">
+         <styleClass>
+            <String fx:value="DarkBrown" />
+            <String fx:value="BorderMedium" />
+            <String fx:value="WhiteText" />
+            <String fx:value="shadow" />
+         </styleClass></Button>
+      <Button fx:id="ingredientChoiceButton4" disable="true" layoutX="241.0" layoutY="223.0" mnemonicParsing="false" onAction="#clickIngredientChoiceButton" prefHeight="87.0" prefWidth="141.0" stylesheets="@../css/Styles.css">
+         <styleClass>
+            <String fx:value="DarkBrown" />
+            <String fx:value="BorderMedium" />
+            <String fx:value="shadow" />
+            <String fx:value="WhiteText" />
+         </styleClass></Button>
+      <Button fx:id="ingredientChoiceButton3" disable="true" layoutX="41.0" layoutY="223.0" mnemonicParsing="false" onAction="#clickIngredientChoiceButton" prefHeight="87.0" prefWidth="141.0" stylesheets="@../css/Styles.css">
+         <styleClass>
+            <String fx:value="DarkBrown" />
+            <String fx:value="BorderMedium" />
+            <String fx:value="shadow" />
+            <String fx:value="WhiteText" />
+         </styleClass></Button>
+      <Button fx:id="ingredientChoiceButton2" disable="true" layoutX="241.0" layoutY="103.0" mnemonicParsing="false" onAction="#clickIngredientChoiceButton" prefHeight="87.0" prefWidth="141.0" stylesheets="@../css/Styles.css">
+         <styleClass>
+            <String fx:value="DarkBrown" />
+            <String fx:value="BorderMedium" />
+            <String fx:value="shadow" />
+            <String fx:value="WhiteText" />
+         </styleClass></Button>
     <AnchorPane layoutX="400.0" layoutY="38.0" minHeight="0.0" minWidth="0.0" prefHeight="360.0" prefWidth="195.0">
          <children>
-            <ListView fx:id="recipeList" layoutX="-2.0" layoutY="-1.0" prefHeight="360.0" prefWidth="195.0" />
+            <ListView fx:id="recipeList" layoutX="-2.0" layoutY="-1.0" prefHeight="360.0" prefWidth="195.0" styleClass="MediumBrown" stylesheets="@../css/Styles.css" />
          </children>
       </AnchorPane>
-      <Button fx:id="backToStartScreenButton" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#switchToStartScreen" prefHeight="25.0" prefWidth="84.0" text="Start Screen" />
-      <Label fx:id="recipeListTitle" layoutX="400.0" layoutY="18.0" prefHeight="17.0" prefWidth="182.0" text="Recipes To Choose From:">
+      <Button fx:id="backToStartScreenButton" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#switchToStartScreen" prefHeight="25.0" prefWidth="84.0" stylesheets="@../css/Styles.css" text="Start Screen">
+         <styleClass>
+            <String fx:value="DarkBrown" />
+            <String fx:value="shadow" />
+            <String fx:value="WhiteText" />
+            <String fx:value="BorderMedium" />
+         </styleClass></Button>
+      <Label fx:id="recipeListTitle" layoutX="400.0" layoutY="18.0" prefHeight="17.0" prefWidth="182.0" stylesheets="@../css/Styles.css" text="Recipes To Choose From:">
          <font>
             <Font size="14.0" />
          </font>
+         <styleClass>
+            <String fx:value="WhiteText" />
+            <String fx:value="shadow" />
+         </styleClass>
       </Label>
-      <Button fx:id="noneOfTheAboveButton" layoutX="159.0" layoutY="318.0" mnemonicParsing="false" onAction="#clickNoneOfTheAboveButton" prefHeight="25.0" prefWidth="106.0" text="None of the above">
+      <Button fx:id="noneOfTheAboveButton" layoutX="159.0" layoutY="318.0" mnemonicParsing="false" onAction="#clickNoneOfTheAboveButton" prefHeight="25.0" prefWidth="106.0" stylesheets="@../css/Styles.css" text="None of the above">
          <font>
             <Font size="10.0" />
          </font>
+         <styleClass>
+            <String fx:value="DarkBrown" />
+            <String fx:value="BorderMedium" />
+            <String fx:value="WhiteText" />
+            <String fx:value="shadow" />
+         </styleClass>
       </Button>
    </children>
 </AnchorPane>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -9,22 +9,44 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.client.boundary.StartScreenManager">
    <children>
-      <Pane layoutX="1.0" layoutY="-5.0" prefHeight="411.0" prefWidth="600.0">
+      <Pane layoutX="-4.0" layoutY="-3.0" prefHeight="406.0" prefWidth="608.0" stylesheets="@../css/Styles.css">
          <children>
-            <Button fx:id="drinksButton" layoutX="218.0" layoutY="258.0" mnemonicParsing="false" onAction="#switchToAlcDrinkScreen" prefHeight="25.0" prefWidth="164.0" text="Drinks" />
-            <Button fx:id="nonAlcSpecialities" layoutX="218.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" text="Non-Alcoholic Specialities" />
-            <Button fx:id="nonAlcDrinks" layoutX="218.0" layoutY="193.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" text="Non-Alcoholic Drinks" />
-         </children></Pane>
-      <Label alignment="TOP_CENTER" layoutX="1.0" layoutY="6.0" prefHeight="17.0" prefWidth="600.0" text="Drink Master 3000">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <ButtonBar layoutX="42.0" layoutY="346.0" prefHeight="40.0" prefWidth="517.0" AnchorPane.bottomAnchor="14.0">
-        <buttons>
-          <Button fx:id="favouritesButton" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="672.0" text="Favourites" />
-            <Button fx:id="historyButton" disable="true" mnemonicParsing="false" prefHeight="25.0" text="HIstory" />
-        </buttons>
-      </ButtonBar>
+            <Button fx:id="drinksButton" layoutX="218.0" layoutY="258.0" mnemonicParsing="false" onAction="#switchToAlcDrinkScreen" prefHeight="25.0" prefWidth="164.0" stylesheets="@../css/Styles.css" text="Drinks">
+               <styleClass>
+                  <String fx:value="DarkBrown" />
+                  <String fx:value="BorderMedium" />
+                  <String fx:value="WhiteText" />
+                  <String fx:value="shadow" />
+               </styleClass></Button>
+            <Button fx:id="nonAlcSpecialities" layoutX="218.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" stylesheets="@../css/Styles.css" text="Non-Alcoholic Specialities">
+               <styleClass>
+                  <String fx:value="DarkBrown" />
+                  <String fx:value="WhiteText" />
+                  <String fx:value="BorderMedium" />
+                  <String fx:value="shadow" />
+               </styleClass></Button>
+            <Button fx:id="nonAlcDrinks" layoutX="218.0" layoutY="193.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" stylesheets="@../css/Styles.css" text="Non-Alcoholic Drinks">
+               <styleClass>
+                  <String fx:value="DarkBrown" />
+                  <String fx:value="WhiteText" />
+                  <String fx:value="BorderMedium" />
+                  <String fx:value="shadow" />
+               </styleClass></Button>
+            <Label alignment="TOP_CENTER" layoutX="7.0" layoutY="26.0" prefHeight="35.0" prefWidth="600.0" stylesheets="@../css/Styles.css" text="Drink Master 3000" textFill="#fcfcfc">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="shadow" />
+                  <String fx:value="WhiteText" />
+               </styleClass>
+            </Label>
+            <Button fx:id="favouritesButton" disable="true" layoutX="116.0" layoutY="337.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" text="Favourites" />
+            <Button fx:id="historyButton" disable="true" layoutX="326.0" layoutY="337.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" text="History" />
+         </children>
+         <styleClass>
+            <String fx:value="DarkBrown" />
+            <String fx:value="WhiteText" />
+         </styleClass></Pane>
    </children>
 </AnchorPane>
