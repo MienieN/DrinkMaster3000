@@ -5,12 +5,10 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import src.client.ClientMain;
@@ -23,20 +21,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ResourceBundle;
 
-/**
- * The AlcDrinkScreenManager class controls the GUI for selecting alcoholic drinks.
- */
-public class AlcDrinkScreenManager implements Initializable {
+public class NonAlcDrinkScreenManager {
     private Stage stage;                                    // The stage for the scene
     private Scene scene;                                    // The scene of the GUI
     private Parent root;                                    // The root node of the scene
     private ArrayList<String> ingredientNames;              //The list of all ingredients
-    private ArrayList<String> baseDrinkNames;               // The list of base drink names //TODO needs to be just base drinks, need another array for ingredients
     private IngredientsController ingredientsController;    // The controller for managing ingredients
     private RecipeController recipeController;              // The controller for managing recipes
 
-    @FXML
-    private ComboBox<String> baseDrinkDropdownMenu;         // Dropdown menu for selecting base drinks
     @FXML
     private Button ingredientChoiceButton1;                 // Button for choosing ingredients
     @FXML
@@ -54,14 +46,13 @@ public class AlcDrinkScreenManager implements Initializable {
      * Constructs a AlcDrinkScreenManager object.
      * Initializes the controllers and retrieves the list of ingredient names.
      */
-    public AlcDrinkScreenManager() {
+    public NonAlcDrinkScreenManager() {
         ingredientsController = ClientMain.getIngredientsController();
         recipeController = ClientMain.getRecipeController();
-        ArrayList<String> alcoholicIngredients = ingredientsController.getAlcoholicIngredientNames();
-        Collections.sort(alcoholicIngredients);
-        baseDrinkNames = alcoholicIngredients;
+        ArrayList<String> nonAlcoholicIngredients = ingredientsController.getNonAlcoholicIngredientNames();
+        Collections.sort(nonAlcoholicIngredients);
         ingredientNames = ingredientsController.getIngredientNames();
-        recipeController.setAlcGUI(this);
+        recipeController.setNonAlcGUI(this);
     }
 
     /**
@@ -71,20 +62,21 @@ public class AlcDrinkScreenManager implements Initializable {
      * @param event The ActionEvent object representing the click event.
      */
     @FXML
-    private void clickIngredientChoiceButton(ActionEvent event){
+    private void clickIngredientChoiceButton(ActionEvent event) {
         Button button = (Button) event.getSource();
         String ingredientName = button.getText();
-        recipeController.checkForAlcRecipe(ingredientName);
+        recipeController.checkForNonAlcRecipe(ingredientName);
         showIngredients(button);
     }
 
     /**
      * Handles the click event on the "None of the above" button.
      * Resets the ingredient choice buttons and shows ingredients on them.
+     *
+     * @param event The ActionEvent object representing the click event.
      */
     @FXML
-    private void clickNoneOfTheAboveButton() {
-        ingredientNames.remove(ingredientChoiceButton1.getText());
+    private void clickNoneOfTheAboveButton(ActionEvent event) {
         showIngredients(ingredientChoiceButton1);
         ingredientNames.remove(ingredientChoiceButton2.getText());
         showIngredients(ingredientChoiceButton2);
@@ -94,15 +86,11 @@ public class AlcDrinkScreenManager implements Initializable {
         showIngredients(ingredientChoiceButton4);
     }
 
-    /**
-     * Enables all ingredient choice buttons.
-     */
-    private void enableIngredientChoiceButtons(){
-        ingredientChoiceButton1.setDisable(false);
-        ingredientChoiceButton2.setDisable(false);
-        ingredientChoiceButton3.setDisable(false);
-        ingredientChoiceButton4.setDisable(false);
-        noneOfTheAboveButton.setDisable(false);
+    public void chooseIngredientButton() {
+        showIngredients(ingredientChoiceButton1);
+        showIngredients(ingredientChoiceButton2);
+        showIngredients(ingredientChoiceButton3);
+        showIngredients(ingredientChoiceButton4);
     }
 
     /**
@@ -110,36 +98,17 @@ public class AlcDrinkScreenManager implements Initializable {
      *
      * @param button The button to display the ingredient on.
      */
-    private void showIngredients(Button button){
-        if(!(ingredientNames.isEmpty())){
+    private void showIngredients(Button button) {
+        if (!(ingredientNames.isEmpty())) {
             String temp = ingredientNames.getFirst();
             button.setText(temp);
             ingredientNames.remove(temp);
 
-        }else{
+        } else {
             button.setText("End");
             button.setDisable(true);
         }
     }
-
-    /**
-     * Handles the action event of choosing a base drink from the dropdown menu.
-     * Disables the dropdown menu and shows ingredients on ingredient choice buttons.
-     *
-     * @param chooseBaseDrink The ActionEvent object representing the selection of a base drink.
-     */
-    public void chooseBaseDrinkFromDropdown(javafx.event.ActionEvent chooseBaseDrink) {
-        enableIngredientChoiceButtons();
-        baseDrinkDropdownMenu.setDisable(true);
-        String baseDrinkName = baseDrinkDropdownMenu.getValue();
-        recipeController.checkForAlcRecipe(baseDrinkName);
-        ingredientNames.remove(baseDrinkName);
-        showIngredients(ingredientChoiceButton1);
-        showIngredients(ingredientChoiceButton2);
-        showIngredients(ingredientChoiceButton3);
-        showIngredients(ingredientChoiceButton4);
-    }
-
 
     /**
      * Switches the scene to the start screen.
@@ -147,9 +116,9 @@ public class AlcDrinkScreenManager implements Initializable {
      * @param backToStartButtonEvent The ActionEvent object representing the click event on the back button.
      */
     public void switchToStartScreen(javafx.event.ActionEvent backToStartButtonEvent) {
-        try{
+        try {
             root = FXMLLoader.load(getClass().getClassLoader().getResource("src/Client/resources/fxml/StartScreen.fxml"));
-            stage = (Stage)((Node)backToStartButtonEvent.getSource()).getScene().getWindow();
+            stage = (Stage) ((Node) backToStartButtonEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -168,10 +137,7 @@ public class AlcDrinkScreenManager implements Initializable {
      * @param url            The location used to resolve relative paths for the root object, or null if the location is not known.
      * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.
      */
-    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        baseDrinkDropdownMenu.getItems().addAll(baseDrinkNames);                    // Add base drink names to the dropdown menu
-        baseDrinkDropdownMenu.setOnAction(this::chooseBaseDrinkFromDropdown);       // Set action event handler for the dropdown menu
 
         // Add a listener to the recipe list view for handling recipe selection changes
         recipeList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -188,7 +154,7 @@ public class AlcDrinkScreenManager implements Initializable {
      * Displays a popup with the selected recipe.
      */
     private void popupRecipe() {
-        recipeController.getRecipeInstructionsForChosenAlcRecipe();
+        recipeController.getRecipeInstructionsForChosenNonAlcRecipe();
     }
 
     /**
@@ -200,7 +166,7 @@ public class AlcDrinkScreenManager implements Initializable {
         recipeList.getItems().addAll(recipeName);
     }
 
-    public String getSelectedRecipeNameForViewingRecipe(){
+    public String getSelectedRecipeNameForViewingRecipe() {
         return recipeList.getSelectionModel().getSelectedItem();
     }
 }

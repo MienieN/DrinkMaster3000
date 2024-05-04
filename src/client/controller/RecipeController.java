@@ -1,8 +1,8 @@
 package src.client.controller;
 
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import src.client.boundary.AlcDrinkScreenManager;
+import src.client.boundary.NonAlcDrinkScreenManager;
 import src.client.entity.Ingredient;
 
 import java.sql.Connection;
@@ -17,7 +17,8 @@ import java.util.*;
 public class RecipeController {
     private HashMap<String, HashSet<Ingredient>> recipes; // HashMap to store recipes and their ingredients
     private HashMap<String, String> recipeInstructions = new HashMap<>();   // HashMap to store recipes and their instructions
-    private AlcDrinkScreenManager alcDrinkScreenManager;                    // GUI controller for displaying recipes
+    private AlcDrinkScreenManager alcDrinkScreenManager;                    // GUI controller for displaying alcoholic recipes
+    private NonAlcDrinkScreenManager nonAlcDrinkScreenManager;              // GUI controller for displaying non-alcoholic recipes
     private HashSet<Ingredient> chosenIngredients = new HashSet<>();        // List of chosen ingredients
     private Connection connection;                                          // Database connection
     private IngredientsController ingredientsController;
@@ -65,7 +66,7 @@ public class RecipeController {
     /**
      * Retrieves the recipe instructions for the chosen recipe and displays them in an alert.
      */
-    public void getRecipeInstructionsForChosenRecipe() {
+    public void getRecipeInstructionsForChosenAlcRecipe() {
         recipeInstructions.clear();
         //  declares an SQL query string that selects the recipe_name and instructions column from the table named recipes
         //  filtering by recipe_name. The ? is a placeholder for a parameter that will be filled in later.
@@ -104,12 +105,37 @@ public class RecipeController {
         }
     }
 
+    public void getRecipeInstructionsForChosenNonAlcRecipe() {
+        recipeInstructions.clear();
+        String showRecipeSQL = "SELECT recipe_name, instructions FROM recipes WHERE recipe_name = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(showRecipeSQL)) {
+            statement.setString(1, nonAlcDrinkScreenManager.getSelectedRecipeNameForViewingRecipe());
+            ResultSet resultSet = statement.executeQuery();
+
+            if(resultSet.next()) {
+                String recipeName = resultSet.getString("recipe_name");
+                String instructions = resultSet.getString("instructions");
+                recipeInstructions.put(recipeName, instructions);
+
+                //Pop up box
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Recipe");
+                alert.setHeaderText(null);
+                alert.setContentText("Recipe name: " + recipeName + "\nInstructions:\n" + instructions);
+                alert.showAndWait();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * Checks if the chosen ingredients match any recipes in the database.
      * If a match is found, the recipe name is sent to the GUI controller.
      * @param chosenIngredientName The name of the chosen ingredient.
      */
-    public void checkForRecipe(String chosenIngredientName) {
+    public void checkForAlcRecipe(String chosenIngredientName) {
         chosenIngredients.add(ingredientsController.getIngredientFromArrayList(chosenIngredientName));
         Iterator<Map.Entry<String, HashSet<Ingredient>>> iterator = recipes.entrySet().iterator();
         while (iterator.hasNext()) {
@@ -141,16 +167,31 @@ public class RecipeController {
         }
      */
 
+    public void checkForNonAlcRecipe(String chosenIngredientName) {
+        chosenIngredients.add(ingredientsController.getIngredientFromArrayList(chosenIngredientName));
+        Iterator<Map.Entry<String, HashSet<Ingredient>>> iterator = recipes.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<String, HashSet<Ingredient>> entry = iterator.next();
+            if (chosenIngredients.containsAll(entry.getValue())) {
+                nonAlcDrinkScreenManager.receiveRecipeName(entry.getKey());
+                iterator.remove();
+            }
+        }
+    }
+
     /**
      * Sets the GUI controller for displaying recipes.
      *
      * @param GUIController The GUI controller for displaying recipes.
      */
-    public void setGUI(AlcDrinkScreenManager GUIController) {
+    public void setAlcGUI(AlcDrinkScreenManager GUIController) {
         this.alcDrinkScreenManager = GUIController;
     }
 
-    // TODO reset all lists and stuff so that we start again, this is not completed
+    public void setNonAlcGUI(NonAlcDrinkScreenManager GUIController) {
+        this.nonAlcDrinkScreenManager = GUIController;
+    }
+
     public void resetChosenIngredients(){
         getRecipesFromDatabase();
         chosenIngredients.clear();

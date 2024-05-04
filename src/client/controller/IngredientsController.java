@@ -91,4 +91,14 @@ public class IngredientsController {
         }
         return ingredientNames;
     }
+
+    public ArrayList<String> getNonAlcoholicIngredientNames() {
+        ArrayList<String> ingredientNames = new ArrayList<>();
+        for (Ingredient ingredient : ingredients) {
+            if (!ingredient.getAlcoholic()) {
+                ingredientNames.add(ingredient.getName());
+            }
+        }
+        return ingredientNames;
+    }
 }

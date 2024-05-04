@@ -47,7 +47,7 @@ public class ClientMain extends Application {
         Scene startScene = new Scene(root);
         // Set the scene for the primary stage
         primaryStage.setScene(startScene);
-        primaryStage.setTitle("DrinkMaster 3000");
+        //primaryStage.setTitle("DrinkMaster 3000");
         // Display the primary stage
         primaryStage.show();
     }

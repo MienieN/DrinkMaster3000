@@ -25,7 +25,7 @@
                   <String fx:value="BorderMedium" />
                   <String fx:value="shadow" />
                </styleClass></Button>
-            <Button fx:id="nonAlcDrinks" layoutX="218.0" layoutY="193.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" stylesheets="@../css/Styles.css" text="Non-Alcoholic Drinks">
+            <Button fx:id="nonAlcDrinks" layoutX="218.0" layoutY="193.0" mnemonicParsing="false" onAction="#switchToNonAlcDrinkScreen" prefHeight="25.0" prefWidth="164.0" stylesheets="@../css/Styles.css" text="Non-Alcoholic Drinks">
                <styleClass>
                   <String fx:value="DarkBrown" />
                   <String fx:value="WhiteText" />
