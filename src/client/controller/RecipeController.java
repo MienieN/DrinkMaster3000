@@ -119,6 +119,27 @@ public class RecipeController {
             }
         }
     }
+    /*
+            //Entry >> is recipe
+            //Basedrink should be
+
+            //Some loop for recipeIngredient of recipeIngredients
+            int matches = 0;
+
+            for (Ingredient recipeIngredient : entry.getValue()) {
+                //TODO: Add "&& (BASEDRINKMATCH)"
+                //Something like && entry.getValue().contains(getIngredient("Baileys"))
+                if(chosenIngredients.contains(recipeIngredient) ){
+                    matches += 1;
+                }
+            }
+
+            if(matches >= 2){
+                iterator.remove();
+                alcDrinkScreenManager.receiveRecipeName(entry.getKey());
+            }
+        }
+     */
 
     /**
      * Sets the GUI controller for displaying recipes.
