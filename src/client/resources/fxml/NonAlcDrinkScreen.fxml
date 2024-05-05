@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="NonAlcDrinkScreenScene" prefHeight="400.0" prefWidth="600.0" styleClass="DarkBrown" stylesheets="@../css/Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.client.boundary.NonAlcDrinkScreenManager">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="DarkBrown" stylesheets="@../css/Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.client.boundary.NonAlcDrinkScreenManager">
     <children>
             <Button fx:id="HelpButton" disable="true" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" stylesheets="@../css/Styles.css" text="Help" AnchorPane.bottomAnchor="361.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="508.0" AnchorPane.topAnchor="14.0">
             <styleClass>

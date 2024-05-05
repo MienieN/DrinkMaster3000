@@ -16,10 +16,8 @@ import src.client.controller.IngredientsController;
 import src.client.controller.RecipeController;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.ResourceBundle;
 
 public class NonAlcDrinkScreenManager {
     private Stage stage;                                    // The stage for the scene
@@ -39,8 +37,6 @@ public class NonAlcDrinkScreenManager {
     private Button ingredientChoiceButton4;                 // Button for choosing ingredients
     @FXML
     private ListView<String> recipeList;                    // List view for displaying recipes
-    @FXML
-    private Button noneOfTheAboveButton;                    // Button for selecting none of the above
 
     /**
      * Constructs a AlcDrinkScreenManager object.
@@ -86,7 +82,7 @@ public class NonAlcDrinkScreenManager {
         showIngredients(ingredientChoiceButton4);
     }
 
-    public void chooseIngredientButton() {
+    public void putIngredientNamesOnChoiceButtonsOnScreenChange() {
         showIngredients(ingredientChoiceButton1);
         showIngredients(ingredientChoiceButton2);
         showIngredients(ingredientChoiceButton3);
@@ -134,11 +130,9 @@ public class NonAlcDrinkScreenManager {
      * Adds base drink names to the dropdown menu, sets an action event handler for the dropdown menu,
      * and adds a listener to the recipe list view for handling recipe selection changes.
      *
-     * @param url            The location used to resolve relative paths for the root object, or null if the location is not known.
-     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.
      */
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
+    public void initialize() {
+        putIngredientNamesOnChoiceButtonsOnScreenChange();
         // Add a listener to the recipe list view for handling recipe selection changes
         recipeList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override

@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 
 /**
@@ -25,7 +26,7 @@ public class StartScreenManager {
     public void switchToAlcDrinkScreen(javafx.event.ActionEvent drinksButtonEvent) {
         try{
             // Load the FXML file for the alcoholic drink selection screen
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("src/Client/resources/fxml/AlcDrinkScreen.fxml"));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("src/Client/resources/fxml/AlcDrinkScreen.fxml")));
             // Get the stage from the source of the event
             stage = (Stage)((Node)drinksButtonEvent.getSource()).getScene().getWindow();
             // Create a new scene with the loaded FXML content
@@ -43,7 +44,7 @@ public class StartScreenManager {
     public void switchToNonAlcDrinkScreen(javafx.event.ActionEvent nonAlcDrinkEvent) {
         try{
             // Load the FXML file for the alcoholic drink selection screen
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("src/client/resources/fxml/NonAlcDrinkScreen.fxml"));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("src/client/resources/fxml/NonAlcDrinkScreen.fxml")));
             // Get the stage from the source of the event
             stage = (Stage)((Node)nonAlcDrinkEvent.getSource()).getScene().getWindow();
             // Create a new scene with the loaded FXML content
