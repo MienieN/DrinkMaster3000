@@ -72,7 +72,7 @@ public class NonAlcDrinkScreenManager {
      * @param event The ActionEvent object representing the click event.
      */
     @FXML
-    private void clickNoneOfTheAboveButton(ActionEvent event) {
+    private void clickNoneOfTheAboveButton() {
         showIngredients(ingredientChoiceButton1);
         ingredientNames.remove(ingredientChoiceButton2.getText());
         showIngredients(ingredientChoiceButton2);

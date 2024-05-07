@@ -16,6 +16,8 @@ import java.util.*;
  */
 public class RecipeController {
     private HashMap<String, HashSet<Ingredient>> recipes; // HashMap to store recipes and their ingredients
+
+    private HashMap<String, HashSet<Ingredient>> validRecipes = new HashMap<>(); //All the recipes containing the chosen base drink.
     private HashMap<String, String> recipeInstructions = new HashMap<>();   // HashMap to store recipes and their instructions
     private AlcDrinkScreenManager alcDrinkScreenManager;                    // GUI controller for displaying alcoholic recipes
     private NonAlcDrinkScreenManager nonAlcDrinkScreenManager;              // GUI controller for displaying non-alcoholic recipes
@@ -83,7 +85,7 @@ public class RecipeController {
             ResultSet resultSet = statement.executeQuery();
 
             // This line moves the cursor of the resultSet to the next row and checks if there is a row present.
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 // These lines retrieve the value of the recipe_name and instructions column from the current row of
                 // the resultSet and stores it in a variable named recipeName.
                 String recipeName = resultSet.getString("recipe_name");
@@ -113,7 +115,7 @@ public class RecipeController {
             statement.setString(1, nonAlcDrinkScreenManager.getSelectedRecipeNameForViewingRecipe());
             ResultSet resultSet = statement.executeQuery();
 
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 String recipeName = resultSet.getString("recipe_name");
                 String instructions = resultSet.getString("instructions");
                 recipeInstructions.put(recipeName, instructions);
@@ -133,39 +135,58 @@ public class RecipeController {
     /**
      * Checks if the chosen ingredients match any recipes in the database.
      * If a match is found, the recipe name is sent to the GUI controller.
+     *
      * @param chosenIngredientName The name of the chosen ingredient.
      */
-    public void checkForAlcRecipe(String chosenIngredientName) {
-        chosenIngredients.add(ingredientsController.getIngredientFromArrayList(chosenIngredientName));
-        Iterator<Map.Entry<String, HashSet<Ingredient>>> iterator = recipes.entrySet().iterator();
+    public void checkFullMatches(HashSet<Ingredient> chosenIngredients) {
+        Iterator<Map.Entry<String, HashSet<Ingredient>>> iterator = validRecipes.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<String, HashSet<Ingredient>> entry = iterator.next();
+            //Find full match
             if (chosenIngredients.containsAll(entry.getValue())) {
-                alcDrinkScreenManager.receiveRecipeName(entry.getKey());
+                alcDrinkScreenManager.receiveBaseDrinkMatches(entry.getKey());
                 iterator.remove();
             }
         }
     }
-    /*
-            //Entry >> is recipe
-            //Basedrink should be taken into account
 
-            //Some loop for recipeIngredient of recipeIngredients
-            int matches = 0;
-            for (Ingredient recipeIngredient : entry.getValue()) {
-                //TODO: Add "&& (BASEDRINKMATCH)"
-                //Something like && entry.getValue().contains(getIngredient("Baileys"))
-                if(chosenIngredients.contains(recipeIngredient) ){
-                    matches += 1;
-                }
-            }
+    public void checkPartialMatchesIncludingBaseDrink(HashSet<Ingredient> chosenIngredients) {
+        ArrayList<String> partialRecipeMatches = new ArrayList<>();
+        Iterator<Map.Entry<String, HashSet<Ingredient>>> iterator = validRecipes.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<String, HashSet<Ingredient>> entry = iterator.next();
+            //Find partial matches
 
-            if(matches >= 2){
-                iterator.remove();
-                alcDrinkScreenManager.receiveRecipeName(entry.getKey());
+            if (entry.getValue().containsAll(chosenIngredients)){
+                partialRecipeMatches.add(entry.getKey());
             }
         }
-     */
+        alcDrinkScreenManager.receivePartialMatches(partialRecipeMatches);
+    }
+
+    public void checkBaseDrinkOnly(String chosenBaseDrink) {
+        Ingredient ingredient = ingredientsController.getIngredientFromArrayList(chosenBaseDrink);
+        chosenIngredients.add(ingredient);
+        Iterator<Map.Entry<String, HashSet<Ingredient>>> iterator = recipes.entrySet().iterator();
+        alcDrinkScreenManager.receiveBaseDrinkMatches("Recipes with base");
+        while (iterator.hasNext()) {
+            Map.Entry<String, HashSet<Ingredient>> entry = iterator.next();
+
+            //Find base drink matches
+            if (entry.getValue().contains(ingredient)) {
+                alcDrinkScreenManager.receiveBaseDrinkMatches(entry.getKey());
+                validRecipes.put(entry.getKey(), entry.getValue());
+            }
+        }
+    }
+
+    public void getIngredientForMatches(String chosenIngredientName) {
+        Ingredient ingredient = ingredientsController.getIngredientFromArrayList(chosenIngredientName);
+        chosenIngredients.add(ingredient);
+        checkPartialMatchesIncludingBaseDrink(chosenIngredients);
+        checkFullMatches(chosenIngredients);
+    }
+
 
     public void checkForNonAlcRecipe(String chosenIngredientName) {
         chosenIngredients.add(ingredientsController.getIngredientFromArrayList(chosenIngredientName));
@@ -192,10 +213,11 @@ public class RecipeController {
         this.nonAlcDrinkScreenManager = GUIController;
     }
 
-    public void resetChosenIngredients(){
+    public void resetChosenIngredients() {
         getRecipesFromDatabase();
         chosenIngredients.clear();
     }
+
     /**
      * A setter for the {@link IngredientsController}
      *
