@@ -96,7 +96,7 @@ public class NonAlcDrinkScreenManager {
      */
     private void showIngredients(Button button) {
         if (!(ingredientNames.isEmpty())) {
-            String temp = ingredientNames.getFirst();
+            String temp = ingredientNames.get(0);
             button.setText(temp);
             ingredientNames.remove(temp);
 
