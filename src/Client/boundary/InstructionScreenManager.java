@@ -1,4 +1,4 @@
-package src.Client.boundary;
+package src.client.boundary;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

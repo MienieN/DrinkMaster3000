@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="370.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.Client.boundary.InstructionScreenManager">
+<AnchorPane prefHeight="370.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.client.boundary.InstructionScreenManager">
    <children>
       <Button fx:id="part2" layoutX="156.0" layoutY="336.0" mnemonicParsing="false" onAction="#displayBaseHelp" text="Base alcohol" />
       <Label fx:id="helpLabel" layoutX="448.0" layoutY="5.0" text="This text will never be seen, farts!" />

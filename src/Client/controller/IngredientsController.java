@@ -1,6 +1,6 @@
-package src.Client.controller;
+package src.client.controller;
 
-import src.Client.entity.Ingredient;
+import src.client.entity.Ingredient;
 
 import java.sql.*;
 import java.util.ArrayList;
