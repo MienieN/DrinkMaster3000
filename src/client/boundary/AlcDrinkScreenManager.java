@@ -49,6 +49,7 @@ public class AlcDrinkScreenManager implements Initializable {
     private ListView<String> recipeList;                    // List view for displaying recipes
     @FXML
     private Button noneOfTheAboveButton;                    // Button for selecting none of the above
+    private InstructionScreenManager instructionscreen;
 
     /**
      * Constructs a AlcDrinkScreenManager object.
@@ -202,5 +203,11 @@ public class AlcDrinkScreenManager implements Initializable {
 
     public String getSelectedRecipeNameForViewingRecipe(){
         return recipeList.getSelectionModel().getSelectedItem();
+    }
+
+    @FXML
+    private void startInstructions(javafx.event.ActionEvent openHelpScreen){
+        instructionscreen = new InstructionScreenManager();
+        instructionscreen.openHelpWindow();
     }
 }
