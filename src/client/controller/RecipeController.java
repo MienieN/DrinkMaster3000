@@ -15,12 +15,12 @@ import java.util.*;
  * The RecipeController class manages the recipes and their interactions with the GUI.
  */
 public class RecipeController {
-    private HashMap<String, HashSet<Ingredient>> recipes; // HashMap to store recipes and their ingredients
-    private HashMap<String, HashSet<Ingredient>> validRecipes = new HashMap<>(); //All the recipes containing the chosen base drink.
+    private HashMap<String, ArrayList<Ingredient>> recipes; // HashMap to store recipes and their ingredients
+    private HashMap<String, ArrayList<Ingredient>> validRecipes = new HashMap<>(); //All the recipes containing the chosen base drink.
     private HashMap<String, String> recipeInstructions = new HashMap<>();   // HashMap to store recipes and their instructions
     private AlcDrinkScreenManager alcDrinkScreenManager;                    // GUI controller for displaying alcoholic recipes
     private NonAlcDrinkScreenManager nonAlcDrinkScreenManager;              // GUI controller for displaying non-alcoholic recipes
-    private HashSet<Ingredient> chosenIngredients = new HashSet<>();        // List of chosen ingredients
+    private ArrayList<Ingredient> chosenIngredients = new ArrayList<>();        // List of chosen ingredients
     private Connection connection;                                          // Database connection
     private IngredientsController ingredientsController;
 
@@ -47,7 +47,7 @@ public class RecipeController {
             PreparedStatement statement2 = connection.prepareStatement(sql2);
             while (recipeNames.next()) {
                 for (int i = 1; i <= recipeNames.getMetaData().getColumnCount(); i++) {
-                    HashSet<Ingredient> ingredientHashSet = new HashSet<>();
+                    ArrayList<Ingredient> ingredientHashSet = new ArrayList<>();
                     String recipeName = recipeNames.getString(i);
                     statement2.setString(1, recipeName);
                     ResultSet resultSet2 = statement2.executeQuery();
@@ -137,11 +137,10 @@ public class RecipeController {
      *
      * @param chosenIngredients The hash set of the chosen ingredients.
      */
-    public void checkFullMatches(HashSet<Ingredient> chosenIngredients) {
-        Iterator<Map.Entry<String, HashSet<Ingredient>>> iterator = validRecipes.entrySet().iterator();
+    public void checkFullMatches(ArrayList<Ingredient> chosenIngredients) {
+        Iterator<Map.Entry<String, ArrayList<Ingredient>>> iterator = validRecipes.entrySet().iterator();
         while (iterator.hasNext()) {
-            Map.Entry<String, HashSet<Ingredient>> entry = iterator.next();
-            System.out.println(entry.getValue());
+            Map.Entry<String, ArrayList<Ingredient>> entry = iterator.next();
             //Find full match
             if (chosenIngredients.containsAll(entry.getValue())) {
                 alcDrinkScreenManager.receiveBaseDrinkMatches(entry.getKey());
@@ -157,25 +156,27 @@ group by recipe_name
 having recipe_name = ('Lennart') and count(ingredient_name in (chosenIngredients)) = count(distinct ingredient_name)*/
     }
 
-    public void checkPartialMatchesIncludingBaseDrink(HashSet<Ingredient> chosenIngredients) {
-        ArrayList<String> temp = new ArrayList<>();
-        String sql = "SELECT recipe_name FROM recipes_ingredients WHERE ingredient_name IN (?";
+    public void checkPartialMatchesIncludingBaseDrink(ArrayList<Ingredient> chosenIngredients) {
+        ArrayList<String> partialMatchList = new ArrayList<>();
+        String sql = "SELECT recipe_name FROM (select * from recipes_ingredients where ingredient_name = ?) as recipes WHERE ingredient_name in (?";
         for (int i = 1; i < chosenIngredients.size(); i++) {
             sql += ", ?";
         }
-        sql += ") GROUP BY recipe_name";
+        sql += ")";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            int index = 1;
-            for (Ingredient ingredient : chosenIngredients) {
-                statement.setString(index++, ingredient.getName());
+            int index = 3;
+            statement.setString(1, chosenIngredients.get(0).getName());
+            statement.setString(2, chosenIngredients.get(0).getName());
+            for (int i = 1; i < chosenIngredients.size(); i++) {
+                statement.setString(index++, chosenIngredients.get(i).getName());
             }
             //statement.setInt(index, chosenIngredients.size());
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                temp.add(resultSet.getString("recipe_name"));
+                partialMatchList.add(resultSet.getString("recipe_name"));
             }
-            alcDrinkScreenManager.receivePartialMatches(temp);
+            alcDrinkScreenManager.receivePartialMatches(partialMatchList);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -185,7 +186,7 @@ having recipe_name = ('Lennart') and count(ingredient_name in (chosenIngredients
     public void checkBaseDrinkOnly(String chosenBaseDrink) {
         Ingredient ingredient= ingredientsController.getIngredientFromArrayList(chosenBaseDrink);
         chosenIngredients.add(ingredient);
-        HashSet<Ingredient> ingredients = new HashSet<>(); //A new hashset to store the ingredients for a recipe from the database
+        ArrayList<Ingredient> ingredients = new ArrayList<>(); //A new hashset to store the ingredients for a recipe from the database
 
         String getRecipeIngredients = "select ingredient_name, alcoholic from " +
                 "ingredients where ingredient_name in (select ingredient_name from " +
@@ -210,7 +211,7 @@ having recipe_name = ('Lennart') and count(ingredient_name in (chosenIngredients
                 }
                 validRecipes.put(recipeName, ingredients);
                 System.out.println(validRecipes);
-                ingredients = new HashSet<>();
+                ingredients = new ArrayList<>();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -220,16 +221,16 @@ having recipe_name = ('Lennart') and count(ingredient_name in (chosenIngredients
     public void getIngredientForMatches(String chosenIngredientName) {
         Ingredient ingredient = ingredientsController.getIngredientFromArrayList(chosenIngredientName);
         chosenIngredients.add(ingredient);
-        //checkPartialMatchesIncludingBaseDrink(chosenIngredients);
+        checkPartialMatchesIncludingBaseDrink(chosenIngredients);
         checkFullMatches(chosenIngredients);
     }
 
 
     public void checkForNonAlcRecipe(String chosenIngredientName) {
         chosenIngredients.add(ingredientsController.getIngredientFromArrayList(chosenIngredientName));
-        Iterator<Map.Entry<String, HashSet<Ingredient>>> iterator = recipes.entrySet().iterator();
+        Iterator<Map.Entry<String, ArrayList<Ingredient>>> iterator = recipes.entrySet().iterator();
         while (iterator.hasNext()) {
-            Map.Entry<String, HashSet<Ingredient>> entry = iterator.next();
+            Map.Entry<String, ArrayList<Ingredient>> entry = iterator.next();
             if (chosenIngredients.containsAll(entry.getValue())) {
                 nonAlcDrinkScreenManager.receiveRecipeName(entry.getKey());
                 iterator.remove();
