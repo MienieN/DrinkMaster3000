@@ -34,8 +34,7 @@ public class AddRecipeController {
         Savepoint savepoint = null;
         try {
             savepoint = connection.setSavepoint();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println("Failed to connect to database, aborting");
             System.exit(0);
         }
@@ -112,17 +111,14 @@ public class AddRecipeController {
                     System.err.println("Error: Failed to insert recipe to ingredient connection");
                     try {
                         connection.rollback();
-                    }
-                    catch (SQLException e) {
+                    } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
                 }
             }
-
             // Commit the transaction
             connection.commit();
         }
-
         // Rollback transaction in case of error
         catch (SQLException se) {
             try {

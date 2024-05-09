@@ -7,7 +7,6 @@ import java.sql.*;
  * It establishes a connection to the database and initializes the AddRecipeController.
  */
 public class AddRecipeMain {
-
     private static Connection connection;       // Connection object for connecting to the database
 
     /**
