@@ -158,11 +158,14 @@ having recipe_name = ('Lennart') and count(ingredient_name in (chosenIngredients
 
     public void checkPartialMatchesIncludingBaseDrink(ArrayList<Ingredient> chosenIngredients) {
         ArrayList<String> partialMatchList = new ArrayList<>();
-        String sql = "SELECT recipe_name FROM (select * from recipes_ingredients where ingredient_name = ?) as recipes WHERE ingredient_name in (?";
+        String sql = "SELECT recipe_name, count (distinct ingredient_name) FROM (select * from recipes_ingredients " +
+                "where recipe_name in ((select recipe_name from recipes_ingredients " +
+                "where ingredient_name = ?)))as recipes " +
+                "WHERE ingredient_name in (?";
         for (int i = 1; i < chosenIngredients.size(); i++) {
             sql += ", ?";
         }
-        sql += ")";
+        sql += ") group by recipe_name order by count desc";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             int index = 3;
