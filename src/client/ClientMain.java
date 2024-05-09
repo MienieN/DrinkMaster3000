@@ -8,21 +8,20 @@ import javafx.stage.Stage;
 import src.client.controller.IngredientsController;
 import src.client.controller.RecipeController;
 
-import java.awt.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * The ClientMain class is the entry point of the application.
+ * Class that is the entry point of the application.
  */
 //TODO: check how to correctly remove "static" from methods and variables whilst
 // keeping the connection to the javafx stuff
 public class ClientMain extends Application {
     private static IngredientsController ingredientsController;     // Controller for managing ingredients
     private static RecipeController recipeController;               // Controller for managing recipes
-    private static Connection connection;
+    private static Connection connection;                           // Connection to the database
 
     /**
      * Retrieves the RecipeController instance.

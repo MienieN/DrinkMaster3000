@@ -12,10 +12,10 @@ import java.sql.SQLException;
 import java.util.*;
 
 /**
- * The RecipeController class manages the recipes and their interactions with the GUI.
+ * Class that manages the recipes and their interactions with the GUI.
  */
 public class RecipeController {
-    private HashMap<String, HashSet<Ingredient>> recipes; // HashMap to store recipes and their ingredients
+    private HashMap<String, HashSet<Ingredient>> recipes;                   // HashMap to store recipes and their ingredients
     private HashMap<String, String> recipeInstructions = new HashMap<>();   // HashMap to store recipes and their instructions
     private AlcDrinkScreenManager alcDrinkScreenManager;                    // GUI controller for displaying alcoholic recipes
     private NonAlcDrinkScreenManager nonAlcDrinkScreenManager;              // GUI controller for displaying non-alcoholic recipes
@@ -83,7 +83,7 @@ public class RecipeController {
             ResultSet resultSet = statement.executeQuery();
 
             // This line moves the cursor of the resultSet to the next row and checks if there is a row present.
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 // These lines retrieve the value of the recipe_name and instructions column from the current row of
                 // the resultSet and stores it in a variable named recipeName.
                 String recipeName = resultSet.getString("recipe_name");
@@ -99,12 +99,14 @@ public class RecipeController {
                 alert.setContentText("Recipe name: " + recipeName + "\nInstructions:\n" + instructions); //sets the content text of the alert
                 alert.showAndWait(); //displays the alert and waits for the user to close it
             }
-            //System.out.println(recipeInstructions);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * Retrieves the recipe instructions for the chosen recipe and displays them in an alert.
+     */
     public void getRecipeInstructionsForChosenNonAlcRecipe() {
         recipeInstructions.clear();
         String showRecipeSQL = "SELECT recipe_name, instructions FROM recipes WHERE recipe_name = ?";
@@ -113,7 +115,7 @@ public class RecipeController {
             statement.setString(1, nonAlcDrinkScreenManager.getSelectedRecipeNameForViewingRecipe());
             ResultSet resultSet = statement.executeQuery();
 
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 String recipeName = resultSet.getString("recipe_name");
                 String instructions = resultSet.getString("instructions");
                 recipeInstructions.put(recipeName, instructions);
@@ -167,6 +169,10 @@ public class RecipeController {
         }
      */
 
+    /**
+     * Checks if the chosen ingredients match any non-alcoholic recipes in the database.
+     * @param chosenIngredientName The name of the chosen ingredient.
+     */
     public void checkForNonAlcRecipe(String chosenIngredientName) {
         chosenIngredients.add(ingredientsController.getIngredientFromArrayList(chosenIngredientName));
         Iterator<Map.Entry<String, HashSet<Ingredient>>> iterator = recipes.entrySet().iterator();
@@ -188,18 +194,25 @@ public class RecipeController {
         this.alcDrinkScreenManager = GUIController;
     }
 
+    /**
+     * Sets the GUI controller for displaying non-alcoholic recipes.
+     * @param GUIController The GUI controller for displaying non-alcoholic recipes.
+     */
     public void setNonAlcGUI(NonAlcDrinkScreenManager GUIController) {
         this.nonAlcDrinkScreenManager = GUIController;
     }
 
+    /**
+     * Resets the chosen ingredients list.
+     */
     public void resetChosenIngredients(){
         getRecipesFromDatabase();
         chosenIngredients.clear();
     }
+
     /**
-     * A setter for the {@link IngredientsController}
-     *
-     * @param ingredientsController the {@link IngredientsController} created in {@clientMain}
+     * Sets the IngredientsController object.
+     * @param ingredientsController The IngredientsController object.
      */
     public void setIngredientsController(IngredientsController ingredientsController) {
         this.ingredientsController = ingredientsController;

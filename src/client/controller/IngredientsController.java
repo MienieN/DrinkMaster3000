@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * The IngredientsController class manages interactions with ingredients in the database.
+ * Class that manages interactions with ingredients in the database.
  */
 public class IngredientsController {
     private ArrayList<Ingredient> ingredients;      // The list of ingredients
@@ -65,7 +65,6 @@ public class IngredientsController {
                 return ingredient;
             }
         }
-
         return null;
     }
 
@@ -82,6 +81,10 @@ public class IngredientsController {
         return ingredientNames;
     }
 
+    /**
+     * Retrieves a list of alcoholic ingredient names.
+     * @return An ArrayList containing the names of all alcoholic ingredients.
+     */
     public ArrayList<String> getAlcoholicIngredientNames() {
         ArrayList<String> ingredientNames = new ArrayList<>();
         for (Ingredient ingredient : ingredients) {
@@ -92,6 +95,10 @@ public class IngredientsController {
         return ingredientNames;
     }
 
+    /**
+     * Retrieves a list of non-alcoholic ingredient names.
+     * @return An ArrayList containing the names of all non-alcoholic ingredients.
+     */
     public ArrayList<String> getNonAlcoholicIngredientNames() {
         ArrayList<String> ingredientNames = new ArrayList<>();
         for (Ingredient ingredient : ingredients) {
