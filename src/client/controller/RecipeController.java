@@ -138,15 +138,12 @@ public class RecipeController {
      * @param chosenIngredients The hash set of the chosen ingredients.
      */
     public void checkFullMatches(HashSet<Ingredient> chosenIngredients) {
-        System.out.println("tetetet");
         Iterator<Map.Entry<String, HashSet<Ingredient>>> iterator = validRecipes.entrySet().iterator();
-        System.out.println(chosenIngredients);
         while (iterator.hasNext()) {
             Map.Entry<String, HashSet<Ingredient>> entry = iterator.next();
-            System.out.println(entry);
+            System.out.println(entry.getValue());
             //Find full match
             if (chosenIngredients.containsAll(entry.getValue())) {
-                System.out.println("test");
                 alcDrinkScreenManager.receiveBaseDrinkMatches(entry.getKey());
                 iterator.remove();
             }
@@ -188,14 +185,32 @@ having recipe_name = ('Lennart') and count(ingredient_name in (chosenIngredients
     public void checkBaseDrinkOnly(String chosenBaseDrink) {
         Ingredient ingredient= ingredientsController.getIngredientFromArrayList(chosenBaseDrink);
         chosenIngredients.add(ingredient);
-        String sql = "Select recipe_name from recipes_ingredients where ingredient_name = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, chosenBaseDrink);
-            ResultSet resultSet = statement.executeQuery();
+        HashSet<Ingredient> ingredients = new HashSet<>(); //A new hashset to store the ingredients for a recipe from the database
+
+        String getRecipeIngredients = "select ingredient_name, alcoholic from " +
+                "ingredients where ingredient_name in (select ingredient_name from " +
+                "recipes_ingredients where recipe_name = ?)";
+
+        String getRecipeNames = "Select recipe_name from recipes_ingredients where ingredient_name = ?";
+
+        try (PreparedStatement statementGetNames = connection.prepareStatement(getRecipeNames)) {
+            PreparedStatement statmentGetIngredients = connection.prepareStatement(getRecipeIngredients);
+            statementGetNames.setString(1, chosenBaseDrink);
+            ResultSet resultSet = statementGetNames.executeQuery();
             while (resultSet.next()){
                 String recipeName = resultSet.getString("recipe_name");
                 alcDrinkScreenManager.receiveBaseDrinkMatches(recipeName);
-                //validRecipes.put(recipeName)
+                statmentGetIngredients.setString(1, recipeName);
+                ResultSet resultSetIngredients = statmentGetIngredients.executeQuery();
+                while (resultSetIngredients.next()){
+
+                    ingredients.add(new Ingredient(resultSetIngredients.getString("ingredient_name"),
+                            resultSetIngredients.getBoolean("alcoholic")));
+                    System.out.println(ingredients);
+                }
+                validRecipes.put(recipeName, ingredients);
+                System.out.println(validRecipes);
+                ingredients = new HashSet<>();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -205,7 +220,7 @@ having recipe_name = ('Lennart') and count(ingredient_name in (chosenIngredients
     public void getIngredientForMatches(String chosenIngredientName) {
         Ingredient ingredient = ingredientsController.getIngredientFromArrayList(chosenIngredientName);
         chosenIngredients.add(ingredient);
-        checkPartialMatchesIncludingBaseDrink(chosenIngredients);
+        //checkPartialMatchesIncludingBaseDrink(chosenIngredients);
         checkFullMatches(chosenIngredients);
     }
 
