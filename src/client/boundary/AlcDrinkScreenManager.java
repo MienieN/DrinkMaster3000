@@ -2,6 +2,7 @@ package src.client.boundary;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import src.client.ClientMain;
 import src.client.controller.IngredientsController;
@@ -21,8 +23,9 @@ import src.client.controller.RecipeController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
+
 
 /**
  * The AlcDrinkScreenManager class controls the GUI for selecting alcoholic drinks.
@@ -119,18 +122,29 @@ public class AlcDrinkScreenManager implements Initializable {
     private TextField baseIngredientFilterTextField;
     //TODO change so it is an "invisible" field but you can type filter the drop-down choices
 
+    /**
+     * This method goes through the original base drinks list, and sorts out options
+     * based on which key is pressed, puts those in a new list which is then presented
+     * in the combobox.
+     */
     public void filterBaseIngredientByFirstLetter () { //TODO make it not possible to be null value
-        String typedLetter = baseIngredientFilterTextField.getText(); //baseDrinkDropdownMenu ? doesn't work with textProperty
+        baseDrinkDropdownMenu.setOnKeyReleased(event -> {
+            String inputLetter;
+            List<String> filteredList = new ArrayList<>();
 
-
-        baseIngredientFilterTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-        ArrayList<String> filteredBaseDrinks = baseDrinkNames.stream()
-            .filter(name -> name.toUpperCase().startsWith(typedLetter.toUpperCase()))
-            .collect(Collectors.toCollection(ArrayList::new));
-
-            baseDrinkDropdownMenu.getItems().setAll(filteredBaseDrinks);
-
-            baseDrinkDropdownMenu.getSelectionModel().selectFirst();
+            if(event.getCode().isLetterKey()) {
+                inputLetter = event.getText().toUpperCase();
+                for(String item : baseDrinkNames){
+                    if(item.startsWith(inputLetter)) {
+                        filteredList.add(item);
+                    }
+                }
+                baseDrinkDropdownMenu.setItems(FXCollections.observableArrayList(filteredList));
+            }
+            else if(event.getCode() == KeyCode.BACK_SPACE)
+            {
+                baseDrinkDropdownMenu.setItems(FXCollections.observableArrayList(baseDrinkNames));
+            }
         });
     }
 
