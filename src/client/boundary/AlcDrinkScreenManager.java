@@ -72,7 +72,7 @@ public class AlcDrinkScreenManager implements Initializable {
      * @param event The ActionEvent object representing the click event.
      */
     @FXML
-    private void clickIngredientChoiceButton(ActionEvent event){
+    private void clickIngredientChoiceButton(ActionEvent event) {
         Button button = (Button) event.getSource();
         String ingredientName = button.getText();
         recipeController.checkForAlcRecipe(ingredientName);
@@ -98,7 +98,7 @@ public class AlcDrinkScreenManager implements Initializable {
     /**
      * Enables all ingredient choice buttons.
      */
-    private void enableIngredientChoiceButtons(){
+    private void enableIngredientChoiceButtons() {
         ingredientChoiceButton1.setDisable(false);
         ingredientChoiceButton2.setDisable(false);
         ingredientChoiceButton3.setDisable(false);
@@ -111,13 +111,13 @@ public class AlcDrinkScreenManager implements Initializable {
      *
      * @param button The button to display the ingredient on.
      */
-    private void showIngredients(Button button){
-        if(!(ingredientNames.isEmpty())){
+    private void showIngredients(Button button) {
+        if (!(ingredientNames.isEmpty())) {
             String temp = ingredientNames.get(0);
             button.setText(temp);
             ingredientNames.remove(temp);
 
-        }else{
+        } else {
             button.setText("End");
             button.setDisable(true);
         }
@@ -141,14 +141,13 @@ public class AlcDrinkScreenManager implements Initializable {
         showIngredients(ingredientChoiceButton4);
     }
 
-
     /**
      * Switches the scene to the start screen.
      *
      * @param backToStartButtonEvent The ActionEvent object representing the click event on the back button.
      */
     public void switchToStartScreen(javafx.event.ActionEvent backToStartButtonEvent) {
-        try{
+        try {
             root = FXMLLoader.load(getClass().getClassLoader().getResource("src/Client/resources/fxml/StartScreen.fxml"));
             stage = (Stage)((Node)backToStartButtonEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
@@ -201,12 +200,20 @@ public class AlcDrinkScreenManager implements Initializable {
         recipeList.getItems().addAll(recipeName);
     }
 
-    public String getSelectedRecipeNameForViewingRecipe(){
+    /**
+     * Gets the name of the selected recipe for viewing the recipe.
+     * @return The name of the selected recipe.
+     */
+    public String getSelectedRecipeNameForViewingRecipe() {
         return recipeList.getSelectionModel().getSelectedItem();
     }
 
+    /**
+     * Opens the instruction screen.
+     * @param openHelpScreen The ActionEvent object representing the click event on the help button.
+     */
     @FXML
-    private void startInstructions(javafx.event.ActionEvent openHelpScreen){
+    private void startInstructions(javafx.event.ActionEvent openHelpScreen) {
         instructionscreen = new InstructionScreenManager();
         instructionscreen.openHelpWindow();
     }

@@ -11,7 +11,7 @@ import java.util.Objects;
 
 
 /**
- * The StartScreenManager class manages the navigation from the start screen to other screens in the application.
+ * Class that manages the navigation from the start screen to other screens in the application.
  */
 public class StartScreenManager {
     private Stage stage;        // The stage for the scene
@@ -24,7 +24,7 @@ public class StartScreenManager {
      * @param drinksButtonEvent The ActionEvent object representing the click event on the drinks button.
      */
     public void switchToAlcDrinkScreen(javafx.event.ActionEvent drinksButtonEvent) {
-        try{
+        try {
             // Load the FXML file for the alcoholic drink selection screen
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("src/client/resources/fxml/AlcDrinkScreen.fxml")));
             // Get the stage from the source of the event
@@ -41,8 +41,12 @@ public class StartScreenManager {
         }
     }
 
+    /**
+     * Switches the scene to the non-alcoholic drink selection screen.
+     * @param nonAlcDrinkEvent The ActionEvent object representing the click event on the non-alcoholic drinks button.
+     */
     public void switchToNonAlcDrinkScreen(javafx.event.ActionEvent nonAlcDrinkEvent) {
-        try{
+        try {
             // Load the FXML file for the alcoholic drink selection screen
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("src/client/resources/fxml/NonAlcDrinkScreen.fxml")));
             // Get the stage from the source of the event

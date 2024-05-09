@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Class that manages the GUI for the non-alcoholic drink screen.
+ */
 public class NonAlcDrinkScreenManager {
     private Stage stage;                                    // The stage for the scene
     private Scene scene;                                    // The scene of the GUI
@@ -82,6 +85,9 @@ public class NonAlcDrinkScreenManager {
         showIngredients(ingredientChoiceButton4);
     }
 
+    /**
+     * Puts ingredient names on the ingredient choice buttons when the screen is changed.
+     */
     public void putIngredientNamesOnChoiceButtonsOnScreenChange() {
         showIngredients(ingredientChoiceButton1);
         showIngredients(ingredientChoiceButton2);
@@ -129,7 +135,6 @@ public class NonAlcDrinkScreenManager {
      * Initializes the GUI components and event handlers when the GUI is loaded.
      * Adds base drink names to the dropdown menu, sets an action event handler for the dropdown menu,
      * and adds a listener to the recipe list view for handling recipe selection changes.
-     *
      */
     public void initialize() {
         putIngredientNamesOnChoiceButtonsOnScreenChange();
@@ -160,6 +165,10 @@ public class NonAlcDrinkScreenManager {
         recipeList.getItems().addAll(recipeName);
     }
 
+    /**
+     * Gets the name of the selected recipe for viewing the recipe.
+     * @return The name of the selected recipe.
+     */
     public String getSelectedRecipeNameForViewingRecipe() {
         return recipeList.getSelectionModel().getSelectedItem();
     }
