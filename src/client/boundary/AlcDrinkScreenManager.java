@@ -248,7 +248,9 @@ public class AlcDrinkScreenManager implements Initializable {
 
     @FXML
     private void startInstructions(javafx.event.ActionEvent openHelpScreen){
-        instructionscreen = new InstructionScreenManager();
+        if (instructionscreen == null){
+            instructionscreen = ClientMain.getInstructionscreen();
+        }
         instructionscreen.openHelpWindow();
     }
 }
