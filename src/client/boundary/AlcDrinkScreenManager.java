@@ -2,6 +2,7 @@ package src.client.boundary;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import src.client.ClientMain;
 import src.client.controller.IngredientsController;
@@ -21,6 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -143,6 +147,34 @@ public class AlcDrinkScreenManager implements Initializable {
         showIngredients(ingredientChoiceButton4);
     }
 
+    private TextField baseIngredientFilterTextField;
+    //TODO change so it is an "invisible" field but you can type filter the drop-down choices
+
+    /**
+     * This method goes through the original base drinks list, and sorts out options
+     * based on which key is pressed, puts those in a new list which is then presented
+     * in the combobox.
+     */
+    public void filterBaseIngredientByFirstLetter () { //TODO make it not possible to be null value
+        baseDrinkDropdownMenu.setOnKeyReleased(event -> {
+            String inputLetter;
+            List<String> filteredList = new ArrayList<>();
+
+            if(event.getCode().isLetterKey()) {
+                inputLetter = event.getText().toUpperCase();
+                for(String item : baseDrinkNames){
+                    if(item.startsWith(inputLetter)) {
+                        filteredList.add(item);
+                    }
+                }
+                baseDrinkDropdownMenu.setItems(FXCollections.observableArrayList(filteredList));
+            }
+            else if(event.getCode() == KeyCode.BACK_SPACE)
+            {
+                baseDrinkDropdownMenu.setItems(FXCollections.observableArrayList(baseDrinkNames));
+            }
+        });
+    }
 
     /**
      * Switches the scene to the start screen.
@@ -185,6 +217,7 @@ public class AlcDrinkScreenManager implements Initializable {
                 popupRecipe();
             }
         });
+
     }
 
     /**
