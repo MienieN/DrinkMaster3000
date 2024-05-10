@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="DarkBrown" stylesheets="@../css/Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.client.boundary.AlcDrinkScreenManager">
     <children>
-        <ComboBox fx:id="baseDrinkDropdownMenu" layoutX="119.0" layoutY="16.0" onAction="#chooseBaseDrinkFromDropdown" prefHeight="25.0" prefWidth="168.0" promptText="Choose Base Alcohol" stylesheets="@../css/Styles.css" AnchorPane.bottomAnchor="359.0" AnchorPane.leftAnchor="119.0" AnchorPane.rightAnchor="313.0" AnchorPane.topAnchor="16.0">
+        <ComboBox fx:id="baseDrinkDropdownMenu" layoutX="119.0" layoutY="16.0" onAction="#chooseBaseDrinkFromDropdown" onKeyTyped="#filterBaseIngredientByFirstLetter" prefHeight="25.0" prefWidth="168.0" promptText="Choose Base Alcohol" stylesheets="@../css/Styles.css" AnchorPane.bottomAnchor="359.0" AnchorPane.leftAnchor="119.0" AnchorPane.rightAnchor="313.0" AnchorPane.topAnchor="16.0">
             <styleClass>
                 <String fx:value="BorderMedium" />
                 <String fx:value="DarkBrown" />
