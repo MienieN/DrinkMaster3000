@@ -4,6 +4,7 @@ import src.client.entity.Ingredient;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * The IngredientsController class manages interactions with ingredients in the database.
@@ -30,7 +31,7 @@ public class IngredientsController {
     //TODO either get 2 lists or sort the list based on alc content
     public void getAllIngredientsFromDatabase() {
         ingredients = new ArrayList<>();
-        String allIngredients = "SELECT * FROM ingredients"; //query depending on how the alcohol marker is set
+        String allIngredients = "select * from ingredients order by frequency desc"; //query depending on how the alcohol marker is set
 
         try (PreparedStatement statement = connection.prepareStatement(allIngredients);
              ResultSet resultSet = statement.executeQuery()) {
@@ -41,10 +42,7 @@ public class IngredientsController {
                 int frequency = resultSet.getInt("frequency");
                 Ingredient ingredient = new Ingredient(ingredientName, isAlcoholic, frequency);
                 ingredients.add(ingredient);
-
             }
-            resultSet.close();
-            statement.close();
 
         } catch (SQLException e) {
             System.out.println("Error in getting ingredients from database");
