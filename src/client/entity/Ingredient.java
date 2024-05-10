@@ -8,19 +8,18 @@ import java.util.Objects;
 public class Ingredient {
     private String name;        // The name of the ingredient
     private boolean alcoholic;
+    private int frequency;
 
     /**
-     * Constructs an Ingredient object with the specified name.
-     *
-     * @param name The name of the ingredient.
+     * Constructor for ingredient.
+     * @param name the name of the ingredient.
+     * @param alcoholic a boolean indicating if the ingredient contains alcohol or not.
+     * @param frequency the number of recipes using the ingredient.
      */
-    public Ingredient(String name, boolean alcoholic) {
+    public Ingredient(String name, boolean alcoholic, int frequency) {
         this.name = name;
         this.alcoholic = alcoholic;
-    }
-
-    public Ingredient(String name){
-        this.name = name;
+        this.frequency = frequency;
     }
 
     /**
@@ -32,6 +31,15 @@ public class Ingredient {
         return name;
     }
 
+
+    public boolean getAlcoholic() {
+        return alcoholic;
+    }
+
+    public int getFrequency(){
+        return frequency;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if(this == obj){
@@ -40,19 +48,13 @@ public class Ingredient {
         Ingredient otherIngredient = (Ingredient) obj;
         return Objects.equals(this.name, otherIngredient.getName());
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(name);
     }
-
     @Override
     public String toString() {
         return name;
-    }
-
-    public boolean getAlcoholic() {
-        return alcoholic;
     }
 }
 
