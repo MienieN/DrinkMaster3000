@@ -69,10 +69,9 @@ public class NonAlcDrinkScreenManager {
      * Handles the click event on the "None of the above" button.
      * Resets the ingredient choice buttons and shows ingredients on them.
      *
-     * @param event The ActionEvent object representing the click event.
      */
     @FXML
-    private void clickNoneOfTheAboveButton(ActionEvent event) {
+    private void clickNoneOfTheAboveButton() {
         showIngredients(ingredientChoiceButton1);
         ingredientNames.remove(ingredientChoiceButton2.getText());
         showIngredients(ingredientChoiceButton2);

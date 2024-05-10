@@ -46,6 +46,8 @@ public class AlcDrinkScreenManager implements Initializable {
     @FXML
     private Button ingredientChoiceButton4;                 // Button for choosing ingredients
     @FXML
+    private ListView<String> partialMatchList;
+    @FXML
     private ListView<String> recipeList;                    // List view for displaying recipes
     @FXML
     private Button noneOfTheAboveButton;                    // Button for selecting none of the above
@@ -72,10 +74,10 @@ public class AlcDrinkScreenManager implements Initializable {
      * @param event The ActionEvent object representing the click event.
      */
     @FXML
-    private void clickIngredientChoiceButton(ActionEvent event){
+    private void clickIngredientChoiceButton(ActionEvent event) {
         Button button = (Button) event.getSource();
         String ingredientName = button.getText();
-        recipeController.checkForAlcRecipe(ingredientName);
+        recipeController.getIngredientForMatches(ingredientName);
         showIngredients(button);
     }
 
@@ -133,7 +135,7 @@ public class AlcDrinkScreenManager implements Initializable {
         enableIngredientChoiceButtons();
         baseDrinkDropdownMenu.setDisable(true);
         String baseDrinkName = baseDrinkDropdownMenu.getValue();
-        recipeController.checkForAlcRecipe(baseDrinkName);
+        recipeController.checkBaseDrinkOnly(baseDrinkName);
         ingredientNames.remove(baseDrinkName);
         showIngredients(ingredientChoiceButton1);
         showIngredients(ingredientChoiceButton2);
@@ -150,7 +152,7 @@ public class AlcDrinkScreenManager implements Initializable {
     public void switchToStartScreen(javafx.event.ActionEvent backToStartButtonEvent) {
         try{
             root = FXMLLoader.load(getClass().getClassLoader().getResource("src/Client/resources/fxml/StartScreen.fxml"));
-            stage = (Stage)((Node)backToStartButtonEvent.getSource()).getScene().getWindow();
+            stage = (Stage) ((Node) backToStartButtonEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -197,11 +199,16 @@ public class AlcDrinkScreenManager implements Initializable {
      *
      * @param recipeName The names of the recipe to be added to the list.
      */
-    public void receiveRecipeName(String recipeName) {
+    public void receiveBaseDrinkMatches(String recipeName) {
         recipeList.getItems().addAll(recipeName);
     }
 
-    public String getSelectedRecipeNameForViewingRecipe(){
+    public void receivePartialMatches(ArrayList<String> recipeNames) {
+        partialMatchList.getItems().clear();
+        partialMatchList.getItems().addAll(recipeNames);
+    }
+
+    public String getSelectedRecipeNameForViewingRecipe() {
         return recipeList.getSelectionModel().getSelectedItem();
     }
 
