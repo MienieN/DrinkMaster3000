@@ -147,7 +147,8 @@ public class AlcDrinkScreenManager implements Initializable {
         showIngredients(ingredientChoiceButton4);
     }
 
-    private TextField baseIngredientFilterTextField;
+    //TODO ask danne why this is here? seems to work without it
+    //private TextField baseIngredientFilterTextField;
     //TODO change so it is an "invisible" field but you can type filter the drop-down choices
 
     /**
