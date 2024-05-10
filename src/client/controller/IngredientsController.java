@@ -30,19 +30,18 @@ public class IngredientsController {
     //TODO either get 2 lists or sort the list based on alc content
     public void getAllIngredientsFromDatabase() {
         ingredients = new ArrayList<>();
-        String allIngredients = "SELECT ingredient_name, alcoholic FROM ingredients"; //query depending on how the alcohol marker is set
+        String allIngredients = "SELECT * FROM ingredients"; //query depending on how the alcohol marker is set
 
         try (PreparedStatement statement = connection.prepareStatement(allIngredients);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
-                for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-                    String ingredientName = resultSet.getString(i++);
-                    boolean isAlcoholic = resultSet.getBoolean(i);
+                String ingredientName = resultSet.getString("ingredient_name");
+                boolean isAlcoholic = resultSet.getBoolean("alcoholic");
+                int frequency = resultSet.getInt("frequency");
+                Ingredient ingredient = new Ingredient(ingredientName, isAlcoholic, frequency);
+                ingredients.add(ingredient);
 
-                    Ingredient ingredient = new Ingredient(ingredientName, isAlcoholic);
-                    ingredients.add(ingredient);
-                }
             }
             resultSet.close();
             statement.close();

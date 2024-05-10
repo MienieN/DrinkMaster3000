@@ -39,7 +39,7 @@ public class RecipeController {
     private void getRecipesFromDatabase() {
         recipes = new HashMap<>();
         String sql = "Select recipe_name from recipes";
-        String sql2 = "select recipes_ingredients.ingredient_name, ingredients.alcoholic from recipes_ingredients " +
+        String sql2 = "select recipes_ingredients.ingredient_name, ingredients.alcoholic, ingredients.frequency from recipes_ingredients " +
                 "join ingredients ON recipes_ingredients.ingredient_name = ingredients.ingredient_name " +
                 "WHERE recipe_name = ?;";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -52,9 +52,12 @@ public class RecipeController {
                     statement2.setString(1, recipeName);
                     ResultSet resultSet2 = statement2.executeQuery();
                     while (resultSet2.next()) {
-                        for (int j = 1; j <= resultSet2.getMetaData().getColumnCount(); j++) {
-                            ingredientHashSet.add(new Ingredient(resultSet2.getString(j++), resultSet2.getBoolean(j)));
-                        }
+                        String ingredientName = resultSet2.getString("ingredient_name");
+                        boolean isAlcoholic = resultSet2.getBoolean("alcoholic");
+                        int frequency = resultSet2.getInt("frequency");
+                        Ingredient ingredient = new Ingredient(ingredientName, isAlcoholic, frequency);
+                        ingredientHashSet.add(ingredient);
+
                     }
                     recipes.put(recipeName, ingredientHashSet);
                 }
@@ -191,7 +194,7 @@ having recipe_name = ('Lennart') and count(ingredient_name in (chosenIngredients
         chosenIngredients.add(ingredient);
         ArrayList<Ingredient> ingredients = new ArrayList<>(); //A new hashset to store the ingredients for a recipe from the database
 
-        String getRecipeIngredients = "select ingredient_name, alcoholic from " +
+        String getRecipeIngredients = "select * from " +
                 "ingredients where ingredient_name in (select ingredient_name from " +
                 "recipes_ingredients where recipe_name = ?)";
 
@@ -207,10 +210,11 @@ having recipe_name = ('Lennart') and count(ingredient_name in (chosenIngredients
                 statmentGetIngredients.setString(1, recipeName);
                 ResultSet resultSetIngredients = statmentGetIngredients.executeQuery();
                 while (resultSetIngredients.next()){
-
-                    ingredients.add(new Ingredient(resultSetIngredients.getString("ingredient_name"),
-                            resultSetIngredients.getBoolean("alcoholic")));
-                    System.out.println(ingredients);
+                    String ingredientName = resultSetIngredients.getString("ingredient_name");
+                    boolean isAlcoholic = resultSetIngredients.getBoolean("alcoholic");
+                    int frequency = resultSetIngredients.getInt("frequency");
+                    Ingredient ingredientToAdd = new Ingredient(ingredientName, isAlcoholic, frequency);
+                    ingredients.add(ingredientToAdd);
                 }
                 validRecipes.put(recipeName, ingredients);
                 System.out.println(validRecipes);
