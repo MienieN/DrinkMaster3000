@@ -40,6 +40,7 @@ public class InstructionScreenManager {
             root = FXMLLoader.load(getClass().getClassLoader().getResource("src/Client/resources/fxml/HelpScreen.fxml"));
             scene = new Scene(root);
             helpStage.setScene(scene);
+            helpStage.setAlwaysOnTop(true);
             helpStage.show();
         } catch (IOException e) {
             e.printStackTrace();
