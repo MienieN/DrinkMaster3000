@@ -67,6 +67,7 @@ public class ClientMain extends Application {
         instructionscreen = new InstructionScreenManager();
         // Launch the JavaFX application
         launch();
+
     }
 
     /**

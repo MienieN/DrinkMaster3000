@@ -1,22 +1,28 @@
 package src.client.boundary;
 
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import src.client.ClientMain;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 
 /**
  * The StartScreenManager class manages the navigation from the start screen to other screens in the application.
  */
-public class StartScreenManager {
+public class StartScreenManager implements Initializable {
     private Stage stage;        // The stage for the scene
     private Scene scene;        // The scene of the GUI
     private Parent root;        // The root node of the scene
+    private static InstructionScreenManager instructionscreen;
+
 
     /**
      * Switches the scene to the alcoholic drink selection screen.
@@ -56,5 +62,14 @@ public class StartScreenManager {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(instructionscreen == null){
+            instructionscreen = ClientMain.getInstructionscreen();
+            instructionscreen.openHelpWindow();
+        }
+
     }
 }
