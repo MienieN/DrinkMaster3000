@@ -49,7 +49,7 @@ public class AlcDrinkScreenManager implements Initializable {
     @FXML
     private Button ingredientChoiceButton4;                 // Button for choosing ingredients
     @FXML
-    private ListView<String> partialMatchList;
+    private ListView<String> matchList;
     @FXML
     private ListView<String> recipeList;                    // List view for displaying recipes
     @FXML
@@ -142,6 +142,8 @@ public class AlcDrinkScreenManager implements Initializable {
         ingredientNames = ingredientsController.getIngredientNames();
         System.out.println(ingredientNames);
         recipeController.checkBaseDrinkOnly(baseDrinkName);
+        recipeController.getIngredientForMatches(baseDrinkName);
+
 
         showIngredients(ingredientChoiceButton1);
         showIngredients(ingredientChoiceButton2);
@@ -212,7 +214,7 @@ public class AlcDrinkScreenManager implements Initializable {
         baseDrinkDropdownMenu.setOnAction(this::chooseBaseDrinkFromDropdown);       // Set action event handler for the dropdown menu
 
         // Add a listener to the recipe list view for handling recipe selection changes
-        recipeList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+        matchList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
 
@@ -230,22 +232,13 @@ public class AlcDrinkScreenManager implements Initializable {
         recipeController.getRecipeInstructionsForChosenAlcRecipe();
     }
 
-    /**
-     * Receives the names of all viable recipes and displays them to the user.
-     *
-     * @param recipeName The names of the recipe to be added to the list.
-     */
-    public void receiveBaseDrinkMatches(String recipeName) {
-        recipeList.getItems().addAll(recipeName);
-    }
-
-    public void receivePartialMatches(ArrayList<String> recipeNames) {
-        partialMatchList.getItems().clear();
-        partialMatchList.getItems().addAll(recipeNames);
+    public void receiveMatches(ArrayList<String> recipeNames) {
+        matchList.getItems().clear();
+        matchList.getItems().addAll(recipeNames);
     }
 
     public String getSelectedRecipeNameForViewingRecipe() {
-        return recipeList.getSelectionModel().getSelectedItem();
+        return matchList.getSelectionModel().getSelectedItem();
     }
 
     @FXML
