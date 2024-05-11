@@ -223,11 +223,14 @@ having recipe_name = ('Lennart') and count(ingredient_name in (chosenIngredients
             matches.addAll(fullMatches);
             matches.add("");
         }
+        if(partialMatchList.size() > 1){
+            matches.addAll(partialMatchList);
+            matches.add("");
+        }
 
-        matches.addAll(partialMatchList);
         System.out.println(partialMatchList);
         if (!matchesWithoutBaseDrink.isEmpty()){
-            matches.add("");
+
             matches.addAll(matchesWithoutBaseDrink);
         }
 
