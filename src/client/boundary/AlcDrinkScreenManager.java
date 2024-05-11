@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import src.client.ClientMain;
@@ -35,7 +34,7 @@ public class AlcDrinkScreenManager implements Initializable {
     private Scene scene;                                    // The scene of the GUI
     private Parent root;                                    // The root node of the scene
     private ArrayList<String> ingredientNames;              //The list of all ingredients
-    private ArrayList<String> baseDrinkNames;               // The list of base drink names //TODO needs to be just base drinks, need another array for ingredients
+    private ArrayList<String> baseDrinkNames;               // The list of base drink names
     private IngredientsController ingredientsController;    // The controller for managing ingredients
     private RecipeController recipeController;              // The controller for managing recipes
 
@@ -50,12 +49,12 @@ public class AlcDrinkScreenManager implements Initializable {
     @FXML
     private Button ingredientChoiceButton4;                 // Button for choosing ingredients
     @FXML
-    private ListView<String> partialMatchList;
+    private ListView<String> matchList;
     @FXML
     private ListView<String> recipeList;                    // List view for displaying recipes
     @FXML
     private Button noneOfTheAboveButton;                    // Button for selecting none of the above
-    private InstructionScreenManager instructionscreen;
+    private InstructionScreenManager instructionScreen;
 
     /**
      * Constructs a AlcDrinkScreenManager object.
@@ -67,7 +66,7 @@ public class AlcDrinkScreenManager implements Initializable {
         ArrayList<String> alcoholicIngredients = ingredientsController.getAlcoholicIngredientNames();
         Collections.sort(alcoholicIngredients);
         baseDrinkNames = alcoholicIngredients;
-        ingredientNames = ingredientsController.getIngredientNames();
+
         recipeController.setAlcGUI(this);
     }
 
@@ -139,8 +138,13 @@ public class AlcDrinkScreenManager implements Initializable {
         enableIngredientChoiceButtons();
         baseDrinkDropdownMenu.setDisable(true);
         String baseDrinkName = baseDrinkDropdownMenu.getValue();
+        ingredientsController.getIngredientsBasedOnBaseDrink(baseDrinkName);
+        ingredientNames = ingredientsController.getIngredientNames();
+        System.out.println(ingredientNames);
         recipeController.checkBaseDrinkOnly(baseDrinkName);
-        ingredientNames.remove(baseDrinkName);
+        recipeController.getIngredientForMatches(baseDrinkName);
+
+
         showIngredients(ingredientChoiceButton1);
         showIngredients(ingredientChoiceButton2);
         showIngredients(ingredientChoiceButton3);
@@ -210,7 +214,7 @@ public class AlcDrinkScreenManager implements Initializable {
         baseDrinkDropdownMenu.setOnAction(this::chooseBaseDrinkFromDropdown);       // Set action event handler for the dropdown menu
 
         // Add a listener to the recipe list view for handling recipe selection changes
-        recipeList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+        matchList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
 
@@ -228,29 +232,20 @@ public class AlcDrinkScreenManager implements Initializable {
         recipeController.getRecipeInstructionsForChosenAlcRecipe();
     }
 
-    /**
-     * Receives the names of all viable recipes and displays them to the user.
-     *
-     * @param recipeName The names of the recipe to be added to the list.
-     */
-    public void receiveBaseDrinkMatches(String recipeName) {
-        recipeList.getItems().addAll(recipeName);
-    }
-
-    public void receivePartialMatches(ArrayList<String> recipeNames) {
-        partialMatchList.getItems().clear();
-        partialMatchList.getItems().addAll(recipeNames);
+    public void receiveMatches(ArrayList<String> recipeNames) {
+        matchList.getItems().clear();
+        matchList.getItems().addAll(recipeNames);
     }
 
     public String getSelectedRecipeNameForViewingRecipe() {
-        return recipeList.getSelectionModel().getSelectedItem();
+        return matchList.getSelectionModel().getSelectedItem();
     }
 
     @FXML
     private void startInstructions(javafx.event.ActionEvent openHelpScreen){
-        if (instructionscreen == null){
-            instructionscreen = ClientMain.getInstructionscreen();
+        if (instructionScreen == null){
+            instructionScreen = ClientMain.getInstructionscreen();
         }
-        instructionscreen.openHelpWindow();
+        instructionScreen.openHelpWindow();
     }
 }

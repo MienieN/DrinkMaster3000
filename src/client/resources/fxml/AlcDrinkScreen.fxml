@@ -15,7 +15,11 @@
                 <String fx:value="BorderMedium" />
                 <String fx:value="DarkBrown" />
                 <String fx:value="WhiteText" />
-            </styleClass></ComboBox>
+            </styleClass>
+
+
+        </ComboBox>
+
         <Button fx:id="HelpButton" disable="false" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#startInstructions" stylesheets="@../css/Styles.css" text="Help" AnchorPane.bottomAnchor="361.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="508.0" AnchorPane.topAnchor="14.0">
             <styleClass>
                 <String fx:value="shadow" />
@@ -53,8 +57,7 @@
             </styleClass></Button>
         <AnchorPane layoutX="400.0" layoutY="38.0" minHeight="0.0" minWidth="0.0" prefHeight="360.0" prefWidth="195.0">
             <children>
-                <ListView fx:id="recipeList" layoutX="-2.0" layoutY="-1.0" prefHeight="189.0" prefWidth="195.0" styleClass="MediumBrown" stylesheets="@../css/Styles.css" />
-                <ListView fx:id="partialMatchList" layoutX="-2.0" layoutY="188.0" prefHeight="172.0" prefWidth="195.0" styleClass="MediumBrown" stylesheets="@../css/Styles.css" />
+                <ListView fx:id="matchList" layoutX="-2.0" prefHeight="360.0" prefWidth="195.0" stylesheets="@../css/Styles.css" />
             </children>
         </AnchorPane>
         <Button fx:id="backToStartScreenButton" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#switchToStartScreen" prefHeight="25.0" prefWidth="84.0" stylesheets="@../css/Styles.css" text="Start Screen">
