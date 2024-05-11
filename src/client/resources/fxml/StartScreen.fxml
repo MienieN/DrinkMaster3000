@@ -11,21 +11,21 @@
    <children>
       <Pane layoutX="-4.0" layoutY="-3.0" prefHeight="406.0" prefWidth="608.0" stylesheets="@../css/Styles.css">
          <children>
-            <Button fx:id="drinksButton" layoutX="218.0" layoutY="258.0" mnemonicParsing="false" onAction="#switchToAlcDrinkScreen" prefHeight="25.0" prefWidth="164.0" stylesheets="@../css/Styles.css" text="Drinks">
+            <Button fx:id="drinksButton" layoutX="218.0" layoutY="258.0" mnemonicParsing="false" onAction="#switchToAlcDrinkScreen" prefHeight="25.0" prefWidth="164.0" stylesheets="@../css/Styles.css" text="Alcoholic">
                <styleClass>
                   <String fx:value="DarkBrown" />
                   <String fx:value="BorderMedium" />
                   <String fx:value="WhiteText" />
                   <String fx:value="shadow" />
                </styleClass></Button>
-            <Button fx:id="nonAlcSpecialities" layoutX="218.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" stylesheets="@../css/Styles.css" text="Non-Alcoholic Specialities">
+            <Button fx:id="nonAlcSpecialities" layoutX="218.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" stylesheets="@../css/Styles.css" text="Discover New Drinks">
                <styleClass>
                   <String fx:value="DarkBrown" />
                   <String fx:value="WhiteText" />
                   <String fx:value="BorderMedium" />
                   <String fx:value="shadow" />
                </styleClass></Button>
-            <Button fx:id="nonAlcDrinks" layoutX="218.0" layoutY="193.0" mnemonicParsing="false" onAction="#switchToNonAlcDrinkScreen" prefHeight="25.0" prefWidth="164.0" stylesheets="@../css/Styles.css" text="Non-Alcoholic Drinks">
+            <Button fx:id="nonAlcDrinks" layoutX="218.0" layoutY="193.0" mnemonicParsing="false" onAction="#switchToNonAlcDrinkScreen" prefHeight="25.0" prefWidth="164.0" stylesheets="@../css/Styles.css" text="Non-Alcoholic">
                <styleClass>
                   <String fx:value="DarkBrown" />
                   <String fx:value="WhiteText" />
@@ -43,6 +43,14 @@
             </Label>
             <Button fx:id="favouritesButton" disable="true" layoutX="116.0" layoutY="337.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" text="Favourites" />
             <Button fx:id="historyButton" disable="true" layoutX="326.0" layoutY="337.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" text="History" />
+            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="78.0" stylesheets="@../css/Styles.css" text="Help">
+               <styleClass>
+                  <String fx:value="BorderMedium" />
+                  <String fx:value="DarkBrown" />
+                  <String fx:value="WhiteText" />
+                  <String fx:value="shadow" />
+               </styleClass>
+            </Button>
          </children>
          <styleClass>
             <String fx:value="DarkBrown" />

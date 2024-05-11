@@ -80,7 +80,7 @@ public class AlcDrinkScreenManager implements Initializable {
     private void clickIngredientChoiceButton(ActionEvent event) {
         Button button = (Button) event.getSource();
         String ingredientName = button.getText();
-        recipeController.getIngredientForMatches(ingredientName);
+        recipeController.checkForAlcRecipe(ingredientName);
         showIngredients(button);
     }
 
@@ -142,7 +142,7 @@ public class AlcDrinkScreenManager implements Initializable {
         ingredientNames = ingredientsController.getIngredientNames();
         System.out.println(ingredientNames);
         recipeController.checkBaseDrinkOnly(baseDrinkName);
-        recipeController.getIngredientForMatches(baseDrinkName);
+        recipeController.checkForAlcRecipe(baseDrinkName);
 
 
         showIngredients(ingredientChoiceButton1);

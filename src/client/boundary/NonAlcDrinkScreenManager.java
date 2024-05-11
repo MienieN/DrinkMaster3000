@@ -26,6 +26,7 @@ public class NonAlcDrinkScreenManager {
     private ArrayList<String> ingredientNames;              //The list of all ingredients
     private IngredientsController ingredientsController;    // The controller for managing ingredients
     private RecipeController recipeController;              // The controller for managing recipes
+    private InstructionScreenManager instructionScreen;
 
     @FXML
     private Button ingredientChoiceButton1;                 // Button for choosing ingredients
@@ -36,7 +37,7 @@ public class NonAlcDrinkScreenManager {
     @FXML
     private Button ingredientChoiceButton4;                 // Button for choosing ingredients
     @FXML
-    private ListView<String> recipeList;                    // List view for displaying recipes
+    private ListView<String> matchList;                    // List view for displaying recipes
 
     /**
      * Constructs a AlcDrinkScreenManager object.
@@ -133,7 +134,7 @@ public class NonAlcDrinkScreenManager {
     public void initialize() {
         putIngredientNamesOnChoiceButtonsOnScreenChange();
         // Add a listener to the recipe list view for handling recipe selection changes
-        recipeList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+        matchList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
 
@@ -153,13 +154,22 @@ public class NonAlcDrinkScreenManager {
     /**
      * Receives the names of all viable recipes and displays them to the user.
      *
-     * @param recipeName The names of the recipe to be added to the list.
+     * @param recipeNames The names of the recipes to be added to the list.
      */
-    public void receiveRecipeName(String recipeName) {
-        recipeList.getItems().addAll(recipeName);
+    public void receiveMatches(ArrayList<String> recipeNames) {
+        matchList.getItems().clear();
+        matchList.getItems().addAll(recipeNames);
+    }
+
+    @FXML
+    private void startInstructions(javafx.event.ActionEvent openHelpScreen){
+        if (instructionScreen == null){
+            instructionScreen = ClientMain.getInstructionscreen();
+        }
+        instructionScreen.openHelpWindow();
     }
 
     public String getSelectedRecipeNameForViewingRecipe() {
-        return recipeList.getSelectionModel().getSelectedItem();
+        return matchList.getSelectionModel().getSelectedItem();
     }
 }
