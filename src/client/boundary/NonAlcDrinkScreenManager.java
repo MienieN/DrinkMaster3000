@@ -47,7 +47,7 @@ public class NonAlcDrinkScreenManager {
         recipeController = ClientMain.getRecipeController();
         ArrayList<String> nonAlcoholicIngredients = ingredientsController.getNonAlcoholicIngredientNames();
         Collections.sort(nonAlcoholicIngredients);
-        ingredientNames = ingredientsController.getIngredientNames();
+        ingredientNames = ingredientsController.getNonAlcoholicIngredientNames();
         recipeController.setNonAlcGUI(this);
     }
 
