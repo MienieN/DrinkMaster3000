@@ -59,4 +59,10 @@
 .WhiteText{
     -fx-text-fill: white;
 }
+.combo-box .list-cell{
+    -fx-text-fill: white;
+}
+.combo-box .list-view .list-cell{
+    -fx-text-fill: black;
+}
 

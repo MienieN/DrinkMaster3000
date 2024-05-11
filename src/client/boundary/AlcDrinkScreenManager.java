@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import src.client.ClientMain;
@@ -35,7 +34,7 @@ public class AlcDrinkScreenManager implements Initializable {
     private Scene scene;                                    // The scene of the GUI
     private Parent root;                                    // The root node of the scene
     private ArrayList<String> ingredientNames;              //The list of all ingredients
-    private ArrayList<String> baseDrinkNames;               // The list of base drink names //TODO needs to be just base drinks, need another array for ingredients
+    private ArrayList<String> baseDrinkNames;               // The list of base drink names
     private IngredientsController ingredientsController;    // The controller for managing ingredients
     private RecipeController recipeController;              // The controller for managing recipes
 
@@ -55,7 +54,7 @@ public class AlcDrinkScreenManager implements Initializable {
     private ListView<String> recipeList;                    // List view for displaying recipes
     @FXML
     private Button noneOfTheAboveButton;                    // Button for selecting none of the above
-    private InstructionScreenManager instructionscreen;
+    private InstructionScreenManager instructionScreen;
 
     /**
      * Constructs a AlcDrinkScreenManager object.
@@ -67,7 +66,7 @@ public class AlcDrinkScreenManager implements Initializable {
         ArrayList<String> alcoholicIngredients = ingredientsController.getAlcoholicIngredientNames();
         Collections.sort(alcoholicIngredients);
         baseDrinkNames = alcoholicIngredients;
-        ingredientNames = ingredientsController.getIngredientNames();
+
         recipeController.setAlcGUI(this);
     }
 
@@ -139,8 +138,11 @@ public class AlcDrinkScreenManager implements Initializable {
         enableIngredientChoiceButtons();
         baseDrinkDropdownMenu.setDisable(true);
         String baseDrinkName = baseDrinkDropdownMenu.getValue();
+        ingredientsController.getIngredientsBasedOnBaseDrink(baseDrinkName);
+        ingredientNames = ingredientsController.getIngredientNames();
+        System.out.println(ingredientNames);
         recipeController.checkBaseDrinkOnly(baseDrinkName);
-        ingredientNames.remove(baseDrinkName);
+
         showIngredients(ingredientChoiceButton1);
         showIngredients(ingredientChoiceButton2);
         showIngredients(ingredientChoiceButton3);
@@ -248,9 +250,9 @@ public class AlcDrinkScreenManager implements Initializable {
 
     @FXML
     private void startInstructions(javafx.event.ActionEvent openHelpScreen){
-        if (instructionscreen == null){
-            instructionscreen = ClientMain.getInstructionscreen();
+        if (instructionScreen == null){
+            instructionScreen = ClientMain.getInstructionscreen();
         }
-        instructionscreen.openHelpWindow();
+        instructionScreen.openHelpWindow();
     }
 }
