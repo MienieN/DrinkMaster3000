@@ -3,7 +3,9 @@ package addRecipe;
 import addRecipe.gui.AddRecipeMainFrame;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * The AddRecipeController class manages the addition of recipes to the database.
@@ -126,6 +128,27 @@ public class AddRecipeController {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
+        }
+    }
+
+    public List<String> queryRecipeName (String textSearch) {
+        try {
+            String autoRecipeName = "SELECT * FROM recipes WHERE recipe_name LIKE ?";
+            PreparedStatement autoRecipeStatement = connection.prepareStatement(autoRecipeName);
+            autoRecipeStatement.setString(1, textSearch + "%");
+
+            ResultSet resultSet = autoRecipeStatement.executeQuery();
+
+            List<String> recipeNameSuggestions = new ArrayList<>();
+            while (resultSet.next()) {
+                recipeNameSuggestions.add(resultSet.getString("recipe_name"));
+            }
+            return recipeNameSuggestions;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Something went wrong in the query or list from query");
+            return null;
         }
     }
 }

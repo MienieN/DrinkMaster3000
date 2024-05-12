@@ -31,6 +31,10 @@ public class AddRecipeMainFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+    public AddRecipeController getController(){
+        return controller;
+    }
+
     /**
      * Adds a new recipe to the database with the specified name, ingredients, and instructions.
      *

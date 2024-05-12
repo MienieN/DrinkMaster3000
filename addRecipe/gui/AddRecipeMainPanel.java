@@ -1,8 +1,12 @@
 package addRecipe.gui;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 
 /**
@@ -14,6 +18,7 @@ public class AddRecipeMainPanel extends JPanel {
     private JTextField recipeNameTextField;     // Text field for entering the name of the recipe
     private InputPanel inputPanel;              // Panel containing input fields for ingredients
     private JTextArea instructionsTextArea;     // Text area for entering recipe instructions
+
 
     /**
      * Constructs a new AddRecipeMainPanel with the specified main frame, width, and height.
@@ -43,6 +48,13 @@ public class AddRecipeMainPanel extends JPanel {
         recipeNameTextField.setLocation(95, 50);
         add(recipeNameTextField);
 
+        // Combobox for recipe name suggestion functionality
+        JComboBox<Object> recipeNameSuggestionCBox = new JComboBox<>();
+        recipeNameSuggestionCBox.setSize(recipeNameTextField.getSize());
+        recipeNameSuggestionCBox.setLocation(95, 80);
+        recipeNameSuggestionCBox.setEditable(true);
+        add(recipeNameSuggestionCBox);
+
         // Create a panel to hold the input fields for the ingredients
         inputPanel = new InputPanel(this, width, height);
         inputPanel.setLocation(10, 150);
@@ -53,7 +65,66 @@ public class AddRecipeMainPanel extends JPanel {
         instructionsTextArea.setSize(235, height - 130);
         instructionsTextArea.setLocation(235, 40);
         add(instructionsTextArea);
+
+        //TODO: it does not convert to uppercase - solve
+        //TODO: mirror the input from combobox (if chosen) into the JTextField if possible
+        recipeNameTextField.getDocument().addDocumentListener(new DocumentListener() {
+            /**
+             * Gives notification that there was an insert into the document.  The
+             * range given by the DocumentEvent bounds the freshly inserted region.
+             *
+             * @param e the document event
+             */
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateSuggestions();
+            }
+
+            /**
+             * Gives notification that a portion of the document has been
+             * removed.  The range is given in terms of what the view last
+             * saw (that is, before updating sticky positions).
+             *
+             * @param e the document event
+             */
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateSuggestions();
+            }
+
+            /**
+             * Gives notification that an attribute or set of attributes changed.
+             *
+             * @param e the document event
+             */
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateSuggestions();
+            }
+
+            private void updateSuggestions() {
+                String searchText = recipeNameTextField.getText();
+                recipeNameSuggestionCBox.removeAllItems();
+
+
+                if (!(searchText == null || searchText.equals(""))) {
+                    String temp = searchText.substring(0, searchText.length()-1).toUpperCase() + searchText.substring(searchText.length()-1);
+                    searchText = temp;
+                }
+
+
+                System.out.println(searchText);
+
+                for (String suggestion : mainFrame.getController().queryRecipeName(searchText)) {
+                    recipeNameSuggestionCBox.addItem(suggestion);
+                }
+            }
+        });
+
     }
+
+
+
 
     /**
      * Adds the entered recipe to the database by retrieving information from the input fields.
