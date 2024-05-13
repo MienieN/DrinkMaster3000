@@ -176,6 +176,10 @@ public class RecipeController {
 
     }
 
+    /**
+     * Responsible for getting the partial matches based on the alcoholic base drink chosen
+     * @param chosenIngredients the list of chosen ingredients in case of alcoholic drinks contains the chosen base drink aswell
+     */
     public void checkPartialMatchesIncludingBaseDrink(ArrayList<Ingredient> chosenIngredients) {
         partialMatchList = new ArrayList<>();
         String sql = "SELECT recipe_name, count (distinct ingredient_name) FROM (select * from recipes_ingredients " +
@@ -214,8 +218,9 @@ public class RecipeController {
     public void checkPartialMatchesOfDrinks(ArrayList<Ingredient> chosenIngredients) {
         partialMatchList = new ArrayList<>();
         String sql = "SELECT recipe_name, count (distinct ingredient_name) FROM (select * from recipes_ingredients " +
-                "where recipe_name in ((select recipe_name from recipes_ingredients " +
-                "where alcoholic  = false)))as recipes " +
+                "where recipe_name not in ((select recipe_name " +
+                "from recipes_ingredients inner join " +
+                "ingredients on recipes_ingredients.ingredient_name = ingredients.ingredient_name where alcoholic = true)))as recipes " +
                 "WHERE ingredient_name in (?";
         for (int i = 1; i < chosenIngredients.size(); i++) {
             sql += ", ?";
@@ -223,8 +228,7 @@ public class RecipeController {
         sql += ") group by recipe_name order by count desc";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            int index = 2;
-            statement.setString(1, chosenIngredients.get(0).getName());
+            int index = 1;
             //statement.setString(2, chosenIngredients.get(0).getName());
             for (int i = 0; i < chosenIngredients.size(); i++) {
                 statement.setString(index++, chosenIngredients.get(i).getName());
@@ -239,7 +243,7 @@ public class RecipeController {
                 }
 
             }
-            //alcDrinkScreenManager.receivePartialMatches(partialMatchList);
+            nonAlcDrinkScreenManager.receiveMatches(partialMatchList);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -310,6 +314,7 @@ public class RecipeController {
         Ingredient ingredient = ingredientsController.getIngredientFromArrayList(chosenIngredientName);
         chosenIngredients.add(ingredient);
         checkPartialMatchesIncludingBaseDrink(chosenIngredients);
+        checkPartialMatchesOfDrinks(chosenIngredients);
         checkFullMatches(chosenIngredients);
         sendMatches(screen);
     }
