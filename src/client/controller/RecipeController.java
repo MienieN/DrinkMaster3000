@@ -143,7 +143,7 @@ public class RecipeController {
      *
      * @param chosenIngredients The hash set of the chosen ingredients.
      */
-    public void checkFullMatches(ArrayList<Ingredient> chosenIngredients) {
+    public void checkFullAlcMatches(ArrayList<Ingredient> chosenIngredients) {
         Iterator<Map.Entry<String, ArrayList<Ingredient>>> validRecipeIterator = validRecipes.entrySet().iterator();
         Iterator<Map.Entry<String, ArrayList<Ingredient>>> remainingRecipesIterator = recipes.entrySet().iterator();
         while (validRecipeIterator.hasNext()) {
@@ -174,6 +174,22 @@ public class RecipeController {
             }
         }
 
+    }
+
+    public void checkFullNonAlcMatches(ArrayList<Ingredient> chosenIngredients) {
+        Iterator<Map.Entry<String, ArrayList<Ingredient>>> RecipeIterator = recipes.entrySet().iterator();
+        while (RecipeIterator.hasNext()) {
+            Map.Entry<String, ArrayList<Ingredient>> entry = RecipeIterator.next();
+            //Find full match
+            if (chosenIngredients.containsAll(entry.getValue())) {
+                if (fullMatches.isEmpty()) {
+                    fullMatches.add("Full Matches:");
+                }
+                fullMatches.add(entry.getKey());
+                partialMatchList.remove(entry.getKey());
+                RecipeIterator.remove();
+            }
+        }
     }
 
     /**
@@ -243,7 +259,6 @@ public class RecipeController {
                 }
 
             }
-            nonAlcDrinkScreenManager.receiveMatches(partialMatchList);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -277,9 +292,8 @@ public class RecipeController {
 
     }
 
-    public void checkBaseDrinkOnly(String chosenBaseDrink) {
+    public void getBaseDrinkCompatibleRecipesFromDatabase(String chosenBaseDrink) {
         ArrayList<Ingredient> ingredients = new ArrayList<>(); //A new ArrayList to store the ingredients for a recipe from the database
-
         String getRecipeIngredients = "select * from " +
                 "ingredients where ingredient_name in (select ingredient_name from " +
                 "recipes_ingredients where recipe_name = ?)";
@@ -310,21 +324,21 @@ public class RecipeController {
         }
     }
 
-    public void getIngredientForMatches(String chosenIngredientName, String screen) {
+
+    public void checkForAlcRecipe(String chosenIngredientName) {
         Ingredient ingredient = ingredientsController.getIngredientFromArrayList(chosenIngredientName);
         chosenIngredients.add(ingredient);
         checkPartialMatchesIncludingBaseDrink(chosenIngredients);
-        checkPartialMatchesOfDrinks(chosenIngredients);
-        checkFullMatches(chosenIngredients);
-        sendMatches(screen);
-    }
-
-    public void checkForAlcRecipe(String chosenIngredientName) {
-        getIngredientForMatches(chosenIngredientName, "alc");
+        checkFullAlcMatches(chosenIngredients);
+        sendMatches("alc");
     }
 
     public void checkForNonAlcRecipe(String chosenIngredientName) {
-        getIngredientForMatches(chosenIngredientName, "Non-alc");
+        Ingredient ingredient = ingredientsController.getIngredientFromArrayList(chosenIngredientName);
+        chosenIngredients.add(ingredient);
+        checkPartialMatchesOfDrinks(chosenIngredients);
+        checkFullNonAlcMatches(chosenIngredients);
+        sendMatches("non-alc");
     }
 
     /**

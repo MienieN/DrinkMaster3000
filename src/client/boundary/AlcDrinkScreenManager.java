@@ -141,7 +141,7 @@ public class AlcDrinkScreenManager implements Initializable {
         ingredientsController.getIngredientsBasedOnBaseDrink(baseDrinkName);
         ingredientNames = ingredientsController.getIngredientNames();
         System.out.println(ingredientNames);
-        recipeController.checkBaseDrinkOnly(baseDrinkName);
+        recipeController.getBaseDrinkCompatibleRecipesFromDatabase(baseDrinkName);
         recipeController.checkForAlcRecipe(baseDrinkName);
 
 
