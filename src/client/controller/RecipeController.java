@@ -344,14 +344,14 @@ public class RecipeController {
     /**
      * Sets the GUI controller for displaying recipes.
      *
-     * @param GUIController The GUI controller for displaying recipes.
+     * @param AlcGUIController The GUI controller for displaying recipes.
      */
-    public void setAlcGUI(AlcDrinkScreenManager GUIController) {
-        this.alcDrinkScreenManager = GUIController;
+    public void setAlcGUI(AlcDrinkScreenManager AlcGUIController) {
+        this.alcDrinkScreenManager = AlcGUIController;
     }
 
-    public void setNonAlcGUI(NonAlcDrinkScreenManager GUIController) {
-        this.nonAlcDrinkScreenManager = GUIController;
+    public void setNonAlcGUI(NonAlcDrinkScreenManager NonAlcGUIController) {
+        this.nonAlcDrinkScreenManager = NonAlcGUIController;
     }
 
     public void resetChosenIngredients() {
