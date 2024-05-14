@@ -6,6 +6,8 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,7 +20,7 @@ public class AddRecipeMainPanel extends JPanel {
     private JTextField recipeNameTextField;     // Text field for entering the name of the recipe
     private InputPanel inputPanel;              // Panel containing input fields for ingredients
     private JTextArea instructionsTextArea;     // Text area for entering recipe instructions
-    private JComboBox<Object> recipeNameSuggestions = new JComboBox<>();
+    //private JComboBox<Object> recipeNameSuggestions = new JComboBox<>();
 
 
     /**
@@ -49,30 +51,63 @@ public class AddRecipeMainPanel extends JPanel {
         recipeNameTextField.setLocation(95, 50);
         add(recipeNameTextField);
 
-        //To dynamically respond to changes in the recipeNameTextField
-        DocumentListener docListener = new DocumentListener() {
-            public void insertUpdate(DocumentEvent e) {
-                updateSuggestions();
-                recipeNameSuggestions.showPopup();
-            }
-            public void removeUpdate(DocumentEvent e) {
-                updateSuggestions();
-                recipeNameSuggestions.showPopup();
-            }
-            public void changedUpdate(DocumentEvent e) {
-                updateSuggestions();
-                recipeNameSuggestions.showPopup();
-            }
-        };
+
 
         // Combobox for recipe name suggestions
+        JComboBox<Object> recipeNameSuggestions = new JComboBox<>();
         recipeNameSuggestions.setEditable(true);
         recipeNameSuggestions.setSize(recipeNameTextField.getSize());
         recipeNameSuggestions.setLocation(95, 80);
-        DefaultComboBoxModel<Object> recipeNameSuggestionsModel = new DefaultComboBoxModel<>();
-        recipeNameSuggestions.setModel(recipeNameSuggestionsModel);
-        ((JTextField)recipeNameSuggestions.getEditor().getEditorComponent()).getDocument().addDocumentListener(docListener);
+        //DefaultComboBoxModel<Object> recipeNameSuggestionsModel = new DefaultComboBoxModel<>();
+        //recipeNameSuggestions.setModel(recipeNameSuggestionsModel);
+        //((JTextField)recipeNameSuggestions.getEditor().getEditorComponent()).getDocument().addDocumentListener(docListener);
         add(recipeNameSuggestions);
+
+        recipeNameSuggestions.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedItem = (String) recipeNameSuggestions.getSelectedItem();
+                if (selectedItem != null) {
+                    recipeNameTextField.setText(selectedItem);
+                }
+            }
+        });
+
+        //To dynamically respond to changes in the recipeNameTextField
+        recipeNameTextField.getDocument().addDocumentListener(new DocumentListener() {
+            public void insertUpdate(DocumentEvent e) {
+                updateSuggestions();
+                //recipeNameSuggestions.showPopup();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                updateSuggestions();
+                //recipeNameSuggestions.showPopup();
+            }
+            public void changedUpdate(DocumentEvent e) {
+                updateSuggestions();
+                //recipeNameSuggestions.showPopup();
+            }
+            private void updateSuggestions() {
+                String searchText = recipeNameTextField.getText();
+
+                if (!(searchText == null || searchText.isEmpty())) {
+                    String temp = searchText.substring(0, 1).toUpperCase() + searchText.substring(1);
+                    searchText = temp;
+                }
+
+                System.out.println(searchText);
+                recipeNameSuggestions.removeAllItems();
+
+
+                for (String suggestion : mainFrame.getController().queryRecipeName(searchText)) {
+                    recipeNameSuggestions.addItem(suggestion);
+                }
+            }
+        });
+
+
+
+
 
         // Create a panel to hold the input fields for the ingredients
         inputPanel = new InputPanel(this, width, height);
@@ -87,28 +122,8 @@ public class AddRecipeMainPanel extends JPanel {
 
 
     }
-    private void updateSuggestions() { //TODO runnable makes it run forever, needs to be changed
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                String searchText = recipeNameTextField.getText();
-
-                if (!(searchText == null || searchText.equals(""))) {
-                    String temp = searchText.substring(0, 1).toUpperCase() + searchText.substring(1);
-                    searchText = temp;
-                }
-
-                System.out.println(searchText);
-                recipeNameSuggestions.removeAllItems();
 
 
-                for (String suggestion : mainFrame.getController().queryRecipeName(searchText)) {
-                    recipeNameSuggestions.addItem(suggestion);
-                }
-            }
-        };
-        SwingUtilities.invokeLater(runnable);
-    }
 
     /**
      * Adds the entered recipe to the database by retrieving information from the input fields.
