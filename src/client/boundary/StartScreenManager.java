@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 /**
  * The StartScreenManager class manages the navigation from the start screen to other screens in the application.
  */
-public class StartScreenManager implements Initializable {
+public class StartScreenManager /*implements Initializable*/ {
     private Stage stage;        // The stage for the scene
     private Scene scene;        // The scene of the GUI
     private Parent root;        // The root node of the scene
@@ -64,12 +64,12 @@ public class StartScreenManager implements Initializable {
         }
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(instructionscreen == null){
+    public void initializeInstructions() {
             instructionscreen = ClientMain.getInstructionscreen();
             instructionscreen.openHelpWindow();
-        }
+
 
     }
+
+
 }

@@ -43,7 +43,7 @@
             </Label>
             <Button fx:id="favouritesButton" disable="true" layoutX="116.0" layoutY="337.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" text="Favourites" />
             <Button fx:id="historyButton" disable="true" layoutX="326.0" layoutY="337.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" text="History" />
-            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="78.0" stylesheets="@../css/Styles.css" text="Help">
+            <Button fx:id="helpButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#initializeInstructions" prefHeight="29.0" prefWidth="78.0" stylesheets="@../css/Styles.css" text="Help">
                <styleClass>
                   <String fx:value="BorderMedium" />
                   <String fx:value="DarkBrown" />
