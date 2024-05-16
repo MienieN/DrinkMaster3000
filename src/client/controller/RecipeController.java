@@ -325,9 +325,8 @@ public class RecipeController {
     }
 
 
-    public void checkForAlcRecipe(String chosenIngredientName) {
-        Ingredient ingredient = ingredientsController.getIngredientFromArrayList(chosenIngredientName);
-        chosenIngredients.add(ingredient);
+    public void checkForAlcRecipe(ArrayList<Ingredient> chosenIngredients) {
+
         checkPartialMatchesIncludingBaseDrink(chosenIngredients);
         checkFullAlcMatches(chosenIngredients);
         sendMatches("alc");
@@ -367,4 +366,6 @@ public class RecipeController {
     public void setIngredientsController(IngredientsController ingredientsController) {
         this.ingredientsController = ingredientsController;
     }
+
+
 }
