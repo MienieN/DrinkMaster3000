@@ -2,6 +2,7 @@ package src.client.controller;
 
 import org.checkerframework.checker.units.qual.A;
 import src.client.boundary.AlcDrinkScreenManager;
+import src.client.boundary.DiscoverDrinkScreenManager;
 import src.client.boundary.NonAlcDrinkScreenManager;
 import src.client.entity.Ingredient;
 
@@ -20,6 +21,7 @@ public class IngredientsController {
     private Connection connection;                      // The database connection
     private AlcDrinkScreenManager alcDrinkScreenManager;
     private NonAlcDrinkScreenManager nonAlcDrinkScreenManager;
+    private DiscoverDrinkScreenManager discoverDrinkScreenManager;
 
     /**
      * Constructs an IngredientsController object and initializes the database connection.
@@ -155,6 +157,7 @@ public class IngredientsController {
                 recipeController.checkForNonAlcRecipe(chosenIngredients);
                 break;
             case "other":
+                recipeController.checkForDiscoverRecipe(chosenIngredients);
                 break;
         }
 
@@ -175,6 +178,9 @@ public class IngredientsController {
                 recipeController.checkForNonAlcRecipe(chosenIngredients);
                 break;
             case "other":
+                discoverDrinkScreenManager.addBackIngredient(ingredient.getName());
+                chosenIngredients.remove(ingredient);
+                recipeController.checkForDiscoverRecipe(chosenIngredients);
                 break;
         }
 
@@ -194,6 +200,7 @@ public class IngredientsController {
                 nonAlcDrinkScreenManager.receiveChosenIngredients(chosenIngredientNames);
                 break;
             case "other":
+                discoverDrinkScreenManager.receiveChosenIngredients(chosenIngredientNames);
                 break;
         }
 
@@ -213,6 +220,7 @@ public class IngredientsController {
                 nonAlcDrinkScreenManager.addBackIngredient(name);
                 break;
             case "other":
+                discoverDrinkScreenManager.addBackIngredient(name);
                 break;
         }
 
@@ -227,5 +235,9 @@ public class IngredientsController {
 
     public void setNonAlcGUI(NonAlcDrinkScreenManager nonAlcDrinkScreenManager) {
         this.nonAlcDrinkScreenManager = nonAlcDrinkScreenManager;
+    }
+
+    public void setDiscoverGUI(DiscoverDrinkScreenManager discoverGUIController) {
+        this.discoverDrinkScreenManager = discoverGUIController;
     }
 }

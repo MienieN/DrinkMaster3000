@@ -2,6 +2,7 @@ package src.client.controller;
 
 import javafx.scene.control.Alert;
 import src.client.boundary.AlcDrinkScreenManager;
+import src.client.boundary.DiscoverDrinkScreenManager;
 import src.client.boundary.NonAlcDrinkScreenManager;
 import src.client.entity.Ingredient;
 
@@ -20,6 +21,7 @@ public class RecipeController {
     private HashMap<String, String> recipeInstructions = new HashMap<>();   // HashMap to store recipes and their instructions
     private AlcDrinkScreenManager alcDrinkScreenManager;                    // GUI controller for displaying alcoholic recipes
     private NonAlcDrinkScreenManager nonAlcDrinkScreenManager;              // GUI controller for displaying non-alcoholic recipes
+    private DiscoverDrinkScreenManager discoverDrinkScreenManager;
     private ArrayList<Ingredient> chosenIngredients = new ArrayList<>();        // List of chosen ingredients
     private ArrayList<String> partialMatchList;
     private ArrayList<String> fullMatches = new ArrayList<>();
@@ -350,6 +352,9 @@ public class RecipeController {
     public void setNonAlcGUI(NonAlcDrinkScreenManager NonAlcGUIController) {
         this.nonAlcDrinkScreenManager = NonAlcGUIController;
     }
+    public void setDiscoverGUI(DiscoverDrinkScreenManager discoverGUIController) {
+        this.discoverDrinkScreenManager = discoverGUIController;
+    }
 
     public void resetRecipes() {
         fullMatches.clear();
@@ -366,4 +371,6 @@ public class RecipeController {
     }
 
 
+    public void checkForDiscoverRecipe(ArrayList<Ingredient> chosenIngredients) {
+    }
 }
