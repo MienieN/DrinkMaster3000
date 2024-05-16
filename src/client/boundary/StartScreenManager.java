@@ -49,10 +49,25 @@ public class StartScreenManager /*implements Initializable*/ {
 
     public void switchToNonAlcDrinkScreen(javafx.event.ActionEvent nonAlcDrinkEvent) {
         try{
-            // Load the FXML file for the alcoholic drink selection screen
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("src/client/resources/fxml/NonAlcDrinkScreen.fxml")));
             // Get the stage from the source of the event
             stage = (Stage)((Node)nonAlcDrinkEvent.getSource()).getScene().getWindow();
+            // Create a new scene with the loaded FXML content
+            scene = new Scene(root);
+            // Set the scene of the stage
+            stage.setScene(scene);
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void switchToDiscoverDrinkScreen(javafx.event.ActionEvent discoverDrinkEvent) {
+        try{
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("src/client/resources/fxml/DiscoverDrinkScreen.fxml")));
+            // Get the stage from the source of the event
+            stage = (Stage)((Node)discoverDrinkEvent.getSource()).getScene().getWindow();
             // Create a new scene with the loaded FXML content
             scene = new Scene(root);
             // Set the scene of the stage

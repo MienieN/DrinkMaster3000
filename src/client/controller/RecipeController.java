@@ -18,6 +18,7 @@ import java.util.*;
 public class RecipeController {
     private HashMap<String, ArrayList<Ingredient>> recipes; // HashMap to store recipes and their ingredients
     private HashMap<String, ArrayList<Ingredient>> validRecipes = new HashMap<>(); //All the recipes containing the chosen base drink.
+    private HashMap<String, ArrayList<Ingredient>> discoverRecipes;
     private HashMap<String, String> recipeInstructions = new HashMap<>();   // HashMap to store recipes and their instructions
     private AlcDrinkScreenManager alcDrinkScreenManager;                    // GUI controller for displaying alcoholic recipes
     private NonAlcDrinkScreenManager nonAlcDrinkScreenManager;              // GUI controller for displaying non-alcoholic recipes
@@ -36,6 +37,7 @@ public class RecipeController {
     public RecipeController(Connection connection) {
         this.connection = connection;
         getRecipesFromDatabase();
+        getRecipesForDiscoverFromDatabase();
     }
 
     /**
@@ -65,6 +67,37 @@ public class RecipeController {
 
                     }
                     recipes.put(recipeName, ingredientHashSet);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void getRecipesForDiscoverFromDatabase() {
+        discoverRecipes = new HashMap<>();
+        String sql = "Select recipe_name from recipes where speciality = true";
+        String sql2 = "select recipes_ingredients.ingredient_name, ingredients.alcoholic, ingredients.frequency from recipes_ingredients " +
+                "join ingredients ON recipes_ingredients.ingredient_name = ingredients.ingredient_name " +
+                "WHERE recipe_name = ?;";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet recipeNames = statement.executeQuery();
+            PreparedStatement statement2 = connection.prepareStatement(sql2);
+            while (recipeNames.next()) {
+                for (int i = 1; i <= recipeNames.getMetaData().getColumnCount(); i++) {
+                    ArrayList<Ingredient> ingredientHashSet = new ArrayList<>();
+                    String recipeName = recipeNames.getString(i);
+                    statement2.setString(1, recipeName);
+                    ResultSet resultSet2 = statement2.executeQuery();
+                    while (resultSet2.next()) {
+                        String ingredientName = resultSet2.getString("ingredient_name");
+                        boolean isAlcoholic = resultSet2.getBoolean("alcoholic");
+                        int frequency = resultSet2.getInt("frequency");
+                        Ingredient ingredient = new Ingredient(ingredientName, isAlcoholic, frequency);
+                        ingredientHashSet.add(ingredient);
+
+                    }
+                    discoverRecipes.put(recipeName, ingredientHashSet);
                 }
             }
         } catch (SQLException e) {
@@ -195,6 +228,22 @@ public class RecipeController {
         }
     }
 
+    public void checkFullDiscoverMatches(ArrayList<Ingredient> chosenIngredients) {
+        Iterator<Map.Entry<String, ArrayList<Ingredient>>> RecipeIterator = discoverRecipes.entrySet().iterator();
+        while (RecipeIterator.hasNext()) {
+            Map.Entry<String, ArrayList<Ingredient>> entry = RecipeIterator.next();
+            //Find full match
+            if (chosenIngredients.containsAll(entry.getValue())) {
+                if (fullMatches.isEmpty()) {
+                    fullMatches.add("Full Matches:");
+                }
+                fullMatches.add(entry.getKey());
+                partialMatchList.remove(entry.getKey());
+                RecipeIterator.remove();
+            }
+        }
+    }
+
     /**
      * Responsible for getting the partial matches based on the alcoholic base drink chosen
      * @param chosenIngredients the list of chosen ingredients in case of alcoholic drinks contains the chosen base drink aswell
@@ -268,6 +317,40 @@ public class RecipeController {
         }
     }
 
+    public void checkPartialMatchesOfDiscoverDrinks(ArrayList<Ingredient> chosenIngredients) {
+        partialMatchList = new ArrayList<>();
+        String sql = "SELECT recipe_name, count (distinct ingredient_name) FROM (select * from recipes_ingredients " +
+                "where recipe_name not in ((select recipe_name " +
+                "from recipes_ingredients inner join " +
+                "ingredients on recipes_ingredients.ingredient_name = ingredients.ingredient_name where recipe_name in (select recipe_name from recipes where speciality = false))))as recipes " +
+                "WHERE ingredient_name in (?";
+        for (int i = 1; i < chosenIngredients.size(); i++) {
+            sql += ", ?";
+        }
+        sql += ") group by recipe_name order by count desc";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            int index = 1;
+            //statement.setString(2, chosenIngredients.get(0).getName());
+            for (int i = 0; i < chosenIngredients.size(); i++) {
+                statement.setString(index++, chosenIngredients.get(i).getName());
+            }
+            //statement.setInt(index, chosenIngredients.size());
+            ResultSet resultSet = statement.executeQuery();
+            partialMatchList.add("Partial Matches:");
+            while (resultSet.next()) {
+                String recipe_name = resultSet.getString("recipe_name");
+                if (!fullMatches.contains(recipe_name)) {
+                    partialMatchList.add(recipe_name);
+                }
+
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void sendMatches(String screen) {
         ArrayList<String> matches = new ArrayList<>();
 
@@ -290,7 +373,7 @@ public class RecipeController {
         } else if (screen.equals("non-alc")) {
             nonAlcDrinkScreenManager.receiveMatches(matches);
         } else if (screen.equals("other")) {
-
+            discoverDrinkScreenManager.receiveMatches(matches);
         }
 
     }
@@ -340,6 +423,12 @@ public class RecipeController {
         sendMatches("non-alc");
     }
 
+    public void checkForDiscoverRecipe(ArrayList<Ingredient> chosenIngredients) {
+        checkFullDiscoverMatches(chosenIngredients);
+        checkPartialMatchesOfDiscoverDrinks(chosenIngredients);
+        sendMatches("other");
+    }
+
     /**
      * Sets the GUI controller for displaying recipes.
      *
@@ -371,6 +460,5 @@ public class RecipeController {
     }
 
 
-    public void checkForDiscoverRecipe(ArrayList<Ingredient> chosenIngredients) {
-    }
+
 }
