@@ -194,7 +194,8 @@ public class AlcDrinkScreenManager implements Initializable {
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-            recipeController.resetChosenIngredients();
+            ingredientsController.resetChosenIngredients();
+            recipeController.resetRecipes();
 
         } catch (IOException e) {
             throw new RuntimeException(e);

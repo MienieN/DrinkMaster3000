@@ -353,9 +353,9 @@ public class RecipeController {
         this.nonAlcDrinkScreenManager = NonAlcGUIController;
     }
 
-    public void resetChosenIngredients() {
-        getRecipesFromDatabase();
-        chosenIngredients.clear();
+    public void resetRecipes() {
+        fullMatches.clear();
+        partialMatchList.clear();
     }
 
     /**

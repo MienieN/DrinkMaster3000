@@ -173,4 +173,9 @@ public class IngredientsController {
         chosenIngredients.remove(ingredient);
         updateChosenIngredientsList();
     }
+
+    public void resetChosenIngredients() {
+        chosenIngredients.clear();
+
+    }
 }

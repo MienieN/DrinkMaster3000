@@ -118,7 +118,7 @@ public class NonAlcDrinkScreenManager {
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-            recipeController.resetChosenIngredients();
+            recipeController.resetRecipes();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
