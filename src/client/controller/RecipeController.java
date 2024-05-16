@@ -332,9 +332,8 @@ public class RecipeController {
         sendMatches("alc");
     }
 
-    public void checkForNonAlcRecipe(String chosenIngredientName) {
-        Ingredient ingredient = ingredientsController.getIngredientFromArrayList(chosenIngredientName);
-        chosenIngredients.add(ingredient);
+    public void checkForNonAlcRecipe(ArrayList<Ingredient> chosenIngredients) {
+
         checkPartialMatchesOfDrinks(chosenIngredients);
         checkFullNonAlcMatches(chosenIngredients);
         sendMatches("non-alc");

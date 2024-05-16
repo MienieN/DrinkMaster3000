@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class NonAlcDrinkScreenManager {
+    private String screen = "non-alc";
     private Stage stage;                                    // The stage for the scene
     private Scene scene;                                    // The scene of the GUI
     private Parent root;                                    // The root node of the scene
@@ -28,6 +29,8 @@ public class NonAlcDrinkScreenManager {
     private RecipeController recipeController;              // The controller for managing recipes
     private InstructionScreenManager instructionScreen;
 
+    @FXML
+    private Button removeIngredientsChoiceButton;
     @FXML
     private Button ingredientChoiceButton1;                 // Button for choosing ingredients
     @FXML
@@ -38,6 +41,8 @@ public class NonAlcDrinkScreenManager {
     private Button ingredientChoiceButton4;                 // Button for choosing ingredients
     @FXML
     private ListView<String> matchList;                    // List view for displaying recipes
+    @FXML
+    private ListView<String> chosenIngredientsList;
 
     /**
      * Constructs a AlcDrinkScreenManager object.
@@ -46,10 +51,12 @@ public class NonAlcDrinkScreenManager {
     public NonAlcDrinkScreenManager() {
         ingredientsController = ClientMain.getIngredientsController();
         recipeController = ClientMain.getRecipeController();
+        ingredientsController.setNonAlcGUI(this);
+        recipeController.setNonAlcGUI(this);
         ArrayList<String> nonAlcoholicIngredients = ingredientsController.getNonAlcoholicIngredientNames();
         Collections.sort(nonAlcoholicIngredients);
         ingredientNames = ingredientsController.getNonAlcoholicIngredientNames();
-        recipeController.setNonAlcGUI(this);
+
     }
 
     /**
@@ -62,14 +69,13 @@ public class NonAlcDrinkScreenManager {
     private void clickIngredientChoiceButton(ActionEvent event) {
         Button button = (Button) event.getSource();
         String ingredientName = button.getText();
-        recipeController.checkForNonAlcRecipe(ingredientName);
+        ingredientsController.chooseIngredient(ingredientName, screen);
         showIngredients(button);
     }
 
     /**
      * Handles the click event on the "None of the above" button.
      * Resets the ingredient choice buttons and shows ingredients on them.
-     *
      */
     @FXML
     private void clickNoneOfTheAboveButton() {
@@ -129,7 +135,6 @@ public class NonAlcDrinkScreenManager {
      * Initializes the GUI components and event handlers when the GUI is loaded.
      * Adds base drink names to the dropdown menu, sets an action event handler for the dropdown menu,
      * and adds a listener to the recipe list view for handling recipe selection changes.
-     *
      */
     public void initialize() {
         putIngredientNamesOnChoiceButtonsOnScreenChange();
@@ -162,8 +167,8 @@ public class NonAlcDrinkScreenManager {
     }
 
     @FXML
-    private void startInstructions(javafx.event.ActionEvent openHelpScreen){
-        if (instructionScreen == null){
+    private void startInstructions(javafx.event.ActionEvent openHelpScreen) {
+        if (instructionScreen == null) {
             instructionScreen = ClientMain.getInstructionscreen();
         }
         instructionScreen.openHelpWindow();
@@ -171,5 +176,30 @@ public class NonAlcDrinkScreenManager {
 
     public String getSelectedRecipeNameForViewingRecipe() {
         return matchList.getSelectionModel().getSelectedItem();
+    }
+
+    public void receiveChosenIngredients(ArrayList<String> chosenIngredientNames) {
+        chosenIngredientsList.getItems().clear();
+        chosenIngredientsList.getItems().addAll(chosenIngredientNames);
+
+    }
+
+    public void addBackIngredient(String name) {
+        ingredientNames.add(name);
+    }
+
+    public void undoIngredientChoice() {
+        ingredientsController.undoIngredientChoice(screen);
+    }
+
+    public void removeIngredientsChoice() {
+        String name = chosenIngredientsList.getSelectionModel().getSelectedItem();
+        ingredientsController.removeChoice(name, screen);
+    }
+
+    public void enableRemoveChoiceButton(){
+        if(chosenIngredientsList.getSelectionModel().getSelectedItem() != null){
+            removeIngredientsChoiceButton.setDisable(false);
+        }
     }
 }

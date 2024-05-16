@@ -46,7 +46,17 @@
             </styleClass></Button>
         <AnchorPane layoutX="400.0" layoutY="38.0" minHeight="0.0" minWidth="0.0" prefHeight="360.0" prefWidth="195.0">
             <children>
-                <ListView fx:id="matchList" layoutX="-2.0" layoutY="-1.0" prefHeight="360.0" prefWidth="195.0" styleClass="MediumBrown" stylesheets="@../css/Styles.css" />
+                <ListView fx:id="matchList" layoutX="-2.0" layoutY="-1.0" prefHeight="170.0" prefWidth="195.0" stylesheets="@../css/Styles.css" />
+            <ListView fx:id="chosenIngredientsList" layoutX="-2.0" layoutY="190.0" onMouseClicked="#enableRemoveChoiceButton" prefHeight="170.0" prefWidth="195.0" />
+            <Label fx:id="recipeListTitle1" layoutX="2.0" layoutY="170.0" prefHeight="17.0" prefWidth="182.0" stylesheets="@../css/Styles.css" text="Chosen Ingredients:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="WhiteText" />
+                  <String fx:value="shadow" />
+               </styleClass>
+            </Label>
             </children>
         </AnchorPane>
         <Button fx:id="backToStartScreenButton" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#switchToStartScreen" prefHeight="25.0" prefWidth="84.0" stylesheets="@../css/Styles.css" text="Start Screen">
@@ -81,5 +91,21 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <Button fx:id="undoButton" layoutX="300.0" layoutY="361.0" mnemonicParsing="false" onAction="#undoIngredientChoice" prefHeight="25.0" prefWidth="84.0" stylesheets="@../css/Styles.css" text="Undo">
+         <styleClass>
+            <String fx:value="DarkBrown" />
+            <String fx:value="shadow" />
+            <String fx:value="WhiteText" />
+            <String fx:value="BorderMedium" />
+         </styleClass>
+      </Button>
+      <Button fx:id="removeIngredientsChoiceButton" disable="true" layoutX="212.0" layoutY="361.0" mnemonicParsing="false" onAction="#removeIngredientsChoice" prefHeight="25.0" prefWidth="84.0" stylesheets="@../css/Styles.css" text="Remove Choice">
+         <styleClass>
+            <String fx:value="DarkBrown" />
+            <String fx:value="shadow" />
+            <String fx:value="WhiteText" />
+            <String fx:value="BorderMedium" />
+         </styleClass>
+      </Button>
     </children>
 </AnchorPane>

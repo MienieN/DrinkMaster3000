@@ -2,6 +2,7 @@ package src.client.controller;
 
 import org.checkerframework.checker.units.qual.A;
 import src.client.boundary.AlcDrinkScreenManager;
+import src.client.boundary.NonAlcDrinkScreenManager;
 import src.client.entity.Ingredient;
 
 import java.sql.*;
@@ -18,6 +19,7 @@ public class IngredientsController {
     private ArrayList<Ingredient> chosenIngredients;
     private Connection connection;                      // The database connection
     private AlcDrinkScreenManager alcDrinkScreenManager;
+    private NonAlcDrinkScreenManager nonAlcDrinkScreenManager;
 
     /**
      * Constructs an IngredientsController object and initializes the database connection.
@@ -142,40 +144,84 @@ public class IngredientsController {
         return ingredientNames;
     }
 
-    public void chooseIngredient(String ingredientName) {
+    public void chooseIngredient(String ingredientName, String screen) {
         Ingredient ingredient = getIngredientFromArrayList(ingredientName);
         chosenIngredients.add(ingredient);
-        recipeController.checkForAlcRecipe(chosenIngredients);
-        updateChosenIngredientsList();
+        switch (screen){
+            case "alc":
+                recipeController.checkForAlcRecipe(chosenIngredients);
+                break;
+            case "non-alc":
+                recipeController.checkForNonAlcRecipe(chosenIngredients);
+                break;
+            case "other":
+                break;
+        }
+
+        updateChosenIngredientsList(screen);
     }
 
-    public void undoIngredientChoice() {
+    public void undoIngredientChoice(String screen) {
         Ingredient ingredient = chosenIngredients.get(chosenIngredients.size()-1);
-        alcDrinkScreenManager.addBackIngredient(ingredient.getName());
+        switch (screen){
+            case "alc":
+                alcDrinkScreenManager.addBackIngredient(ingredient.getName());
+                break;
+            case "non-alc":
+                nonAlcDrinkScreenManager.addBackIngredient(ingredient.getName());
+                break;
+            case "other":
+                break;
+        }
+
         chosenIngredients.remove(ingredient);
-        updateChosenIngredientsList();
+        updateChosenIngredientsList(screen);
     }
-    public void updateChosenIngredientsList(){
+    public void updateChosenIngredientsList(String screen){
         ArrayList<String> chosenIngredientNames = new ArrayList<>();
         for (Ingredient ingredient : chosenIngredients){
             chosenIngredientNames.add(ingredient.getName());
         }
-        alcDrinkScreenManager.receiveChosenIngredients(chosenIngredientNames);
+        switch (screen){
+            case "alc":
+                alcDrinkScreenManager.receiveChosenIngredients(chosenIngredientNames);
+                break;
+            case "non-alc":
+                nonAlcDrinkScreenManager.receiveChosenIngredients(chosenIngredientNames);
+                break;
+            case "other":
+                break;
+        }
+
     }
 
     public void setAlcGUI(AlcDrinkScreenManager alcDrinkScreenManager) {
         this.alcDrinkScreenManager = alcDrinkScreenManager;
     }
 
-    public void removeChoice(String name) {
+    public void removeChoice(String name, String screen) {
         Ingredient ingredient = getIngredientFromArrayList(name);
-        alcDrinkScreenManager.addBackIngredient(name);
+        switch (screen){
+            case "alc":
+                alcDrinkScreenManager.addBackIngredient(name);
+                break;
+            case "non-alc":
+                nonAlcDrinkScreenManager.addBackIngredient(name);
+                break;
+            case "other":
+                break;
+        }
+
         chosenIngredients.remove(ingredient);
-        updateChosenIngredientsList();
+        updateChosenIngredientsList(screen);
     }
 
     public void resetChosenIngredients() {
         chosenIngredients.clear();
 
+    }
+
+    public void setNonAlcGUI(NonAlcDrinkScreenManager nonAlcDrinkScreenManager) {
+        this.nonAlcDrinkScreenManager = nonAlcDrinkScreenManager;
     }
 }

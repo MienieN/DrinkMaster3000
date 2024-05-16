@@ -28,6 +28,8 @@ import java.util.*;
  * The AlcDrinkScreenManager class controls the GUI for selecting alcoholic drinks.
  */
 public class AlcDrinkScreenManager implements Initializable {
+
+    private String screen = "alc";
     private Stage stage;                                    // The stage for the scene
     private Scene scene;                                    // The scene of the GUI
     private Parent root;                                    // The root node of the scene
@@ -84,7 +86,7 @@ public class AlcDrinkScreenManager implements Initializable {
     private void clickIngredientChoiceButton(ActionEvent event) {
         Button button = (Button) event.getSource();
         String ingredientName = button.getText();
-        ingredientsController.chooseIngredient(ingredientName);
+        ingredientsController.chooseIngredient(ingredientName, screen);
         showIngredients(button);
     }
 
@@ -146,7 +148,7 @@ public class AlcDrinkScreenManager implements Initializable {
         ingredientNames = ingredientsController.getIngredientNames();
         System.out.println(ingredientNames);
         recipeController.getBaseDrinkCompatibleRecipesFromDatabase(baseDrinkName);
-        ingredientsController.chooseIngredient(baseDrinkName);
+        ingredientsController.chooseIngredient(baseDrinkName, screen);
 
 
         showIngredients(ingredientChoiceButton1);
@@ -258,19 +260,18 @@ public class AlcDrinkScreenManager implements Initializable {
     }
 
     public void undoIngredientChoice(){
-        ingredientsController.undoIngredientChoice();
+        ingredientsController.undoIngredientChoice(screen);
     }
 
     public void removeIngredientsChoice(){
         String name = chosenIngredientsList.getSelectionModel().getSelectedItem();
-        ingredientsController.removeChoice(name);
+        ingredientsController.removeChoice(name, screen);
     }
 
     public void enableRemoveChoiceButton(){
         if(chosenIngredientsList.getSelectionModel().getSelectedItem() != null){
             removeIngredientsChoiceButton.setDisable(false);
         }
-
     }
 
     public void addBackIngredient(String name) {
