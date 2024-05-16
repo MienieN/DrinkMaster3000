@@ -166,9 +166,13 @@ public class IngredientsController {
         switch (screen){
             case "alc":
                 alcDrinkScreenManager.addBackIngredient(ingredient.getName());
+                chosenIngredients.remove(ingredient);
+                recipeController.checkForAlcRecipe(chosenIngredients);
                 break;
             case "non-alc":
                 nonAlcDrinkScreenManager.addBackIngredient(ingredient.getName());
+                chosenIngredients.remove(ingredient);
+                recipeController.checkForNonAlcRecipe(chosenIngredients);
                 break;
             case "other":
                 break;

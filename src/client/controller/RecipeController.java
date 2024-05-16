@@ -144,6 +144,7 @@ public class RecipeController {
      * @param chosenIngredients The hash set of the chosen ingredients.
      */
     public void checkFullAlcMatches(ArrayList<Ingredient> chosenIngredients) {
+        fullMatches = new ArrayList<>();
         Iterator<Map.Entry<String, ArrayList<Ingredient>>> validRecipeIterator = validRecipes.entrySet().iterator();
         Iterator<Map.Entry<String, ArrayList<Ingredient>>> remainingRecipesIterator = recipes.entrySet().iterator();
         while (validRecipeIterator.hasNext()) {
@@ -326,16 +327,14 @@ public class RecipeController {
 
 
     public void checkForAlcRecipe(ArrayList<Ingredient> chosenIngredients) {
-
-        checkPartialMatchesIncludingBaseDrink(chosenIngredients);
         checkFullAlcMatches(chosenIngredients);
+        checkPartialMatchesIncludingBaseDrink(chosenIngredients);
         sendMatches("alc");
     }
 
     public void checkForNonAlcRecipe(ArrayList<Ingredient> chosenIngredients) {
-
-        checkPartialMatchesOfDrinks(chosenIngredients);
         checkFullNonAlcMatches(chosenIngredients);
+        checkPartialMatchesOfDrinks(chosenIngredients);
         sendMatches("non-alc");
     }
 
