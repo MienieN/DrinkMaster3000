@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * The AddRecipeMainPanel class represents the main panel of the "Add Recipe" GUI.
@@ -55,9 +56,11 @@ public class AddRecipeMainPanel extends JPanel {
 
         // Combobox for recipe name suggestions
         JComboBox<Object> recipeNameSuggestions = new JComboBox<>();
-        recipeNameSuggestions.setEditable(true);
+        recipeNameSuggestions.setEditable(false);
         recipeNameSuggestions.setSize(recipeNameTextField.getSize());
         recipeNameSuggestions.setLocation(95, 80);
+
+        //Do we need a model? works the same without it currently
         //DefaultComboBoxModel<Object> recipeNameSuggestionsModel = new DefaultComboBoxModel<>();
         //recipeNameSuggestions.setModel(recipeNameSuggestionsModel);
         //((JTextField)recipeNameSuggestions.getEditor().getEditorComponent()).getDocument().addDocumentListener(docListener);
@@ -74,6 +77,7 @@ public class AddRecipeMainPanel extends JPanel {
         });
 
         //To dynamically respond to changes in the recipeNameTextField
+        //TODO it only shows the first item, the whole list has shown before...
         recipeNameTextField.getDocument().addDocumentListener(new DocumentListener() {
             public void insertUpdate(DocumentEvent e) {
                 updateSuggestions();
@@ -89,19 +93,25 @@ public class AddRecipeMainPanel extends JPanel {
             }
             private void updateSuggestions() {
                 String searchText = recipeNameTextField.getText();
+                recipeNameSuggestions.removeAllItems();
+
 
                 if (!(searchText == null || searchText.isEmpty())) {
-                    String temp = searchText.substring(0, 1).toUpperCase() + searchText.substring(1);
+                    String temp = searchText.substring(0, 1).toUpperCase() + searchText.substring(1).toLowerCase();
                     searchText = temp;
                 }
 
                 System.out.println(searchText);
-                recipeNameSuggestions.removeAllItems();
+                List<String> suggestions = mainFrame.getController().queryRecipeName(searchText);
 
-
-                for (String suggestion : mainFrame.getController().queryRecipeName(searchText)) {
+                for (String suggestion : suggestions) {
                     recipeNameSuggestions.addItem(suggestion);
                 }
+                if (!suggestions.isEmpty()) {
+                    recipeNameSuggestions.showPopup();
+                }
+
+
             }
         });
 
