@@ -2,7 +2,6 @@ package addRecipe;
 
 import addRecipe.gui.AddRecipeMainFrame;
 
-import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +22,6 @@ public class AddRecipeController {
     public AddRecipeController(Connection connection) {
         this.connection = connection;
         new AddRecipeMainFrame(500, 600, this);
-
     }
 
     /**
@@ -138,6 +136,12 @@ public class AddRecipeController {
         }
     }
 
+    /**
+     * Queries the database for recipe names that match the given search text.
+     *
+     * @param textSearch The search text to match against recipe names.
+     * @return A list of recipe names that match the search text.
+     */
     public List<String> queryRecipeName(String textSearch) {
 
         try {
@@ -161,6 +165,12 @@ public class AddRecipeController {
         }
     }
 
+    /**
+     * Queries the database for ingredient names that match the given search text.
+     *
+     * @param textSearch The search text to match against ingredient names.
+     * @return A list of ingredient names that match the search text.
+     */
     public List<String> queryIngredientsName(String textSearch) {
 
         try {
@@ -183,5 +193,4 @@ public class AddRecipeController {
             return null;
         }
     }
-
 }
