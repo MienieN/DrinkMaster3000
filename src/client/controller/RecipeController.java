@@ -145,6 +145,8 @@ public class RecipeController {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+
     }
 
     public void getRecipeInstructionsForChosenNonAlcRecipe() {

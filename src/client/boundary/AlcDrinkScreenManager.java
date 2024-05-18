@@ -1,6 +1,7 @@
 package src.client.boundary;
 
 import com.sun.javafx.menu.MenuItemBase;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -224,6 +225,10 @@ public class AlcDrinkScreenManager implements Initializable {
 
                 // Call the method to display a popup with the selected recipe
                 popupRecipe();
+
+                Platform.runLater(() -> {
+                    matchList.getSelectionModel().clearSelection();
+                });
             }
         });
 
