@@ -19,6 +19,7 @@ public class AddRecipeMainPanel extends JPanel {
     private InputPanel inputPanel;              // Panel containing input fields for ingredients
     private JTextArea instructionsTextArea;     // Text area for entering recipe instructions
     private JComboBox<Object> recipeNameSuggestions = new JComboBox<>();
+    private JCheckBox specialitiesCheckBox;
 
 
     /**
@@ -85,7 +86,10 @@ public class AddRecipeMainPanel extends JPanel {
         instructionsTextArea.setLocation(235, 40);
         add(instructionsTextArea);
 
-
+        specialitiesCheckBox = new JCheckBox("Speciality?");
+        specialitiesCheckBox.setSize(recipeNameTextField.getSize());
+        specialitiesCheckBox.setLocation(95, 100);
+        add(specialitiesCheckBox);
     }
     private void updateSuggestions() { //TODO runnable makes it run forever, needs to be changed
         Runnable runnable = new Runnable() {

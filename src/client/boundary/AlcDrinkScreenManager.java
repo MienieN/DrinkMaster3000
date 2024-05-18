@@ -1,6 +1,5 @@
 package src.client.boundary;
 
-import com.sun.javafx.menu.MenuItemBase;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -23,7 +22,10 @@ import src.client.controller.RecipeController;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * The AlcDrinkScreenManager class controls the GUI for selecting alcoholic drinks.
@@ -129,7 +131,7 @@ public class AlcDrinkScreenManager implements Initializable {
             button.setText(temp);
             ingredientNames.remove(temp);
 
-        }else{
+        }else {
             button.setText("End");
             button.setDisable(true);
         }
