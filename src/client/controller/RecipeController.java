@@ -193,7 +193,6 @@ public class RecipeController {
                 }
                 fullMatches.add(entry.getKey());
                 partialMatchList.remove(entry.getKey());
-                validRecipeIterator.remove();
             }
         }
         while (remainingRecipesIterator.hasNext()) {
