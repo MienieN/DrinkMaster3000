@@ -33,7 +33,7 @@ import java.util.ResourceBundle;
  */
 public class AlcDrinkScreenManager implements Initializable {
 
-    private String screen = "alc";
+    private String screen = "alc";                          // The screen to return to when the back button is clicked
     private Stage stage;                                    // The stage for the scene
     private Scene scene;                                    // The scene of the GUI
     private Parent root;                                    // The root node of the scene
@@ -41,7 +41,7 @@ public class AlcDrinkScreenManager implements Initializable {
     private ArrayList<String> baseDrinkNames;               // The list of base drink names
     private IngredientsController ingredientsController;    // The controller for managing ingredients
     private RecipeController recipeController;              // The controller for managing recipes
-    private InstructionScreenManager instructionScreen;
+    private InstructionScreenManager instructionScreen;     // The manager for the instruction screen
 
     @FXML
     private ComboBox<String> baseDrinkDropdownMenu;         // Dropdown menu for selecting base drinks
@@ -54,17 +54,15 @@ public class AlcDrinkScreenManager implements Initializable {
     @FXML
     private Button ingredientChoiceButton4;                 // Button for choosing ingredients
     @FXML
-    private ListView<String> matchList;
+    private ListView<String> matchList;                     // List view for displaying recipes
     @FXML
     private ListView<String> recipeList;                    // List view for displaying recipes
     @FXML
     private Button noneOfTheAboveButton;                    // Button for selecting none of the above
     @FXML
-    private ListView<String> chosenIngredientsList;
+    private ListView<String> chosenIngredientsList;         // List view for displaying chosen ingredients
     @FXML
-    private Button removeIngredientsChoiceButton;
-
-
+    private Button removeIngredientsChoiceButton;           // Button for removing ingredients
 
     /**
      * Constructs a AlcDrinkScreenManager object.
