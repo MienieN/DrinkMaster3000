@@ -1,27 +1,28 @@
 package src.client.controller;
 
-import org.checkerframework.checker.units.qual.A;
 import src.client.boundary.AlcDrinkScreenManager;
 import src.client.boundary.DiscoverDrinkScreenManager;
 import src.client.boundary.NonAlcDrinkScreenManager;
 import src.client.entity.Ingredient;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 /**
  * The IngredientsController class manages interactions with ingredients in the database.
  */
 public class IngredientsController {
-    private RecipeController recipeController;
-    private ArrayList<Ingredient> ingredients;          // The list of ingredients
-    private ArrayList<Ingredient> relevantIngredients;  //the list of ingredients sorted by compatability with your base drink
-    private ArrayList<Ingredient> chosenIngredients;
-    private Connection connection;                      // The database connection
-    private AlcDrinkScreenManager alcDrinkScreenManager;
-    private NonAlcDrinkScreenManager nonAlcDrinkScreenManager;
-    private DiscoverDrinkScreenManager discoverDrinkScreenManager;
+    private RecipeController recipeController;                     // The RecipeController object
+    private ArrayList<Ingredient> ingredients;                     // The list of ingredients
+    private ArrayList<Ingredient> relevantIngredients;             //the list of ingredients sorted by compatability with your base drink
+    private ArrayList<Ingredient> chosenIngredients;               // The list of chosen ingredients
+    private Connection connection;                                 // The database connection
+    private AlcDrinkScreenManager alcDrinkScreenManager;           // The AlcDrinkScreenManager object
+    private NonAlcDrinkScreenManager nonAlcDrinkScreenManager;     // The NonAlcDrinkScreenManager object
+    private DiscoverDrinkScreenManager discoverDrinkScreenManager; // The DiscoverDrinkScreenManager object
 
     /**
      * Constructs an IngredientsController object and initializes the database connection.
@@ -33,6 +34,11 @@ public class IngredientsController {
         chosenIngredients = new ArrayList<>();
     }
 
+    /**
+     * Sets the RecipeController object.
+     *
+     * @param recipeController The RecipeController object
+     */
     public void setRecipeController(RecipeController recipeController) {
         this.recipeController = recipeController;
     }
@@ -64,6 +70,11 @@ public class IngredientsController {
         }
     }
 
+    /**
+     * Gets the ingredients that are compatible with the base drink.
+     *
+     * @param baseDrinkName The name of the base drink
+     */
     public void getIngredientsBasedOnBaseDrink(String baseDrinkName) {
         relevantIngredients = new ArrayList<>();
         String relevantIngredientsSQL = "with recipe_ingredients as " +
@@ -126,6 +137,11 @@ public class IngredientsController {
         return ingredientNames;
     }
 
+    /**
+     * Gets the names of all alcoholic ingredients.
+     *
+     * @return An ArrayList containing the names of all alcoholic ingredients.
+     */
     public ArrayList<String> getAlcoholicIngredientNames() {
         ArrayList<String> ingredientNames = new ArrayList<>();
         for (Ingredient ingredient : ingredients) {
@@ -136,6 +152,11 @@ public class IngredientsController {
         return ingredientNames;
     }
 
+    /**
+     * Gets the names of all non-alcoholic ingredients.
+     *
+     * @return An ArrayList containing the names of all non-alcoholic ingredients.
+     */
     public ArrayList<String> getNonAlcoholicIngredientNames() {
         ArrayList<String> ingredientNames = new ArrayList<>();
         for (Ingredient ingredient : ingredients) {
@@ -146,6 +167,13 @@ public class IngredientsController {
         return ingredientNames;
     }
 
+    /**
+     * Chooses an ingredient and adds it to the list of chosen ingredients.
+     * Checks for recipes based on the chosen ingredients.
+     *
+     * @param ingredientName The name of the ingredient
+     * @param screen The screen where the ingredient was chosen
+     */
     public void chooseIngredient(String ingredientName, String screen) {
         Ingredient ingredient = getIngredientFromArrayList(ingredientName);
         chosenIngredients.add(ingredient);
@@ -164,6 +192,11 @@ public class IngredientsController {
         updateChosenIngredientsList(screen);
     }
 
+    /**
+     * Undoes the last ingredient choice.
+     *
+     * @param screen The screen where the ingredient was chosen
+     */
     public void undoIngredientChoice(String screen) {
         Ingredient ingredient = chosenIngredients.get(chosenIngredients.size()-1);
         switch (screen){
@@ -187,6 +220,12 @@ public class IngredientsController {
         chosenIngredients.remove(ingredient);
         updateChosenIngredientsList(screen);
     }
+
+    /**
+     * Updates the list of chosen ingredients.
+     *
+     * @param screen The screen where the ingredient was chosen
+     */
     public void updateChosenIngredientsList(String screen){
         ArrayList<String> chosenIngredientNames = new ArrayList<>();
         for (Ingredient ingredient : chosenIngredients){
@@ -206,10 +245,21 @@ public class IngredientsController {
 
     }
 
+    /**
+     * Sets the AlcDrinkScreenManager object.
+     *
+     * @param alcDrinkScreenManager The AlcDrinkScreenManager object
+     */
     public void setAlcGUI(AlcDrinkScreenManager alcDrinkScreenManager) {
         this.alcDrinkScreenManager = alcDrinkScreenManager;
     }
 
+    /**
+     * Removes a choice from the list of chosen ingredients.
+     *
+     * @param name The name of the ingredient
+     * @param screen The screen where the ingredient was chosen
+     */
     public void removeChoice(String name, String screen) {
         Ingredient ingredient = getIngredientFromArrayList(name);
         switch (screen){
@@ -228,15 +278,28 @@ public class IngredientsController {
         updateChosenIngredientsList(screen);
     }
 
+    /**
+     * Resets the list of chosen ingredients.
+     */
     public void resetChosenIngredients() {
         chosenIngredients.clear();
 
     }
 
+    /**
+     * Sets the NonAlcDrinkScreenManager object.
+     *
+     * @param nonAlcDrinkScreenManager The NonAlcDrinkScreenManager object
+     */
     public void setNonAlcGUI(NonAlcDrinkScreenManager nonAlcDrinkScreenManager) {
         this.nonAlcDrinkScreenManager = nonAlcDrinkScreenManager;
     }
 
+    /**
+     * Sets the DiscoverDrinkScreenManager object.
+     *
+     * @param discoverGUIController The DiscoverDrinkScreenManager object
+     */
     public void setDiscoverGUI(DiscoverDrinkScreenManager discoverGUIController) {
         this.discoverDrinkScreenManager = discoverGUIController;
     }
