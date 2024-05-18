@@ -1,7 +1,6 @@
 package src.client.boundary;
 
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,9 +8,7 @@ import javafx.stage.Stage;
 import src.client.ClientMain;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.Objects;
-import java.util.ResourceBundle;
 
 
 /**
@@ -21,7 +18,7 @@ public class StartScreenManager /*implements Initializable*/ {
     private Stage stage;        // The stage for the scene
     private Scene scene;        // The scene of the GUI
     private Parent root;        // The root node of the scene
-    private static InstructionScreenManager instructionscreen;
+    private static InstructionScreenManager instructionscreen; // The instruction screen manager
 
 
     /**
@@ -47,6 +44,11 @@ public class StartScreenManager /*implements Initializable*/ {
         }
     }
 
+    /**
+     * Switches the scene to the non-alcoholic drink selection screen.
+     *
+     * @param nonAlcDrinkEvent The ActionEvent object representing the click event on the non-alcoholic drinks button.
+     */
     public void switchToNonAlcDrinkScreen(javafx.event.ActionEvent nonAlcDrinkEvent) {
         try{
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("src/client/resources/fxml/NonAlcDrinkScreen.fxml")));
@@ -63,6 +65,11 @@ public class StartScreenManager /*implements Initializable*/ {
         }
     }
 
+    /**
+     * Switches the scene to the discover drink screen.
+     *
+     * @param discoverDrinkEvent The ActionEvent object representing the click event on the discover drinks button.
+     */
     public void switchToDiscoverDrinkScreen(javafx.event.ActionEvent discoverDrinkEvent) {
         try{
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("src/client/resources/fxml/DiscoverDrinkScreen.fxml")));
@@ -79,12 +86,11 @@ public class StartScreenManager /*implements Initializable*/ {
         }
     }
 
+    /**
+     * Initializes the instructions screen.
+     */
     public void initializeInstructions() {
             instructionscreen = ClientMain.getInstructionscreen();
             instructionscreen.openHelpWindow();
-
-
     }
-
-
 }
