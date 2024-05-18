@@ -1,5 +1,6 @@
 package src.client.boundary;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -146,6 +147,10 @@ public class NonAlcDrinkScreenManager {
 
                 // Call the method to display a popup with the selected recipe
                 popupRecipe();
+
+                Platform.runLater(() -> {
+                    matchList.getSelectionModel().clearSelection();
+                });
             }
         });
     }
