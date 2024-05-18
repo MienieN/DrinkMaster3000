@@ -42,7 +42,7 @@ public class AddRecipeMainFrame extends JFrame {
      * @param ingredients  A HashMap containing the ingredients of the recipe and their availability status.
      * @param instructions The instructions for preparing the recipe.
      */
-    public void addRecipeToDatabase(String name, HashMap<String, Boolean> ingredients, String instructions) {
-        controller.addRecipe(name, ingredients, instructions);
+    public void addRecipeToDatabase(String name, HashMap<String, Boolean> ingredients, String instructions, Boolean speciality) {
+        controller.addRecipe(name, ingredients, instructions, speciality);
     }
 }

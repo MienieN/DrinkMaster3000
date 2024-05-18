@@ -1,6 +1,7 @@
 package addRecipe.gui;
 
 import addRecipe.AddRecipeController;
+import javafx.scene.control.CheckBox;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -49,6 +50,13 @@ public class AddRecipeMainPanel extends JPanel {
         recipeNameTextField.setSize(recipeNameTextField.getPreferredSize());
         recipeNameTextField.setLocation(95, 50);
         add(recipeNameTextField);
+
+
+        JCheckBox specialityRecipeCheckbox = new JCheckBox("Speciality Recipe?");
+        specialityRecipeCheckbox.setSelected(false);
+        specialityRecipeCheckbox.setLocation(95,100);
+        add(specialityRecipeCheckbox);
+
 
         //To dynamically respond to changes in the recipeNameTextField
         DocumentListener docListener = new DocumentListener() {
@@ -119,10 +127,12 @@ public class AddRecipeMainPanel extends JPanel {
      */
     public void addRecipeToDatabase() {
         String name;
+        Boolean speciality;
         String instructions;
         HashMap<String, Boolean> ingredients = new HashMap<>();
         if(!(recipeNameTextField.getText().isBlank() || recipeNameTextField.getText().isEmpty() || recipeNameTextField == null)){
             name = recipeNameTextField.getText();
+            speciality = specialitiesCheckBox.isSelected();
         }else{
             System.out.println("Recipe name is empty");
             return;
@@ -137,7 +147,7 @@ public class AddRecipeMainPanel extends JPanel {
             }
 
         }
-        mainFrame.addRecipeToDatabase(name, ingredients, instructions);
+        mainFrame.addRecipeToDatabase(name, ingredients, instructions, speciality);
     }
 
     /**
@@ -193,6 +203,8 @@ class ButtonPanel extends JPanel {
 
         // Add action listener to the add recipe button
         addRecipeButton.addActionListener(l -> addRecipeToDatabase());
+
+
     }
 
     /**
@@ -285,6 +297,10 @@ class InputPanel extends JPanel{
             gridBagConstraints.gridx=1;
             gridBagConstraints.gridy =i;
             add(alcoholicIngredientCheckBox.get(i), gridBagConstraints);
+
+
+            alcoholicIngredientCheckBox.add(new JCheckBox("Alcoholic?"));
+
         }
     }
 

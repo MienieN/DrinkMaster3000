@@ -33,7 +33,7 @@ public class AddRecipeController {
      * @param ingredients A HashMap containing the ingredients of the recipe and their alcoholic status.
      * @param instructions The instructions for preparing the recipe.
      */
-    public void addRecipe(String recipeName, HashMap<String, Boolean> ingredients, String instructions) {
+    public void addRecipe(String recipeName, HashMap<String, Boolean> ingredients, String instructions, Boolean speciality) {
         // Set a savepoint for transaction rollback
         Savepoint savepoint = null;
         try {
@@ -45,10 +45,11 @@ public class AddRecipeController {
         }
 
         // Insert recipe details into the 'recipes' table
-        String insertRecipe = "INSERT INTO recipes values (?, ?)";
+        String insertRecipe = "INSERT INTO recipes values (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(insertRecipe)) {
             statement.setString(1, recipeName);
             statement.setString(2, instructions);
+            statement.setBoolean(3, speciality);
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected != 1) {
                 System.out.println("Error: Failed to insert recipe");
