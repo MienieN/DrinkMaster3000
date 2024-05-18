@@ -29,6 +29,7 @@ import java.util.ResourceBundle;
 
 /**
  * The AlcDrinkScreenManager class controls the GUI for selecting alcoholic drinks.
+ * It handles the selection of base drinks, ingredients, and recipes, and displays the selected ingredients and recipes.
  */
 public class AlcDrinkScreenManager implements Initializable {
 
@@ -243,15 +244,30 @@ public class AlcDrinkScreenManager implements Initializable {
         recipeController.getRecipeInstructionsForChosenAlcRecipe();
     }
 
+    /**
+     * Receives the list of recipes that match the selected ingredients.
+     *
+     * @param recipeNames The list of recipe names that match the selected ingredients.
+     */
     public void receiveMatches(ArrayList<String> recipeNames) {
         matchList.getItems().clear();
         matchList.getItems().addAll(recipeNames);
     }
 
+    /**
+     * Gets the name of the selected recipe for viewing the recipe.
+     *
+     * @return The name of the selected recipe.
+     */
     public String getSelectedRecipeNameForViewingRecipe() {
         return matchList.getSelectionModel().getSelectedItem();
     }
 
+    /**
+     * Starts the instructions screen.
+     *
+     * @param openHelpScreen The ActionEvent object representing the click event on the instructions button.
+     */
     @FXML
     private void startInstructions(javafx.event.ActionEvent openHelpScreen){
         if (instructionScreen == null){
@@ -260,27 +276,46 @@ public class AlcDrinkScreenManager implements Initializable {
         instructionScreen.openHelpWindow();
     }
 
+    /**
+     * Receives the list of chosen ingredients.
+     *
+     * @param chosenIngredients The list of chosen ingredients.
+     */
     public void receiveChosenIngredients(ArrayList<String> chosenIngredients){
         chosenIngredientsList.getItems().clear();
         chosenIngredientsList.getItems().addAll(chosenIngredients);
 
     }
 
+    /**
+     * Undoes the last ingredient choice.
+     */
     public void undoIngredientChoice(){
         ingredientsController.undoIngredientChoice(screen);
     }
 
+    /**
+     * Removes the selected ingredient choice.
+     */
     public void removeIngredientsChoice(){
         String name = chosenIngredientsList.getSelectionModel().getSelectedItem();
         ingredientsController.removeChoice(name, screen);
     }
 
+    /**
+     * Enables the remove choice button.
+     */
     public void enableRemoveChoiceButton(){
         if(chosenIngredientsList.getSelectionModel().getSelectedItem() != null){
             removeIngredientsChoiceButton.setDisable(false);
         }
     }
 
+    /**
+     * Adds an ingredient to the list of chosen ingredients.
+     *
+     * @param name The name of the ingredient to add.
+     */
     public void addBackIngredient(String name) {
         ingredientNames.add(name);
     }
