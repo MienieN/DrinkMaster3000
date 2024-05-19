@@ -20,18 +20,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * The DiscoverDrinkScreenManager class is responsible for managing the discover drink screen.
+ */
 public class DiscoverDrinkScreenManager {
-    private String screen = "other";
+    private String screen = "other";                        // The screen to return to when the back button is clicked
     private Stage stage;                                    // The stage for the scene
     private Scene scene;                                    // The scene of the GUI
     private Parent root;                                    // The root node of the scene
     private ArrayList<String> ingredientNames;              //The list of all ingredients
     private IngredientsController ingredientsController;    // The controller for managing ingredients
     private RecipeController recipeController;              // The controller for managing recipes
-    private InstructionScreenManager instructionScreen;
+    private InstructionScreenManager instructionScreen;     // The manager for the instruction screen
 
     @FXML
-    private Button removeIngredientsChoiceButton;
+    private Button removeIngredientsChoiceButton;           // Button for removing ingredients
     @FXML
     private Button ingredientChoiceButton1;                 // Button for choosing ingredients
     @FXML
@@ -41,9 +44,9 @@ public class DiscoverDrinkScreenManager {
     @FXML
     private Button ingredientChoiceButton4;                 // Button for choosing ingredients
     @FXML
-    private ListView<String> matchList;                    // List view for displaying recipes
+    private ListView<String> matchList;                     // List view for displaying recipes
     @FXML
-    private ListView<String> chosenIngredientsList;
+    private ListView<String> chosenIngredientsList;         // List view for displaying chosen ingredients
 
     /**
      * Constructs a AlcDrinkScreenManager object.
@@ -89,6 +92,9 @@ public class DiscoverDrinkScreenManager {
         showIngredients(ingredientChoiceButton4);
     }
 
+    /**
+     * Puts ingredient names on the ingredient choice buttons when the screen is changed.
+     */
     public void putIngredientNamesOnChoiceButtonsOnScreenChange() {
         showIngredients(ingredientChoiceButton1);
         showIngredients(ingredientChoiceButton2);
@@ -172,6 +178,11 @@ public class DiscoverDrinkScreenManager {
         matchList.getItems().addAll(recipeNames);
     }
 
+    /**
+     * Opens the instruction screen.
+     *
+     * @param openHelpScreen The ActionEvent object representing the click event on the help button.
+     */
     @FXML
     private void startInstructions(javafx.event.ActionEvent openHelpScreen) {
         if (instructionScreen == null) {
@@ -180,29 +191,54 @@ public class DiscoverDrinkScreenManager {
         instructionScreen.openHelpWindow();
     }
 
+    /**
+     * Gets the name of the selected recipe for viewing the recipe.
+     *
+     * @return The name of the selected recipe.
+     * TODO - not used
+     */
     public String getSelectedRecipeNameForViewingRecipe() {
         return matchList.getSelectionModel().getSelectedItem();
     }
 
+    /**
+     * Receives the names of the chosen ingredients and displays them to the user.
+     *
+     * @param chosenIngredientNames The names of the chosen ingredients.
+     */
     public void receiveChosenIngredients(ArrayList<String> chosenIngredientNames) {
         chosenIngredientsList.getItems().clear();
         chosenIngredientsList.getItems().addAll(chosenIngredientNames);
 
     }
 
+    /**
+     * Adds back an ingredient to the list of ingredients.
+     *
+     * @param name The name of the ingredient to be added back.
+     */
     public void addBackIngredient(String name) {
         ingredientNames.add(name);
     }
 
+    /**
+     * Undoes the last ingredient choice.
+     */
     public void undoIngredientChoice() {
         ingredientsController.undoIngredientChoice(screen);
     }
 
+    /**
+     * Removes the selected ingredient choice.
+     */
     public void removeIngredientsChoice() {
         String name = chosenIngredientsList.getSelectionModel().getSelectedItem();
         ingredientsController.removeChoice(name, screen);
     }
 
+    /**
+     * Enables the remove choice button when an ingredient is selected.
+     */
     public void enableRemoveChoiceButton(){
         if(chosenIngredientsList.getSelectionModel().getSelectedItem() != null){
             removeIngredientsChoiceButton.setDisable(false);
