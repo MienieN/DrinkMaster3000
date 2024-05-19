@@ -16,20 +16,19 @@ import java.util.*;
  * The RecipeController class manages the recipes and their interactions with the GUI.
  */
 public class RecipeController {
-    private HashMap<String, ArrayList<Ingredient>> recipes; // HashMap to store recipes and their ingredients
+    private HashMap<String, ArrayList<Ingredient>> recipes;                        // HashMap to store recipes and their ingredients
     private HashMap<String, ArrayList<Ingredient>> validRecipes = new HashMap<>(); //All the recipes containing the chosen base drink.
-    private HashMap<String, ArrayList<Ingredient>> discoverRecipes;
-    private HashMap<String, String> recipeInstructions = new HashMap<>();   // HashMap to store recipes and their instructions
-    private AlcDrinkScreenManager alcDrinkScreenManager;                    // GUI controller for displaying alcoholic recipes
-    private NonAlcDrinkScreenManager nonAlcDrinkScreenManager;              // GUI controller for displaying non-alcoholic recipes
-    private DiscoverDrinkScreenManager discoverDrinkScreenManager;
-    private ArrayList<Ingredient> chosenIngredients = new ArrayList<>();        // List of chosen ingredients
-    private ArrayList<String> partialMatchList;
-    private ArrayList<String> fullMatches = new ArrayList<>();
-    private ArrayList<String> matchesWithoutBaseDrink = new ArrayList<>();
-    private Connection connection;                                          // Database connection
-    private IngredientsController ingredientsController;
-
+    private HashMap<String, ArrayList<Ingredient>> discoverRecipes;                // HashMap to store recipes and their ingredients
+    private HashMap<String, String> recipeInstructions = new HashMap<>();          // HashMap to store recipes and their instructions
+    private AlcDrinkScreenManager alcDrinkScreenManager;                           // GUI controller for displaying alcoholic recipes
+    private NonAlcDrinkScreenManager nonAlcDrinkScreenManager;                     // GUI controller for displaying non-alcoholic recipes
+    private DiscoverDrinkScreenManager discoverDrinkScreenManager;                 // GUI controller for displaying discover recipes
+    private ArrayList<Ingredient> chosenIngredients = new ArrayList<>();           // List of chosen ingredients
+    private ArrayList<String> partialMatchList;                                    // List of partial matches
+    private ArrayList<String> fullMatches = new ArrayList<>();                     // List of full matches
+    private ArrayList<String> matchesWithoutBaseDrink = new ArrayList<>();         // List of matches without the base drink
+    private Connection connection;                                                 // Database connection
+    private IngredientsController ingredientsController;                           // The IngredientsController object
 
     /**
      * Constructs a RecipeController object and initializes the database connection.
@@ -74,6 +73,10 @@ public class RecipeController {
         }
     }
 
+    /**
+     * Gets the recipes for the discover screen from the database and populates the discoverRecipes HashMap with
+     * recipe names and their corresponding ingredients.
+     */
     private void getRecipesForDiscoverFromDatabase() {
         discoverRecipes = new HashMap<>();
         String sql = "Select recipe_name from recipes where speciality = true";
@@ -106,7 +109,7 @@ public class RecipeController {
     }
 
     /**
-     * Retrieves the recipe instructions for the chosen recipe and displays them in an alert.
+     * Retrieves the recipe instructions for the chosen recipe and displays them in an alert pop-up box.
      */
     public void getRecipeInstructionsForChosenAlcRecipe() {
         recipeInstructions.clear();
@@ -145,10 +148,11 @@ public class RecipeController {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
+    /**
+     * Gets the recipe instructions for the chosen non-alcoholic recipe and displays them in an alert pop-up box.
+     */
     public void getRecipeInstructionsForChosenNonAlcRecipe() {
         recipeInstructions.clear();
         String showRecipeSQL = "SELECT recipe_name, instructions FROM recipes WHERE recipe_name = ?";
@@ -213,6 +217,12 @@ public class RecipeController {
 
     }
 
+    /**
+     * Checks if the chosen ingredients match any non-alcoholic recipes in the database.
+     * If a match is found, the recipe name is sent to the GUI controller.
+     *
+     * @param chosenIngredients The hash set of the chosen ingredients.
+     */
     public void checkFullNonAlcMatches(ArrayList<Ingredient> chosenIngredients) {
         Iterator<Map.Entry<String, ArrayList<Ingredient>>> RecipeIterator = recipes.entrySet().iterator();
         while (RecipeIterator.hasNext()) {
@@ -229,6 +239,12 @@ public class RecipeController {
         }
     }
 
+    /**
+     * Checks if the chosen ingredients fully match any discover recipes in the database.
+     * If a match is found, the recipe name is sent to the GUI controller.
+     *
+     * @param chosenIngredients The hash set of the chosen ingredients.
+     */
     public void checkFullDiscoverMatches(ArrayList<Ingredient> chosenIngredients) {
         Iterator<Map.Entry<String, ArrayList<Ingredient>>> RecipeIterator = discoverRecipes.entrySet().iterator();
         while (RecipeIterator.hasNext()) {
@@ -247,6 +263,7 @@ public class RecipeController {
 
     /**
      * Responsible for getting the partial matches based on the alcoholic base drink chosen
+     *
      * @param chosenIngredients the list of chosen ingredients in case of alcoholic drinks contains the chosen base drink aswell
      */
     public void checkPartialMatchesIncludingBaseDrink(ArrayList<Ingredient> chosenIngredients) {
@@ -284,6 +301,11 @@ public class RecipeController {
         }
     }
 
+    /**
+     * Checks for partial matches of non-alcoholic drinks based on the chosen ingredients.
+     *
+     * @param chosenIngredients The list of chosen ingredients.
+     */
     public void checkPartialMatchesOfDrinks(ArrayList<Ingredient> chosenIngredients) {
         partialMatchList = new ArrayList<>();
         String sql = "SELECT recipe_name, count (distinct ingredient_name) FROM (select * from recipes_ingredients " +
@@ -318,6 +340,11 @@ public class RecipeController {
         }
     }
 
+    /**
+     * Checks for partial matches of discover drinks based on the chosen ingredients.
+     *
+     * @param chosenIngredients The list of chosen ingredients.
+     */
     public void checkPartialMatchesOfDiscoverDrinks(ArrayList<Ingredient> chosenIngredients) {
         partialMatchList = new ArrayList<>();
         String sql = "SELECT recipe_name, count (distinct ingredient_name) FROM (select * from recipes_ingredients " +
@@ -352,6 +379,11 @@ public class RecipeController {
         }
     }
 
+    /**
+     * Sends the matches to the GUI controller.
+     *
+     * @param screen The screen to send the matches to.
+     */
     public void sendMatches(String screen) {
         ArrayList<String> matches = new ArrayList<>();
 
@@ -376,9 +408,13 @@ public class RecipeController {
         } else if (screen.equals("other")) {
             discoverDrinkScreenManager.receiveMatches(matches);
         }
-
     }
 
+    /**
+     * Gets the recipe names from the database and sends them to the GUI controller.
+     *
+     * @param chosenBaseDrink The chosen base drink.
+     */
     public void getBaseDrinkCompatibleRecipesFromDatabase(String chosenBaseDrink) {
         ArrayList<Ingredient> ingredients = new ArrayList<>(); //A new ArrayList to store the ingredients for a recipe from the database
         String getRecipeIngredients = "select * from " +
@@ -411,19 +447,33 @@ public class RecipeController {
         }
     }
 
-
+    /**
+     * Checks for alcoholic recipe matches based on the chosen ingredients.
+     *
+     * @param chosenIngredients The list of chosen ingredients.
+     */
     public void checkForAlcRecipe(ArrayList<Ingredient> chosenIngredients) {
         checkFullAlcMatches(chosenIngredients);
         checkPartialMatchesIncludingBaseDrink(chosenIngredients);
         sendMatches("alc");
     }
 
+    /**
+     * Checks for non-alcoholic recipe matches based on the chosen ingredients.
+     *
+     * @param chosenIngredients The list of chosen ingredients.
+     */
     public void checkForNonAlcRecipe(ArrayList<Ingredient> chosenIngredients) {
         checkFullNonAlcMatches(chosenIngredients);
         checkPartialMatchesOfDrinks(chosenIngredients);
         sendMatches("non-alc");
     }
 
+    /**
+     * Checks for discover recipe matches based on the chosen ingredients.
+     *
+     * @param chosenIngredients The list of chosen ingredients.
+     */
     public void checkForDiscoverRecipe(ArrayList<Ingredient> chosenIngredients) {
         checkFullDiscoverMatches(chosenIngredients);
         checkPartialMatchesOfDiscoverDrinks(chosenIngredients);
@@ -439,13 +489,27 @@ public class RecipeController {
         this.alcDrinkScreenManager = AlcGUIController;
     }
 
+    /**
+     * Sets the GUI controller for displaying non-alcoholic recipes.
+     *
+     * @param NonAlcGUIController The GUI controller for displaying non-alcoholic recipes.
+     */
     public void setNonAlcGUI(NonAlcDrinkScreenManager NonAlcGUIController) {
         this.nonAlcDrinkScreenManager = NonAlcGUIController;
     }
+
+    /**
+     * Sets the GUI controller for displaying discover recipes.
+     *
+     * @param discoverGUIController The GUI controller for displaying discover recipes.
+     */
     public void setDiscoverGUI(DiscoverDrinkScreenManager discoverGUIController) {
         this.discoverDrinkScreenManager = discoverGUIController;
     }
 
+    /**
+     * Resets the recipes.
+     */
     public void resetRecipes() {
         fullMatches.clear();
         partialMatchList.clear();
@@ -459,7 +523,4 @@ public class RecipeController {
     public void setIngredientsController(IngredientsController ingredientsController) {
         this.ingredientsController = ingredientsController;
     }
-
-
-
 }

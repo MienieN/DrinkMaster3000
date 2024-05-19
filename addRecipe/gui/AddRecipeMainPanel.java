@@ -1,7 +1,6 @@
 package addRecipe.gui;
 
 import addRecipe.AddRecipeController;
-import javafx.scene.control.CheckBox;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -15,12 +14,12 @@ import java.util.HashMap;
  * This panel contains input fields for adding a new recipe, including name, ingredients, and instructions.
  */
 public class AddRecipeMainPanel extends JPanel {
-    private AddRecipeMainFrame mainFrame;       // The main frame of the "Add Recipe" GUI
-    private JTextField recipeNameTextField;     // Text field for entering the name of the recipe
-    private InputPanel inputPanel;              // Panel containing input fields for ingredients
-    private JTextArea instructionsTextArea;     // Text area for entering recipe instructions
-    private JComboBox<Object> recipeNameSuggestions = new JComboBox<>();
-    private JCheckBox specialitiesCheckBox;
+    private AddRecipeMainFrame mainFrame;                                    // The main frame of the "Add Recipe" GUI
+    private JTextField recipeNameTextField;                                  // Text field for entering the name of the recipe
+    private InputPanel inputPanel;                                           // Panel containing input fields for ingredients
+    private JTextArea instructionsTextArea;                                  // Text area for entering recipe instructions
+    private JComboBox<Object> recipeNameSuggestions = new JComboBox<>();     // Combobox for recipe name suggestions
+    private JCheckBox specialitiesCheckBox;                                  // Checkbox for indicating speciality recipes
 
 
     /**
@@ -42,7 +41,7 @@ public class AddRecipeMainPanel extends JPanel {
 
         // create and position button panel
         ButtonPanel buttonPanel = new ButtonPanel(this);
-        buttonPanel.setLocation(width/2-(buttonPanel.addRecipeButton.getWidth()/2), height - 75);
+        buttonPanel.setLocation(width / 2 - (buttonPanel.addRecipeButton.getWidth() / 2), height - 75);
         add(buttonPanel);
 
         // Text field to input the name of the recipe
@@ -54,7 +53,7 @@ public class AddRecipeMainPanel extends JPanel {
 
         JCheckBox specialityRecipeCheckbox = new JCheckBox("Speciality Recipe?");
         specialityRecipeCheckbox.setSelected(false);
-        specialityRecipeCheckbox.setLocation(95,100);
+        specialityRecipeCheckbox.setLocation(95, 100);
         add(specialityRecipeCheckbox);
 
 
@@ -64,10 +63,12 @@ public class AddRecipeMainPanel extends JPanel {
                 updateSuggestions();
                 recipeNameSuggestions.showPopup();
             }
+
             public void removeUpdate(DocumentEvent e) {
                 updateSuggestions();
                 recipeNameSuggestions.showPopup();
             }
+
             public void changedUpdate(DocumentEvent e) {
                 updateSuggestions();
                 recipeNameSuggestions.showPopup();
@@ -80,7 +81,7 @@ public class AddRecipeMainPanel extends JPanel {
         recipeNameSuggestions.setLocation(95, 80);
         DefaultComboBoxModel<Object> recipeNameSuggestionsModel = new DefaultComboBoxModel<>();
         recipeNameSuggestions.setModel(recipeNameSuggestionsModel);
-        ((JTextField)recipeNameSuggestions.getEditor().getEditorComponent()).getDocument().addDocumentListener(docListener);
+        ((JTextField) recipeNameSuggestions.getEditor().getEditorComponent()).getDocument().addDocumentListener(docListener);
         add(recipeNameSuggestions);
 
         // Create a panel to hold the input fields for the ingredients
@@ -94,11 +95,16 @@ public class AddRecipeMainPanel extends JPanel {
         instructionsTextArea.setLocation(235, 40);
         add(instructionsTextArea);
 
+        // Checkbox for indicating speciality recipes
         specialitiesCheckBox = new JCheckBox("Speciality?");
         specialitiesCheckBox.setSize(recipeNameTextField.getSize());
         specialitiesCheckBox.setLocation(95, 100);
         add(specialitiesCheckBox);
     }
+
+    /**
+     * Updates the suggestions in the recipe name combobox based on the current text in the recipe name text field.
+     */
     private void updateSuggestions() { //TODO runnable makes it run forever, needs to be changed
         Runnable runnable = new Runnable() {
             @Override
@@ -130,19 +136,19 @@ public class AddRecipeMainPanel extends JPanel {
         Boolean speciality;
         String instructions;
         HashMap<String, Boolean> ingredients = new HashMap<>();
-        if(!(recipeNameTextField.getText().isBlank() || recipeNameTextField.getText().isEmpty() || recipeNameTextField == null)){
+        if (!(recipeNameTextField.getText().isBlank() || recipeNameTextField.getText().isEmpty() || recipeNameTextField == null)) {
             name = recipeNameTextField.getText();
             speciality = specialitiesCheckBox.isSelected();
-        }else{
+        } else {
             System.out.println("Recipe name is empty");
             return;
         }
 
         instructions = instructionsTextArea.getText();
-        for (int i = 0; i < inputPanel.ingredientNameTextFields.size(); i++){
-            if(!((inputPanel.ingredientNameTextFields.get(i).getText() == null) || (inputPanel.ingredientNameTextFields.get(i).getText().isEmpty()) || (inputPanel.ingredientNameTextFields.get(i).getText().isBlank()))){
+        for (int i = 0; i < inputPanel.ingredientNameTextFields.size(); i++) {
+            if (!((inputPanel.ingredientNameTextFields.get(i).getText() == null) || (inputPanel.ingredientNameTextFields.get(i).getText().isEmpty()) || (inputPanel.ingredientNameTextFields.get(i).getText().isBlank()))) {
                 ingredients.put(inputPanel.ingredientNameTextFields.get(i).getText(), inputPanel.alcoholicIngredientCheckBox.get(i).isSelected());
-            }else{
+            } else {
                 System.out.println("ingredient is empty");
             }
 
@@ -153,7 +159,7 @@ public class AddRecipeMainPanel extends JPanel {
     /**
      * Create and add labels for clarity.
      */
-    public void createLabels(){
+    public void createLabels() {
 
         JLabel label = new JLabel("Recipe Name:");
         label.setSize(label.getPreferredSize());
@@ -171,7 +177,12 @@ public class AddRecipeMainPanel extends JPanel {
         add(recipeInstructionsLabel);
     }
 
-    public AddRecipeController getController(){
+    /**
+     * Gets the controller for managing interactions with the recipe database.
+     *
+     * @return The AddRecipeController instance.
+     */
+    public AddRecipeController getController() {
         return mainFrame.getController();
     }
 }
@@ -197,14 +208,12 @@ class ButtonPanel extends JPanel {
         // Create and add: add recipe button
         addRecipeButton = new JButton("Add recipe");
         setSize(addRecipeButton.getPreferredSize());
-        addRecipeButton.setLocation(0,0);
+        addRecipeButton.setLocation(0, 0);
         addRecipeButton.setSize(addRecipeButton.getPreferredSize());
         add(addRecipeButton);
 
         // Add action listener to the add recipe button
         addRecipeButton.addActionListener(l -> addRecipeToDatabase());
-
-
     }
 
     /**
@@ -219,35 +228,43 @@ class ButtonPanel extends JPanel {
  * The InputPanel class represents the panel containing input fields for recipe ingredients.
  * This panel includes text fields for ingredient names and checkboxes for indicating alcoholic ingredients.
  */
-class InputPanel extends JPanel{
+class InputPanel extends JPanel {
     private AddRecipeMainPanel mainPanel;                                           // The main panel of the "Add Recipe" GUI
-    private ArrayList<JComboBox> ingredientComboBoxes = new ArrayList<>();
+    private ArrayList<JComboBox> ingredientComboBoxes = new ArrayList<>();          // List of comboboxes for ingredient names
     protected ArrayList<JTextField> ingredientNameTextFields = new ArrayList<>();   // List of text fields for ingredient names
     protected ArrayList<JCheckBox> alcoholicIngredientCheckBox = new ArrayList<>(); // List of checkboxes for indicating alcoholic ingredients
+
+    /**
+     * Document listener for the ingredient name text fields.
+     */
     private DocumentListener documentListener = new DocumentListener() {
         public void insertUpdate(DocumentEvent e) {
-            int index = (int)e.getDocument().getProperty("index");
+            int index = (int) e.getDocument().getProperty("index");
             updateSuggestions(index);
             ingredientComboBoxes.get(index).showPopup();
         }
+
+        /**
+         * Removes the update from the document.
+         * @param e the document event
+         */
         public void removeUpdate(DocumentEvent e) {
-            int index = (int)e.getDocument().getProperty("index");
+            int index = (int) e.getDocument().getProperty("index");
             updateSuggestions(index);
             ingredientComboBoxes.get(index).showPopup();
         }
+
+        /**
+         * Changes the update of the document.
+         *
+         * @param e The document event
+         */
         public void changedUpdate(DocumentEvent e) {
-            int index = (int)e.getDocument().getProperty("index");
+            int index = (int) e.getDocument().getProperty("index");
             updateSuggestions(index);
             ingredientComboBoxes.get(index).showPopup();
         }
-
     };
-
-
-
-
-
-
 
     /**
      * Constructs a new InputPanel with the specified main panel, width, and height.
@@ -262,7 +279,7 @@ class InputPanel extends JPanel{
         // Set layout to grid bag layout for organized positioning of components
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
         setLayout(new GridBagLayout());
-        setSize(width/2-50, height-300);
+        setSize(width / 2 - 50, height - 300);
 
         DefaultComboBoxModel<String> ingredientNameSuggestionsModel = new DefaultComboBoxModel<>();
 
@@ -272,8 +289,8 @@ class InputPanel extends JPanel{
             ingredientNameTextFields.add(new JTextField(10));
             ingredientNameTextFields.get(i).getDocument().putProperty("index", i);
             ingredientNameTextFields.get(i).getDocument().addDocumentListener(documentListener);
-            gridBagConstraints.gridx=0;
-            gridBagConstraints.gridy =i;
+            gridBagConstraints.gridx = 0;
+            gridBagConstraints.gridy = i;
             gridBagConstraints.anchor = GridBagConstraints.WEST;
             add(ingredientNameTextFields.get(i), gridBagConstraints);
 
@@ -294,8 +311,8 @@ class InputPanel extends JPanel{
 
             // Create checkbox for indicating alcoholic ingredient
             alcoholicIngredientCheckBox.add(new JCheckBox("Alcoholic?"));
-            gridBagConstraints.gridx=1;
-            gridBagConstraints.gridy =i;
+            gridBagConstraints.gridx = 1;
+            gridBagConstraints.gridy = i;
             add(alcoholicIngredientCheckBox.get(i), gridBagConstraints);
 
 
@@ -304,6 +321,11 @@ class InputPanel extends JPanel{
         }
     }
 
+    /**
+     * Updates the suggestions in the ingredient name combobox based on the current text in the ingredient name text field.
+     *
+     * @param index The index of the ingredient name text field.
+     */
     private void updateSuggestions(int index) { //TODO currently takes all indexes at once, needs to be only 1, implement with comboxes
         String searchText = ingredientNameTextFields.get(index).getText();
 
@@ -320,6 +342,4 @@ class InputPanel extends JPanel{
             ingredientComboBoxes.get(index).addItem(suggestion);
         }
     }
-
-
 }

@@ -9,7 +9,6 @@ import src.client.boundary.InstructionScreenManager;
 import src.client.controller.IngredientsController;
 import src.client.controller.RecipeController;
 
-import java.awt.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,8 +22,8 @@ import java.sql.SQLException;
 public class ClientMain extends Application {
     private static IngredientsController ingredientsController;     // Controller for managing ingredients
     private static RecipeController recipeController;               // Controller for managing recipes
-    private static Connection connection;
-    private static InstructionScreenManager instructionscreen;
+    private static Connection connection;                           // Connection to the database
+    private static InstructionScreenManager instructionscreen;      // Manager for the instruction screen
 
     /**
      * Retrieves the RecipeController instance.
@@ -68,7 +67,6 @@ public class ClientMain extends Application {
         instructionscreen = new InstructionScreenManager();
         // Launch the JavaFX application
         launch();
-
     }
 
     /**
@@ -80,6 +78,11 @@ public class ClientMain extends Application {
         return ingredientsController;
     }
 
+    /**
+     * Get the instruction screen manager.
+     *
+     * @return The instruction screen manager.
+     */
     public static InstructionScreenManager getInstructionscreen(){
         return instructionscreen;
     }
