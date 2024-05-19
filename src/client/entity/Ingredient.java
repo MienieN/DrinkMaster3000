@@ -41,16 +41,6 @@ public class Ingredient {
     }
 
     /**
-     * Gets the number of recipes using the ingredient.
-     *
-     * @return The number of recipes using the ingredient.
-     * TODO - not used
-     */
-    public int getFrequency(){
-        return frequency;
-    }
-
-    /**
      * Compares two ingredients for equality.
      *
      * @param obj The object to compare to.
@@ -58,9 +48,10 @@ public class Ingredient {
      */
     @Override
     public boolean equals(Object obj) {
-        if(this == obj){
+        if (this == obj) {
             return true;
         }
+
         Ingredient otherIngredient = (Ingredient) obj;
         return Objects.equals(this.name, otherIngredient.getName());
     }

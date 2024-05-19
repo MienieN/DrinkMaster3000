@@ -2,7 +2,6 @@ package addRecipe.gui;
 
 import addRecipe.AddRecipeController;
 
-
 import javax.swing.*;
 import java.util.HashMap;
 
@@ -20,7 +19,8 @@ public class AddRecipeMainFrame extends JFrame {
      *
      * @param width      The width of the main frame.
      * @param height     The height of the main frame.
-     * @param controller The AddRecipeController instance responsible for managing interactions with the recipe database.
+     * @param controller The AddRecipeController instance responsible for
+     *                   managing interactions with the recipe database.
      */
     public AddRecipeMainFrame(int width, int height, AddRecipeController controller){
         this.controller = controller;
@@ -36,7 +36,7 @@ public class AddRecipeMainFrame extends JFrame {
      *
      * @return The AddRecipeController instance.
      */
-    public AddRecipeController getController(){
+    public AddRecipeController getController() {
         return controller;
     }
 
@@ -47,7 +47,8 @@ public class AddRecipeMainFrame extends JFrame {
      * @param ingredients  A HashMap containing the ingredients of the recipe and their availability status.
      * @param instructions The instructions for preparing the recipe.
      */
-    public void addRecipeToDatabase(String name, HashMap<String, Boolean> ingredients, String instructions, Boolean speciality) {
+    public void addRecipeToDatabase(String name, HashMap<String, Boolean> ingredients,
+                                    String instructions, Boolean speciality) {
         controller.addRecipe(name, ingredients, instructions, speciality);
     }
 }

@@ -31,13 +31,14 @@ public class AddRecipeController {
      * @param ingredients A HashMap containing the ingredients of the recipe and their alcoholic status.
      * @param instructions The instructions for preparing the recipe.
      */
-    public void addRecipe(String recipeName, HashMap<String, Boolean> ingredients, String instructions, Boolean speciality) {
+    public void addRecipe(String recipeName, HashMap<String, Boolean> ingredients,
+                          String instructions, Boolean speciality) {
         // Set a savepoint for transaction rollback
         Savepoint savepoint = null;
         try {
             savepoint = connection.setSavepoint();
-        }
-        catch (SQLException e) {
+
+        } catch (SQLException e) {
             System.out.println("Failed to connect to database, aborting");
             System.exit(0);
         }
@@ -49,14 +50,16 @@ public class AddRecipeController {
             statement.setString(2, instructions);
             statement.setBoolean(3, speciality);
             int rowsAffected = statement.executeUpdate();
+
             if (rowsAffected != 1) {
                 System.out.println("Error: Failed to insert recipe");
             }
-        }
-        catch (SQLException e) {
+
+        } catch (SQLException e) {
             // Handle duplicate recipe name error
             if (e.getMessage().contains("duplicate key value violates unique constraint")) {
-                System.out.println("A recipe with that name already exsists");
+                System.out.println("A recipe with that name already exists");
+
             } else {
                 throw new RuntimeException(e);
             }
@@ -64,6 +67,7 @@ public class AddRecipeController {
 
         // Insert ingredients into the 'ingredients' table
         String insertIngredient = "INSERT INTO ingredients values (?, ?)";
+
         try (PreparedStatement statement = connection.prepareStatement(insertIngredient)) {
             // Set a savepoint for each ingredient insertion
             Savepoint ingredientSavepoint;
@@ -71,65 +75,77 @@ public class AddRecipeController {
             // Loop through the array and insert each element individually
             for (String ingredient : ingredients.keySet()) {
                 ingredientSavepoint = connection.setSavepoint();
+
                 try {
                     statement.setString(1, ingredient);
                     statement.setBoolean(2, ingredients.get(ingredient));
 
                     // Execute the SQL INSERT statement for each array element
                     int rowsAffected = statement.executeUpdate();
+
                     if (rowsAffected != 1) {
                         System.err.println("Error: Failed to insert ingredient");
+
                         try {
                             connection.rollback();
+
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
+
                     } else {
                         System.out.println("test");
                     }
-                }
+
                 // Handle duplicate ingredient name error
-                catch (SQLException sqlException) {
+                } catch (SQLException sqlException) {
+
                     if (sqlException.getMessage().contains("duplicate key value violates unique constraint")) {
                         System.out.println("An ingredient with that name already exsists, skipping");
                         connection.rollback(ingredientSavepoint);
+
                     } else {
                         throw new RuntimeException(sqlException);
                     }
                 }
             }
             System.out.println("Array elements inserted successfully.");
+
         } catch (SQLException se) {
             throw new RuntimeException(se);
         }
 
         // Insert recipe-ingredient connections into the 'recipes_ingredients' table
         String insertRecipesIngredients = "INSERT INTO recipes_ingredients values (?, ?)";
+
         try (PreparedStatement statement = connection.prepareStatement(insertRecipesIngredients)) {
             statement.setString(1, recipeName);
 
             for (String ingredient : ingredients.keySet()) {
                 statement.setString(2, ingredient);
                 int rowsAffected = statement.executeUpdate();
+
                 if (rowsAffected != 1) {
                     System.err.println("Error: Failed to insert recipe to ingredient connection");
+
                     try {
                         connection.rollback();
-                    }
-                    catch (SQLException e) {
+
+                    } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
                 }
             }
-
             // Commit the transaction
             connection.commit();
         }
 
         // Rollback transaction in case of error
         catch (SQLException se) {
+
             try {
                 connection.rollback(savepoint);
+
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -143,23 +159,23 @@ public class AddRecipeController {
      * @return A list of recipe names that match the search text.
      */
     public List<String> queryRecipeName(String textSearch) {
-
         try {
             String autoRecipe = "SELECT * FROM recipes WHERE recipe_name LIKE ?";
             PreparedStatement autoRecipeStatement = connection.prepareStatement(autoRecipe);
             autoRecipeStatement.setString(1, textSearch + "%");
-            //TODO currently because it is case sensitive, you must start with an uppercase letter
 
             ResultSet resultSet = autoRecipeStatement.executeQuery();
 
             List<String> autoRecipeNames = new ArrayList<>();
+
             while (resultSet.next()) {
                 autoRecipeNames.add(resultSet.getString("recipe_name"));
             }
+
             System.out.println(autoRecipeNames);
             return autoRecipeNames;
-        }
-        catch (SQLException e) {
+
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
@@ -172,23 +188,22 @@ public class AddRecipeController {
      * @return A list of ingredient names that match the search text.
      */
     public List<String> queryIngredientsName(String textSearch) {
-
         try {
             String autoRecipe = "SELECT * FROM ingredients WHERE ingredient_name LIKE ?";
             PreparedStatement autoIngredientStatement = connection.prepareStatement(autoRecipe);
             autoIngredientStatement.setString(1, textSearch + "%");
-            //TODO currently because it is case sensitive, you must start with an uppercase letter
 
             ResultSet resultSet = autoIngredientStatement.executeQuery();
 
             List<String> autoIngredientNames = new ArrayList<>();
+
             while (resultSet.next()) {
                 autoIngredientNames.add(resultSet.getString("ingredient_name"));
             }
+
             System.out.println(autoIngredientNames);
             return autoIngredientNames;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }

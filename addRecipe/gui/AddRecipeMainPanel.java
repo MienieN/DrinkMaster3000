@@ -50,12 +50,10 @@ public class AddRecipeMainPanel extends JPanel {
         recipeNameTextField.setLocation(95, 50);
         add(recipeNameTextField);
 
-
         JCheckBox specialityRecipeCheckbox = new JCheckBox("Speciality Recipe?");
         specialityRecipeCheckbox.setSelected(false);
         specialityRecipeCheckbox.setLocation(95, 100);
         add(specialityRecipeCheckbox);
-
 
         //To dynamically respond to changes in the recipeNameTextField
         DocumentListener docListener = new DocumentListener() {
@@ -81,7 +79,8 @@ public class AddRecipeMainPanel extends JPanel {
         recipeNameSuggestions.setLocation(95, 80);
         DefaultComboBoxModel<Object> recipeNameSuggestionsModel = new DefaultComboBoxModel<>();
         recipeNameSuggestions.setModel(recipeNameSuggestionsModel);
-        ((JTextField) recipeNameSuggestions.getEditor().getEditorComponent()).getDocument().addDocumentListener(docListener);
+        ((JTextField) recipeNameSuggestions.getEditor().getEditorComponent())
+                .getDocument().addDocumentListener(docListener);
         add(recipeNameSuggestions);
 
         // Create a panel to hold the input fields for the ingredients
@@ -105,7 +104,7 @@ public class AddRecipeMainPanel extends JPanel {
     /**
      * Updates the suggestions in the recipe name combobox based on the current text in the recipe name text field.
      */
-    private void updateSuggestions() { //TODO runnable makes it run forever, needs to be changed
+    private void updateSuggestions() {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -118,7 +117,6 @@ public class AddRecipeMainPanel extends JPanel {
 
                 System.out.println(searchText);
                 recipeNameSuggestions.removeAllItems();
-
 
                 for (String suggestion : mainFrame.getController().queryRecipeName(searchText)) {
                     recipeNameSuggestions.addItem(suggestion);
@@ -136,7 +134,9 @@ public class AddRecipeMainPanel extends JPanel {
         Boolean speciality;
         String instructions;
         HashMap<String, Boolean> ingredients = new HashMap<>();
-        if (!(recipeNameTextField.getText().isBlank() || recipeNameTextField.getText().isEmpty() || recipeNameTextField == null)) {
+
+        if (!(recipeNameTextField.getText().isBlank() || recipeNameTextField.getText().isEmpty()
+                || recipeNameTextField == null)) {
             name = recipeNameTextField.getText();
             speciality = specialitiesCheckBox.isSelected();
         } else {
@@ -146,12 +146,16 @@ public class AddRecipeMainPanel extends JPanel {
 
         instructions = instructionsTextArea.getText();
         for (int i = 0; i < inputPanel.ingredientNameTextFields.size(); i++) {
-            if (!((inputPanel.ingredientNameTextFields.get(i).getText() == null) || (inputPanel.ingredientNameTextFields.get(i).getText().isEmpty()) || (inputPanel.ingredientNameTextFields.get(i).getText().isBlank()))) {
-                ingredients.put(inputPanel.ingredientNameTextFields.get(i).getText(), inputPanel.alcoholicIngredientCheckBox.get(i).isSelected());
+            if (!((inputPanel.ingredientNameTextFields.get(i).getText() == null)
+                    || (inputPanel.ingredientNameTextFields.get(i).getText().isEmpty())
+                    || (inputPanel.ingredientNameTextFields.get(i).getText().isBlank()))) {
+
+                ingredients.put(inputPanel.ingredientNameTextFields.get(i).getText(),
+                        inputPanel.alcoholicIngredientCheckBox.get(i).isSelected());
+
             } else {
                 System.out.println("ingredient is empty");
             }
-
         }
         mainFrame.addRecipeToDatabase(name, ingredients, instructions, speciality);
     }
@@ -160,7 +164,6 @@ public class AddRecipeMainPanel extends JPanel {
      * Create and add labels for clarity.
      */
     public void createLabels() {
-
         JLabel label = new JLabel("Recipe Name:");
         label.setSize(label.getPreferredSize());
         label.setLocation(15, 50);
@@ -283,12 +286,12 @@ class InputPanel extends JPanel {
 
         DefaultComboBoxModel<String> ingredientNameSuggestionsModel = new DefaultComboBoxModel<>();
 
-
         for (int i = 0; i < 12; i++) {
             // Create text field for ingredient name
             ingredientNameTextFields.add(new JTextField(10));
             ingredientNameTextFields.get(i).getDocument().putProperty("index", i);
             ingredientNameTextFields.get(i).getDocument().addDocumentListener(documentListener);
+
             gridBagConstraints.gridx = 0;
             gridBagConstraints.gridy = i;
             gridBagConstraints.anchor = GridBagConstraints.WEST;
@@ -299,34 +302,22 @@ class InputPanel extends JPanel {
             ingredientComboBoxes.get(i).setModel(ingredientNameSuggestionsModel);
             add(ingredientComboBoxes.get(i), gridBagConstraints);
 
-
-            /*
-            JComboBox<Object> ingredientNameSuggestions = new JComboBox<>();
-            ingredientNameSuggestions.setEditable(true);
-            ingredientNameSuggestions.setSize(ingredientNameTextFields.get(i).getSize());
-            DefaultComboBoxModel<Object> recipeNameSuggestionsModel = new DefaultComboBoxModel<>();
-            ingredientNameSuggestions.setModel(recipeNameSuggestionsModel);
-
-             */
-
             // Create checkbox for indicating alcoholic ingredient
             alcoholicIngredientCheckBox.add(new JCheckBox("Alcoholic?"));
             gridBagConstraints.gridx = 1;
             gridBagConstraints.gridy = i;
             add(alcoholicIngredientCheckBox.get(i), gridBagConstraints);
-
-
-            alcoholicIngredientCheckBox.add(new JCheckBox("Alcoholic?"));
-
         }
     }
 
     /**
-     * Updates the suggestions in the ingredient name combobox based on the current text in the ingredient name text field.
+     * Updates the suggestions in the ingredient name combobox
+     * based on the current text in the ingredient name text field.
      *
      * @param index The index of the ingredient name text field.
      */
-    private void updateSuggestions(int index) { //TODO currently takes all indexes at once, needs to be only 1, implement with comboxes
+    //TODO currently takes all indexes at once, needs to be only 1, implement with comboxes
+    private void updateSuggestions(int index) {
         String searchText = ingredientNameTextFields.get(index).getText();
 
         if (!(searchText == null || searchText.equals(""))) {
@@ -336,7 +327,6 @@ class InputPanel extends JPanel {
 
         System.out.println(searchText);
         ingredientComboBoxes.get(index).removeAllItems();
-
 
         for (String suggestion : mainPanel.getController().queryIngredientsName(searchText)) {
             ingredientComboBoxes.get(index).addItem(suggestion);

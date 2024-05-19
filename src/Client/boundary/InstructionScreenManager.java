@@ -7,12 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import java.awt.*;
 import javafx.scene.control.Label;
 import java.io.IOException;
 
 public class InstructionScreenManager {
-
     private Parent root;
     private Stage helpStage;
     private Scene scene;
@@ -20,7 +18,8 @@ public class InstructionScreenManager {
     private ImageView helpImageViewer;
     @FXML
     private Label helpLabel;
-    Image helpImage = new Image(getClass().getClassLoader().getResourceAsStream("src/Client/resources/helppictures/Introduction.png"));
+    private Image helpImage = new Image(getClass().getClassLoader().getResourceAsStream(
+            "src/Client/resources/helppictures/Introduction.png"));
 
     public void initialize() {
         helpLabel.setMaxWidth(160);
@@ -34,21 +33,25 @@ public class InstructionScreenManager {
                 "for. Use the buttons down below " +
                 "to navigate through this tutorial.");
     }
+
     public void openHelpWindow() {
         try {
             helpStage = new Stage();
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("src/Client/resources/fxml/HelpScreen.fxml"));
+            root = FXMLLoader.load(getClass().getClassLoader().getResource(
+                    "src/Client/resources/fxml/HelpScreen.fxml"));
             scene = new Scene(root);
             helpStage.setScene(scene);
             helpStage.setAlwaysOnTop(true);
             helpStage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public void displayIntro()
-    {
-        helpImage = new Image(getClass().getClassLoader().getResourceAsStream("src/Client/resources/helppictures/Introduction.png"));
+
+    public void displayIntro() {
+        helpImage = new Image(getClass().getClassLoader().getResourceAsStream(
+                "src/Client/resources/helppictures/Introduction.png"));
         helpImageViewer.setImage(helpImage);
         helpLabel.setText("Hello and welcome to DrinkMaster3000! " +
                 "This app is made for those who " +
@@ -59,15 +62,19 @@ public class InstructionScreenManager {
                 "for. Use the buttons down below " +
                 "to navigate through this tutorial.");
     }
+
     public void displayBaseHelp() {
-        helpImage = new Image(getClass().getClassLoader().getResourceAsStream("src/Client/resources/helppictures/BaseDrink.png"));
+        helpImage = new Image(getClass().getClassLoader().getResourceAsStream(
+                "src/Client/resources/helppictures/BaseDrink.png"));
         helpImageViewer.setImage(helpImage);
         helpLabel.setText("You start by selecting a base " +
                 "alcohol for your drink in the " +
                 "drop down menu in the marked area.");
     }
+
     public void displayIngredientHelp() {
-        helpImage = new Image(getClass().getClassLoader().getResourceAsStream("src/Client/resources/helppictures/IngredientHelp.png"));
+        helpImage = new Image(getClass().getClassLoader().getResourceAsStream(
+                "src/Client/resources/helppictures/IngredientHelp.png"));
         helpImageViewer.setImage(helpImage);
         helpLabel.setText("After you have chosen your " +
                 "base alcohol, ingredients will " +
@@ -83,8 +90,10 @@ public class InstructionScreenManager {
                 "above button will present you " +
                 "with new options to choose from.");
     }
+
     public void displayChooseDrinkHelp() {
-        helpImage = new Image(getClass().getClassLoader().getResourceAsStream("src/Client/resources/helppictures/ChooseDrink.png"));
+        helpImage = new Image(getClass().getClassLoader().getResourceAsStream(
+                "src/Client/resources/helppictures/ChooseDrink.png"));
         helpImageViewer.setImage(helpImage);
         helpLabel.setText("After you have chosen some ingredients, " +
                 "the marked list on the right side " +

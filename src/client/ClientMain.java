@@ -23,7 +23,7 @@ public class ClientMain extends Application {
     private static IngredientsController ingredientsController;     // Controller for managing ingredients
     private static RecipeController recipeController;               // Controller for managing recipes
     private static Connection connection;                           // Connection to the database
-    private static InstructionScreenManager instructionscreen;      // Manager for the instruction screen
+    private static InstructionScreenManager instructionScreen;      // Manager for the instruction screen
 
     /**
      * Retrieves the RecipeController instance.
@@ -40,7 +40,6 @@ public class ClientMain extends Application {
      * @param primaryStage The primary stage of the application.
      * @throws IOException if an error occurs while loading the FXML file for the start screen.
      */
-    //TODO: add database connections here instead of in their own controllers
     @Override
     public void start(Stage primaryStage) throws IOException {
         // Load the FXML file for the start screen
@@ -48,7 +47,6 @@ public class ClientMain extends Application {
         Scene startScene = new Scene(root);
         // Set the scene for the primary stage
         primaryStage.setScene(startScene);
-        //primaryStage.setTitle("DrinkMaster 3000");
         // Display the primary stage
         primaryStage.show();
     }
@@ -64,7 +62,7 @@ public class ClientMain extends Application {
         recipeController = new RecipeController(connection);
         recipeController.setIngredientsController(ingredientsController);
         ingredientsController.setRecipeController(recipeController);
-        instructionscreen = new InstructionScreenManager();
+        instructionScreen = new InstructionScreenManager();
         // Launch the JavaFX application
         launch();
     }
@@ -83,18 +81,18 @@ public class ClientMain extends Application {
      *
      * @return The instruction screen manager.
      */
-    public static InstructionScreenManager getInstructionscreen(){
-        return instructionscreen;
+    public static InstructionScreenManager getInstructionScreen(){
+        return instructionScreen;
     }
 
     /**
      * Establishes a connection to the database.
      */
-    //TODO move this into main and send the connection to the controllers
     public static void connect() {
         try {
             // Establish connection to the PostgreSQL database
-            connection = DriverManager.getConnection("jdbc:postgresql://pgserver.mau.se:5432/drinkmaster3000", "ao7503", "t360bxdp");
+            connection = DriverManager.getConnection("jdbc:postgresql://pgserver.mau.se:5432/drinkmaster3000",
+                    "ao7503", "t360bxdp");
             System.out.println("Connection established");
         } catch (SQLException e) {
             System.out.println("Error in connection");

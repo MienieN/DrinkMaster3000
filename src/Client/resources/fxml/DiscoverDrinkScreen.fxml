@@ -99,7 +99,7 @@
                 <String fx:value="BorderBlue" />
             </styleClass>
         </Button>
-        <Button fx:id="removeIngredientsChoiceButton" disable="true" layoutX="212.0" layoutY="361.0" mnemonicParsing="false" onAction="#removeIngredientsChoice" prefHeight="25.0" prefWidth="84.0" snapToPixel="false" style="-fx-background-color: #5D8DB3;" stylesheets="@../css/Styles.css" text="Remove">
+        <Button fx:id="removeIngredientsChoiceButton" disable="true" layoutX="212.0" layoutY="361.0" mnemonicParsing="false" onAction="#removeIngredientChoice" prefHeight="25.0" prefWidth="84.0" snapToPixel="false" style="-fx-background-color: #5D8DB3;" stylesheets="@../css/Styles.css" text="Remove">
             <styleClass>
                 <String fx:value="DarkBrown" />
                 <String fx:value="shadow" />

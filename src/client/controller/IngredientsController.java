@@ -51,7 +51,7 @@ public class IngredientsController {
     //TODO either get 2 lists or sort the list based on alc content
     public void getAllIngredientsFromDatabase() {
         ingredients = new ArrayList<>();
-        String allIngredients = "select * from ingredients order by frequency desc"; //query depending on how the alcohol marker is set
+        String allIngredients = "select * from ingredients order by frequency desc";
 
         try (PreparedStatement statement = connection.prepareStatement(allIngredients)) {
             ResultSet resultSet = statement.executeQuery();
@@ -105,7 +105,6 @@ public class IngredientsController {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     /**
@@ -120,7 +119,6 @@ public class IngredientsController {
                 return ingredient;
             }
         }
-
         return null;
     }
 
@@ -172,12 +170,12 @@ public class IngredientsController {
      * Checks for recipes based on the chosen ingredients.
      *
      * @param ingredientName The name of the ingredient
-     * @param screen The screen where the ingredient was chosen
+     * @param screen         The screen where the ingredient was chosen
      */
     public void chooseIngredient(String ingredientName, String screen) {
         Ingredient ingredient = getIngredientFromArrayList(ingredientName);
         chosenIngredients.add(ingredient);
-        switch (screen){
+        switch (screen) {
             case "alc":
                 recipeController.checkForAlcRecipe(chosenIngredients);
                 break;
@@ -188,7 +186,6 @@ public class IngredientsController {
                 recipeController.checkForDiscoverRecipe(chosenIngredients);
                 break;
         }
-
         updateChosenIngredientsList(screen);
     }
 
@@ -198,8 +195,8 @@ public class IngredientsController {
      * @param screen The screen where the ingredient was chosen
      */
     public void undoIngredientChoice(String screen) {
-        Ingredient ingredient = chosenIngredients.get(chosenIngredients.size()-1);
-        switch (screen){
+        Ingredient ingredient = chosenIngredients.get(chosenIngredients.size() - 1);
+        switch (screen) {
             case "alc":
                 alcDrinkScreenManager.addBackIngredient(ingredient.getName());
                 chosenIngredients.remove(ingredient);
@@ -216,7 +213,6 @@ public class IngredientsController {
                 recipeController.checkForDiscoverRecipe(chosenIngredients);
                 break;
         }
-
         chosenIngredients.remove(ingredient);
         updateChosenIngredientsList(screen);
     }
@@ -226,12 +222,12 @@ public class IngredientsController {
      *
      * @param screen The screen where the ingredient was chosen
      */
-    public void updateChosenIngredientsList(String screen){
+    public void updateChosenIngredientsList(String screen) {
         ArrayList<String> chosenIngredientNames = new ArrayList<>();
-        for (Ingredient ingredient : chosenIngredients){
+        for (Ingredient ingredient : chosenIngredients) {
             chosenIngredientNames.add(ingredient.getName());
         }
-        switch (screen){
+        switch (screen) {
             case "alc":
                 alcDrinkScreenManager.receiveChosenIngredients(chosenIngredientNames);
                 break;
@@ -242,7 +238,6 @@ public class IngredientsController {
                 discoverDrinkScreenManager.receiveChosenIngredients(chosenIngredientNames);
                 break;
         }
-
     }
 
     /**
@@ -257,12 +252,12 @@ public class IngredientsController {
     /**
      * Removes a choice from the list of chosen ingredients.
      *
-     * @param name The name of the ingredient
+     * @param name   The name of the ingredient
      * @param screen The screen where the ingredient was chosen
      */
     public void removeChoice(String name, String screen) {
         Ingredient ingredient = getIngredientFromArrayList(name);
-        switch (screen){
+        switch (screen) {
             case "alc":
                 alcDrinkScreenManager.addBackIngredient(name);
                 break;
@@ -273,7 +268,6 @@ public class IngredientsController {
                 discoverDrinkScreenManager.addBackIngredient(name);
                 break;
         }
-
         chosenIngredients.remove(ingredient);
         updateChosenIngredientsList(screen);
     }
@@ -283,7 +277,6 @@ public class IngredientsController {
      */
     public void resetChosenIngredients() {
         chosenIngredients.clear();
-
     }
 
     /**

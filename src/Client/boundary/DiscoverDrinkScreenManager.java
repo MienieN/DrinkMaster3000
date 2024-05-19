@@ -21,17 +21,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class DiscoverDrinkScreenManager {
-    private String screen = "other";
+    private String screen = "other";                        // The string to identify the screen
     private Stage stage;                                    // The stage for the scene
     private Scene scene;                                    // The scene of the GUI
     private Parent root;                                    // The root node of the scene
-    private ArrayList<String> ingredientNames;              //The list of all ingredients
+    private ArrayList<String> ingredientNames;              // The list of all ingredients
     private IngredientsController ingredientsController;    // The controller for managing ingredients
     private RecipeController recipeController;              // The controller for managing recipes
-    private InstructionScreenManager instructionScreen;
+    private InstructionScreenManager instructionScreen;     // The controller for the tutorial screen
 
     @FXML
-    private Button removeIngredientsChoiceButton;
+    private Button removeIngredientsChoiceButton;           // Button for removing a chosen ingredient
     @FXML
     private Button ingredientChoiceButton1;                 // Button for choosing ingredients
     @FXML
@@ -41,9 +41,9 @@ public class DiscoverDrinkScreenManager {
     @FXML
     private Button ingredientChoiceButton4;                 // Button for choosing ingredients
     @FXML
-    private ListView<String> matchList;                    // List view for displaying recipes
+    private ListView<String> matchList;                     // List view for displaying recipes
     @FXML
-    private ListView<String> chosenIngredientsList;
+    private ListView<String> chosenIngredientsList;         // The listview displaying the chosen ingredients
 
     /**
      * Constructs a AlcDrinkScreenManager object.
@@ -52,12 +52,13 @@ public class DiscoverDrinkScreenManager {
     public DiscoverDrinkScreenManager() {
         ingredientsController = ClientMain.getIngredientsController();
         recipeController = ClientMain.getRecipeController();
+
         ingredientsController.setDiscoverGUI(this);
         recipeController.setDiscoverGUI(this);
+
         ArrayList<String> nonAlcoholicIngredients = ingredientsController.getNonAlcoholicIngredientNames();
         Collections.sort(nonAlcoholicIngredients);
         ingredientNames = ingredientsController.getNonAlcoholicIngredientNames();
-
     }
 
     /**
@@ -120,7 +121,8 @@ public class DiscoverDrinkScreenManager {
      */
     public void switchToStartScreen(javafx.event.ActionEvent backToStartButtonEvent) {
         try {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("src/Client/resources/fxml/StartScreen.fxml"));
+            root = FXMLLoader.load(getClass().getClassLoader().getResource(
+                    "src/Client/resources/fxml/StartScreen.fxml"));
             stage = (Stage) ((Node) backToStartButtonEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -144,7 +146,6 @@ public class DiscoverDrinkScreenManager {
         matchList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-
                 // Call the method to display a popup with the selected recipe
                 popupRecipe();
 
@@ -173,21 +174,16 @@ public class DiscoverDrinkScreenManager {
     }
 
     @FXML
-    private void startInstructions(javafx.event.ActionEvent openHelpScreen) {
+    private void startInstructions() {
         if (instructionScreen == null) {
-            instructionScreen = ClientMain.getInstructionscreen();
+            instructionScreen = ClientMain.getInstructionScreen();
         }
         instructionScreen.openHelpWindow();
-    }
-
-    public String getSelectedRecipeNameForViewingRecipe() {
-        return matchList.getSelectionModel().getSelectedItem();
     }
 
     public void receiveChosenIngredients(ArrayList<String> chosenIngredientNames) {
         chosenIngredientsList.getItems().clear();
         chosenIngredientsList.getItems().addAll(chosenIngredientNames);
-
     }
 
     public void addBackIngredient(String name) {
@@ -198,13 +194,13 @@ public class DiscoverDrinkScreenManager {
         ingredientsController.undoIngredientChoice(screen);
     }
 
-    public void removeIngredientsChoice() {
+    public void removeIngredientChoice() {
         String name = chosenIngredientsList.getSelectionModel().getSelectedItem();
         ingredientsController.removeChoice(name, screen);
     }
 
-    public void enableRemoveChoiceButton(){
-        if(chosenIngredientsList.getSelectionModel().getSelectedItem() != null){
+    public void enableRemoveChoiceButton() {
+        if (chosenIngredientsList.getSelectionModel().getSelectedItem() != null) {
             removeIngredientsChoiceButton.setDisable(false);
         }
     }

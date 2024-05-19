@@ -55,12 +55,13 @@ public class NonAlcDrinkScreenManager {
     public NonAlcDrinkScreenManager() {
         ingredientsController = ClientMain.getIngredientsController();
         recipeController = ClientMain.getRecipeController();
+
         ingredientsController.setNonAlcGUI(this);
         recipeController.setNonAlcGUI(this);
+
         ArrayList<String> nonAlcoholicIngredients = ingredientsController.getNonAlcoholicIngredientNames();
         Collections.sort(nonAlcoholicIngredients);
         ingredientNames = ingredientsController.getNonAlcoholicIngredientNames();
-
     }
 
     /**
@@ -126,7 +127,8 @@ public class NonAlcDrinkScreenManager {
      */
     public void switchToStartScreen(javafx.event.ActionEvent backToStartButtonEvent) {
         try {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("src/Client/resources/fxml/StartScreen.fxml"));
+            root = FXMLLoader.load(getClass().getClassLoader().getResource(
+                    "src/Client/resources/fxml/StartScreen.fxml"));
             stage = (Stage) ((Node) backToStartButtonEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -150,7 +152,6 @@ public class NonAlcDrinkScreenManager {
         matchList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-
                 // Call the method to display a popup with the selected recipe
                 popupRecipe();
 
@@ -180,13 +181,11 @@ public class NonAlcDrinkScreenManager {
 
     /**
      * Starts the instruction screen.
-     *
-     * @param openHelpScreen The ActionEvent object representing the click event on the help button.
      */
     @FXML
-    private void startInstructions(javafx.event.ActionEvent openHelpScreen) {
+    private void startInstructions() {
         if (instructionScreen == null) {
-            instructionScreen = ClientMain.getInstructionscreen();
+            instructionScreen = ClientMain.getInstructionScreen();
         }
         instructionScreen.openHelpWindow();
     }
@@ -208,7 +207,6 @@ public class NonAlcDrinkScreenManager {
     public void receiveChosenIngredients(ArrayList<String> chosenIngredientNames) {
         chosenIngredientsList.getItems().clear();
         chosenIngredientsList.getItems().addAll(chosenIngredientNames);
-
     }
 
     /**
