@@ -1,14 +1,11 @@
 package src.client.controller;
 
-import org.checkerframework.checker.units.qual.A;
 import src.client.boundary.AlcDrinkScreenManager;
 import src.client.boundary.DiscoverDrinkScreenManager;
 import src.client.boundary.NonAlcDrinkScreenManager;
 import src.client.entity.Ingredient;
-
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 /**
  * The IngredientsController class manages interactions with ingredients in the database.
@@ -16,7 +13,8 @@ import java.util.Comparator;
 public class IngredientsController {
     private RecipeController recipeController;
     private ArrayList<Ingredient> ingredients;          // The list of ingredients
-    private ArrayList<Ingredient> relevantIngredients;  //the list of ingredients sorted by compatability with your base drink
+    private ArrayList<Ingredient> relevantIngredients;  //the list of ingredients sorted by
+                                                        // compatability with your base drink
     private ArrayList<Ingredient> chosenIngredients;
     private Connection connection;                      // The database connection
     private AlcDrinkScreenManager alcDrinkScreenManager;
