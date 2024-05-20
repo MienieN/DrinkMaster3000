@@ -247,6 +247,7 @@ public class RecipeController {
 
     /**
      * Responsible for getting the partial matches based on the alcoholic base drink chosen
+     *
      * @param chosenIngredients the list of chosen ingredients in case of alcoholic drinks contains the chosen base drink aswell
      */
     public void checkPartialMatchesIncludingBaseDrink(ArrayList<Ingredient> chosenIngredients) {
@@ -359,6 +360,7 @@ public class RecipeController {
             matches.addAll(fullMatches);
             matches.add("");
         }
+        
         if (partialMatchList.size() > 1) {
             matches.addAll(partialMatchList);
             matches.add("");
@@ -366,17 +368,20 @@ public class RecipeController {
 
         System.out.println(partialMatchList);
         if (!matchesWithoutBaseDrink.isEmpty()) {
-
             matches.addAll(matchesWithoutBaseDrink);
         }
-        if(screen.equals("alc")){
-            alcDrinkScreenManager.receiveMatches(matches);
-        } else if (screen.equals("non-alc")) {
-            nonAlcDrinkScreenManager.receiveMatches(matches);
-        } else if (screen.equals("other")) {
-            discoverDrinkScreenManager.receiveMatches(matches);
-        }
 
+        switch (screen) {
+            case "alc":
+                alcDrinkScreenManager.receiveMatches(matches);
+                break;
+            case "non-alc":
+                nonAlcDrinkScreenManager.receiveMatches(matches);
+                break;
+            case "other":
+                discoverDrinkScreenManager.receiveMatches(matches);
+                break;
+        }
     }
 
     public void getBaseDrinkCompatibleRecipesFromDatabase(String chosenBaseDrink) {
@@ -442,6 +447,7 @@ public class RecipeController {
     public void setNonAlcGUI(NonAlcDrinkScreenManager NonAlcGUIController) {
         this.nonAlcDrinkScreenManager = NonAlcGUIController;
     }
+
     public void setDiscoverGUI(DiscoverDrinkScreenManager discoverGUIController) {
         this.discoverDrinkScreenManager = discoverGUIController;
     }
@@ -459,7 +465,6 @@ public class RecipeController {
     public void setIngredientsController(IngredientsController ingredientsController) {
         this.ingredientsController = ingredientsController;
     }
-
 
 
 }
