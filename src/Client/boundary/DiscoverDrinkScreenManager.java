@@ -21,29 +21,44 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class DiscoverDrinkScreenManager {
-    private String screen = "other";                        // The string to identify the screen
-    private Stage stage;                                    // The stage for the scene
-    private Scene scene;                                    // The scene of the GUI
-    private Parent root;                                    // The root node of the scene
-    private ArrayList<String> ingredientNames;              // The list of all ingredients
-    private IngredientsController ingredientsController;    // The controller for managing ingredients
-    private RecipeController recipeController;              // The controller for managing recipes
-    private InstructionScreenManager instructionScreen;     // The controller for the tutorial screen
+    // The string to identify the screen
+    private String screen = "other";
+    // The stage for the scene
+    private Stage stage;
+    // The scene of the GUI
+    private Scene scene;
+    // The root node of the scene
+    private Parent root;
+    // The list of all ingredients
+    private ArrayList<String> ingredientNames;
+    // The controller for managing ingredients
+    private IngredientsController ingredientsController;
+    // The controller for managing recipes
+    private RecipeController recipeController;
+    // The controller for the tutorial screen
+    private InstructionScreenManager instructionScreen;
 
+    // Button for removing a chosen ingredient
     @FXML
-    private Button removeIngredientsChoiceButton;           // Button for removing a chosen ingredient
+    private Button removeIngredientsChoiceButton;
+    // Button for choosing ingredients
     @FXML
-    private Button ingredientChoiceButton1;                 // Button for choosing ingredients
+    private Button ingredientChoiceButton1;
+    // Button for choosing ingredients
     @FXML
-    private Button ingredientChoiceButton2;                 // Button for choosing ingredients
+    private Button ingredientChoiceButton2;
+    // Button for choosing ingredients
     @FXML
-    private Button ingredientChoiceButton3;                 // Button for choosing ingredients
+    private Button ingredientChoiceButton3;
+    // Button for choosing ingredients
     @FXML
-    private Button ingredientChoiceButton4;                 // Button for choosing ingredients
+    private Button ingredientChoiceButton4;
+    // List view for displaying recipes
     @FXML
-    private ListView<String> matchList;                     // List view for displaying recipes
+    private ListView<String> matchList;
+    // The listview displaying the chosen ingredients
     @FXML
-    private ListView<String> chosenIngredientsList;         // The listview displaying the chosen ingredients
+    private ListView<String> chosenIngredientsList;
 
     /**
      * Constructs a AlcDrinkScreenManager object.
