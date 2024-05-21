@@ -14,12 +14,18 @@ import java.util.HashMap;
  * This panel contains input fields for adding a new recipe, including name, ingredients, and instructions.
  */
 public class AddRecipeMainPanel extends JPanel {
-    private AddRecipeMainFrame mainFrame;                                    // The main frame of the "Add Recipe" GUI
-    private JTextField recipeNameTextField;                                  // Text field for entering the name of the recipe
-    private InputPanel inputPanel;                                           // Panel containing input fields for ingredients
-    private JTextArea instructionsTextArea;                                  // Text area for entering recipe instructions
-    private JComboBox<Object> recipeNameSuggestions = new JComboBox<>();     // Combobox for recipe name suggestions
-    private JCheckBox specialitiesCheckBox;                                  // Checkbox for indicating speciality recipes
+    // The main frame of the "Add Recipe" GUI
+    private AddRecipeMainFrame mainFrame;
+    // Text field for entering the name of the recipe
+    private JTextField recipeNameTextField;
+    // Panel containing input fields for ingredients
+    private InputPanel inputPanel;
+    // Text area for entering recipe instructions
+    private JTextArea instructionsTextArea;
+    // Combobox for recipe name suggestions
+    private JComboBox<Object> recipeNameSuggestions = new JComboBox<>();
+    // Checkbox for indicating speciality recipes
+    private JCheckBox specialitiesCheckBox;
 
 
     /**
@@ -30,16 +36,16 @@ public class AddRecipeMainPanel extends JPanel {
      * @param height    The height of the main panel.
      */
     public AddRecipeMainPanel(AddRecipeMainFrame mainFrame, int width, int height) {
-        // general layout
+        // General layout
         this.mainFrame = mainFrame;
         setLayout(null);
         setSize(width, height);
         setBackground(Color.ORANGE);
 
-        // create and position labels
+        // Create and position labels
         createLabels();
 
-        // create and position button panel
+        // Create and position button panel
         ButtonPanel buttonPanel = new ButtonPanel(this);
         buttonPanel.setLocation(width / 2 - (buttonPanel.addRecipeButton.getWidth() / 2), height - 75);
         add(buttonPanel);
