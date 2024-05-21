@@ -14,14 +14,16 @@ import java.util.Objects;
  * The StartScreenManager class manages the navigation from the start screen to other screens in the application.
  */
 public class StartScreenManager {
+    // The instruction screen manager
+    private static InstructionScreenManager instructionscreen;
+
     // The stage for the scene
     private Stage stage;
     // The scene of the GUI
     private Scene scene;
     // The root node of the scene
     private Parent root;
-    // The instruction screen manager
-    private static InstructionScreenManager instructionscreen;
+
 
     /**
      * Switches the scene to the alcoholic drink selection screen.
