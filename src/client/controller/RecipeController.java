@@ -16,9 +16,6 @@ import java.util.*;
  * The RecipeController class manages the recipes and their interactions with the GUI.
  */
 public class RecipeController {
-    // The IngredientsController object //TODO check if we need this
-    //private IngredientsController ingredientsController;
-
     // Database connection
     private Connection connection;
 
@@ -528,18 +525,4 @@ public class RecipeController {
         fullMatches.clear();
         partialMatchList.clear();
     }
-
-    /**
-     * A setter for the {@link IngredientsController}
-     *
-     * @param ingredientsController the {@link IngredientsController} created in {@clientMain}
-     */
-/*
-    public void setIngredientsController(IngredientsController ingredientsController) {
-        this.ingredientsController = ingredientsController;
-    }
-
-
- */
-
 }
