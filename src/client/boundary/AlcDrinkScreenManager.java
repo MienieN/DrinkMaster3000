@@ -32,35 +32,52 @@ import java.util.ResourceBundle;
  * It handles the selection of base drinks, ingredients, and recipes, and displays the selected ingredients and recipes.
  */
 public class AlcDrinkScreenManager implements Initializable {
+    // The screen to return to when the back button is clicked
+    private String screen = "alc";
+    // The stage for the scene
+    private Stage stage;
+    // The scene of the GUI
+    private Scene scene;
+    // The root node of the scene
+    private Parent root;
+    //The list of all ingredients
+    private ArrayList<String> ingredientNames;
+    // The list of base drink names
+    private ArrayList<String> baseDrinkNames;
+    // The controller for managing ingredients
+    private IngredientsController ingredientsController;
+    // The controller for managing recipes
+    private RecipeController recipeController;
+    // The manager for the instruction screen
+    private InstructionScreenManager instructionScreen;
 
-    private String screen = "alc";                          // The screen to return to when the back button is clicked
-    private Stage stage;                                    // The stage for the scene
-    private Scene scene;                                    // The scene of the GUI
-    private Parent root;                                    // The root node of the scene
-    private ArrayList<String> ingredientNames;              //The list of all ingredients
-    private ArrayList<String> baseDrinkNames;               // The list of base drink names
-    private IngredientsController ingredientsController;    // The controller for managing ingredients
-    private RecipeController recipeController;              // The controller for managing recipes
-    private InstructionScreenManager instructionScreen;     // The manager for the instruction screen
-
+    // Dropdown menu for selecting base drinks
     @FXML
-    private ComboBox<String> baseDrinkDropdownMenu;         // Dropdown menu for selecting base drinks
+    private ComboBox<String> baseDrinkDropdownMenu;
+    // Button for choosing ingredients
     @FXML
-    private Button ingredientChoiceButton1;                 // Button for choosing ingredients
+    private Button ingredientChoiceButton1;
+    // Button for choosing ingredients
     @FXML
-    private Button ingredientChoiceButton2;                 // Button for choosing ingredients
+    private Button ingredientChoiceButton2;
+    // Button for choosing ingredients
     @FXML
-    private Button ingredientChoiceButton3;                 // Button for choosing ingredients
+    private Button ingredientChoiceButton3;
+    // Button for choosing ingredients
     @FXML
-    private Button ingredientChoiceButton4;                 // Button for choosing ingredients
+    private Button ingredientChoiceButton4;
+    // List view for displaying recipes
     @FXML
-    private ListView<String> matchList;                     // List view for displaying recipes
+    private ListView<String> matchList;
+    // Button for selecting none of the above
     @FXML
-    private Button noneOfTheAboveButton;                    // Button for selecting none of the above
+    private Button noneOfTheAboveButton;
+    // List view for displaying chosen ingredients
     @FXML
-    private ListView<String> chosenIngredientsList;         // List view for displaying chosen ingredients
+    private ListView<String> chosenIngredientsList;
+    // Button for removing ingredients
     @FXML
-    private Button removeIngredientsChoiceButton;           // Button for removing ingredients
+    private Button removeIngredientsChoiceButton;
 
     /**
      * Constructs a AlcDrinkScreenManager object.
