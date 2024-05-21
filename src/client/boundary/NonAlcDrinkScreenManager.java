@@ -24,20 +24,25 @@ import java.util.Collections;
  * The NonAlcDrinkScreenManager class is responsible for managing the GUI for the non-alcoholic drink selection screen.
  */
 public class NonAlcDrinkScreenManager {
+    // The controller for managing ingredients
+    private IngredientsController ingredientsController;
+    // The controller for managing recipes
+    private RecipeController recipeController;
+
+    // The list of all ingredients
+    private ArrayList<String> ingredientNames;
+
     // The screen identifier
     private String screen = "non-alc";
+
     // The stage for the scene
     private Stage stage;
     // The scene of the GUI
     private Scene scene;
     // The root node of the scene
     private Parent root;
-    // The list of all ingredients
-    private ArrayList<String> ingredientNames;
-    // The controller for managing ingredients
-    private IngredientsController ingredientsController;
-    // The controller for managing recipes
-    private RecipeController recipeController;
+
+
     // The instruction screen manager
     private InstructionScreenManager instructionScreen;
 
