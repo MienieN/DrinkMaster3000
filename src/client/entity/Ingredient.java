@@ -6,9 +6,12 @@ import java.util.Objects;
  * The Ingredient class represents an ingredient entity.
  */
 public class Ingredient {
-    private String name;        // The name of the ingredient
-    private boolean alcoholic;  // A boolean indicating if the ingredient contains alcohol or not
-    private int frequency;      // The number of recipes using the ingredient
+    //The name of the ingredient
+    private String name;
+    //A boolean indicating if the ingredient contains alcohol or not
+    private boolean alcoholic;
+    //The number of recipes using the ingredient
+    private int frequency;
 
     /**
      * Constructor for ingredient.
