@@ -21,22 +21,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class DiscoverDrinkScreenManager {
+    // The controller for managing ingredients
+    private IngredientsController ingredientsController;
+    // The controller for managing recipes
+    private RecipeController recipeController;
+
+    // The manager for the tutorial screen
+    private InstructionScreenManager instructionScreen;
+
+    // The list of all ingredients
+    private ArrayList<String> ingredientNames;
+
     // The string to identify the screen
     private String screen = "other";
+
     // The stage for the scene
     private Stage stage;
     // The scene of the GUI
     private Scene scene;
     // The root node of the scene
     private Parent root;
-    // The list of all ingredients
-    private ArrayList<String> ingredientNames;
-    // The controller for managing ingredients
-    private IngredientsController ingredientsController;
-    // The controller for managing recipes
-    private RecipeController recipeController;
-    // The controller for the tutorial screen
-    private InstructionScreenManager instructionScreen;
 
     // Button for removing a chosen ingredient
     @FXML

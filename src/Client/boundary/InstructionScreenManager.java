@@ -11,12 +11,12 @@ import javafx.scene.control.Label;
 import java.io.IOException;
 
 public class InstructionScreenManager {
-    // The root for the scene
-    private Parent root;
     // Stage for the help
     private Stage helpStage;
     // Scene for the help
     private Scene scene;
+    // The root for the scene
+    private Parent root;
     // ImageView for visual help
     @FXML
     private ImageView helpImageViewer;
