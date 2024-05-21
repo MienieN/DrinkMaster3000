@@ -45,7 +45,7 @@ public class AddRecipeController {
         }
 
         // Insert recipe details into the 'recipes' table
-        String insertRecipe = "INSERT INTO recipes values (?, ?, ?)";
+        String insertRecipe = "INSERT INTO recipes VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(insertRecipe)) {
             statement.setString(1, recipeName);
             statement.setString(2, instructions);
@@ -67,7 +67,7 @@ public class AddRecipeController {
         }
 
         // Insert ingredients into the 'ingredients' table
-        String insertIngredient = "INSERT INTO ingredients values (?, ?)";
+        String insertIngredient = "INSERT INTO ingredients VALUES (?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(insertIngredient)) {
             // Set a savepoint for each ingredient insertion
@@ -117,7 +117,7 @@ public class AddRecipeController {
         }
 
         // Insert recipe-ingredient connections into the 'recipes_ingredients' table
-        String insertRecipesIngredients = "INSERT INTO recipes_ingredients values (?, ?)";
+        String insertRecipesIngredients = "INSERT INTO recipes_ingredients VALUES (?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(insertRecipesIngredients)) {
             statement.setString(1, recipeName);
