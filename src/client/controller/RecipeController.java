@@ -16,6 +16,16 @@ import java.util.*;
  * The RecipeController class manages the recipes and their interactions with the GUI.
  */
 public class RecipeController {
+    // Database connection
+    private Connection connection;
+
+    // GUI controller for displaying alcoholic recipes
+    private AlcDrinkScreenManager alcDrinkScreenManager;
+    // GUI controller for displaying non-alcoholic recipes
+    private NonAlcDrinkScreenManager nonAlcDrinkScreenManager;
+    // GUI controller for displaying discover recipes
+    private DiscoverDrinkScreenManager discoverDrinkScreenManager;
+
     // HashMap to store recipes and their ingredients
     private HashMap<String, ArrayList<Ingredient>> recipes;
     // All the recipes containing the chosen base drink.
@@ -24,21 +34,16 @@ public class RecipeController {
     private HashMap<String, ArrayList<Ingredient>> discoverRecipes;
     // HashMap to store recipes and their instructions
     private HashMap<String, String> recipeInstructions = new HashMap<>();
-    // GUI controller for displaying alcoholic recipes
-    private AlcDrinkScreenManager alcDrinkScreenManager;
-    // GUI controller for displaying non-alcoholic recipes
-    private NonAlcDrinkScreenManager nonAlcDrinkScreenManager;
-    // GUI controller for displaying discover recipes
-    private DiscoverDrinkScreenManager discoverDrinkScreenManager;
+
     // List of partial matches
     private ArrayList<String> partialMatchList;
     // List of full matches
     private ArrayList<String> fullMatches = new ArrayList<>();
     // List of matches without the base drink
     private ArrayList<String> matchesWithoutBaseDrink = new ArrayList<>();
-    // Database connection
-    private Connection connection;
-    // The IngredientsController object
+
+
+    // The IngredientsController object //TODO check if we need this
     private IngredientsController ingredientsController;
 
     /**
