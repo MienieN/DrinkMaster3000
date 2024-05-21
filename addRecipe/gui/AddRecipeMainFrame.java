@@ -11,10 +11,11 @@ import java.util.HashMap;
  * This class is designed for the application owners or development team members, not the users.
  */
 public class AddRecipeMainFrame extends JFrame {
-    // Main panel of the frame
-    private JPanel mainPanel;
     // The controller managing interactions with the recipe database
     private AddRecipeController controller;
+
+    // Main panel of the frame
+    private JPanel mainPanel;
 
     /**
      * Constructs a new AddRecipeMainFrame with the specified width, height, and controller.
