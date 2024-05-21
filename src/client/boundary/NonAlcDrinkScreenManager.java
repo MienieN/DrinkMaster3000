@@ -29,6 +29,9 @@ public class NonAlcDrinkScreenManager {
     // The controller for managing recipes
     private RecipeController recipeController;
 
+    // The instruction screen manager
+    private InstructionScreenManager instructionScreen;
+
     // The list of all ingredients
     private ArrayList<String> ingredientNames;
 
@@ -43,8 +46,7 @@ public class NonAlcDrinkScreenManager {
     private Parent root;
 
 
-    // The instruction screen manager
-    private InstructionScreenManager instructionScreen;
+
 
     // Button for removing ingredients
     @FXML
