@@ -56,10 +56,10 @@ public class RecipeController {
      */
     private void getRecipesFromDatabase() {
         recipes = new HashMap<>();
-        String sql = "Select recipe_name from recipes";
-        String sql2 = "select recipes_ingredients.ingredient_name, ingredients.alcoholic, ingredients.frequency " +
-                "from recipes_ingredients " +
-                "join ingredients ON recipes_ingredients.ingredient_name = ingredients.ingredient_name " +
+        String sql = "SELECT recipe_name FROM recipes";
+        String sql2 = "SELECT recipes_ingredients.ingredient_name, ingredients.alcoholic, ingredients.frequency " +
+                "FROM recipes_ingredients " +
+                "JOIN ingredients ON recipes_ingredients.ingredient_name = ingredients.ingredient_name " +
                 "WHERE recipe_name = ?;";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet recipeNames = statement.executeQuery();
@@ -91,10 +91,10 @@ public class RecipeController {
      */
     private void getRecipesFromDatabaseForDiscover() {
         discoverRecipes = new HashMap<>();
-        String sql = "Select recipe_name from recipes where speciality = true";
-        String sql2 = "select recipes_ingredients.ingredient_name, ingredients.alcoholic, ingredients.frequency " +
-                "from recipes_ingredients " +
-                "join ingredients ON recipes_ingredients.ingredient_name = ingredients.ingredient_name " +
+        String sql = "SELECT recipe_name FROM recipes WHERE speciality = TRUE";
+        String sql2 = "SELECT recipes_ingredients.ingredient_name, ingredients.alcoholic, ingredients.frequency " +
+                "FROM recipes_ingredients " +
+                "JOIN ingredients ON recipes_ingredients.ingredient_name = ingredients.ingredient_name " +
                 "WHERE recipe_name = ?;";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet recipeNames = statement.executeQuery();
@@ -203,11 +203,11 @@ public class RecipeController {
     public void getBaseDrinkCompatibleRecipesFromDatabase(String chosenBaseDrink) {
         // A new ArrayList to store the ingredients for a recipe from the database
         ArrayList<Ingredient> ingredients = new ArrayList<>();
-        String getRecipeIngredients = "select * from " +
-                "ingredients where ingredient_name in (select ingredient_name from " +
-                "recipes_ingredients where recipe_name = ?)";
+        String getRecipeIngredients = "SELECT * FROM " +
+                "ingredients WHERE ingredient_name IN (SELECT ingredient_name FROM " +
+                "recipes_ingredients WHERE recipe_name = ?)";
 
-        String getRecipeNames = "Select recipe_name from recipes_ingredients where ingredient_name = ?";
+        String getRecipeNames = "SELECT recipe_name FROM recipes_ingredients WHERE ingredient_name = ?";
 
         try (PreparedStatement statementGetNames = connection.prepareStatement(getRecipeNames)) {
             PreparedStatement statmentGetIngredients = connection.prepareStatement(getRecipeIngredients);
@@ -321,14 +321,14 @@ public class RecipeController {
      */
     public void checkPartialMatchesIncludingBaseDrink(ArrayList<Ingredient> chosenIngredients) {
         partialMatchList = new ArrayList<>();
-        String sql = "SELECT recipe_name, count (distinct ingredient_name) FROM (select * from recipes_ingredients " +
-                "where recipe_name in ((select recipe_name from recipes_ingredients " +
-                "where ingredient_name = ?)))as recipes " +
-                "WHERE ingredient_name in (?";
+        String sql = "SELECT recipe_name, count (DISTINCT ingredient_name) FROM (SELECT * FROM recipes_ingredients " +
+                "WHERE recipe_name IN ((SELECT recipe_name FROM recipes_ingredients " +
+                "WHERE ingredient_name = ?))) AS recipes " +
+                "WHERE ingredient_name IN (?";
         for (int i = 1; i < chosenIngredients.size(); i++) {
             sql += ", ?";
         }
-        sql += ") group by recipe_name order by count desc";
+        sql += ") GROUP BY recipe_name ORDER BY count DESC";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             int index = 2;
@@ -357,16 +357,16 @@ public class RecipeController {
      */
     public void checkPartialMatchesOfNonAlcDrinks(ArrayList<Ingredient> chosenIngredients) {
         partialMatchList = new ArrayList<>();
-        String sql = "SELECT recipe_name, count (distinct ingredient_name) FROM (select * from recipes_ingredients " +
-                "where recipe_name not in ((select recipe_name " +
-                "from recipes_ingredients inner join " +
-                "ingredients on recipes_ingredients.ingredient_name = ingredients.ingredient_name " +
-                "where alcoholic = true)))as recipes " +
-                "WHERE ingredient_name in (?";
+        String sql = "SELECT recipe_name, count (DISTINCT ingredient_name) FROM (SELECT * FROM recipes_ingredients " +
+                "WHERE recipe_name NOT IN ((SELECT recipe_name " +
+                "FROM recipes_ingredients INNER JOIN " +
+                "ingredients ON recipes_ingredients.ingredient_name = ingredients.ingredient_name " +
+                "WHERE alcoholic = TRUE)))AS recipes " +
+                "WHERE ingredient_name IN (?";
         for (int i = 1; i < chosenIngredients.size(); i++) {
             sql += ", ?";
         }
-        sql += ") group by recipe_name order by count desc";
+        sql += ") GROUP BY recipe_name ORDER BY count DESC";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             int index = 1;
@@ -395,16 +395,16 @@ public class RecipeController {
      */
     public void checkPartialMatchesOfDiscoverDrinks(ArrayList<Ingredient> chosenIngredients) {
         partialMatchList = new ArrayList<>();
-        String sql = "SELECT recipe_name, count (distinct ingredient_name) FROM (select * from recipes_ingredients " +
-                "where recipe_name not in ((select recipe_name " +
-                "from recipes_ingredients inner join " +
-                "ingredients on recipes_ingredients.ingredient_name = ingredients.ingredient_name " +
-                "where recipe_name in (select recipe_name from recipes where speciality = false))))as recipes " +
-                "WHERE ingredient_name in (?";
+        String sql = "SELECT recipe_name, count (DISTINCT ingredient_name) FROM (SELECT * FROM recipes_ingredients " +
+                "WHERE recipe_name NOT IN ((SELECT recipe_name " +
+                "FROM recipes_ingredients INNER JOIN " +
+                "ingredients ON recipes_ingredients.ingredient_name = ingredients.ingredient_name " +
+                "WHERE recipe_name IN (SELECT recipe_name FROM recipes WHERE speciality = FALSE)))) AS recipes " +
+                "WHERE ingredient_name IN (?";
         for (int i = 1; i < chosenIngredients.size(); i++) {
             sql += ", ?";
         }
-        sql += ") group by recipe_name order by count desc";
+        sql += ") GROUP BY recipe_name ORDER BY count DESC";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             int index = 1;
