@@ -7,7 +7,8 @@ import java.sql.*;
  * It establishes a connection to the database and initializes the AddRecipeController.
  */
 public class AddRecipeMain {
-    private static Connection connection;       // Connection object for connecting to the database
+    // Connection object for connecting to the database
+    private static Connection connection;
 
     /**
      * The main method of the AddRecipeMain class.
@@ -16,8 +17,10 @@ public class AddRecipeMain {
      * @param args The command-line arguments (not used).
      */
     public static void main(String[] args) {
-        connect();                              // Connect to the database
-        new AddRecipeController(connection);    // Initialize the AddRecipeController
+        // Connect to the database
+        connect();
+        // Initialize the AddRecipeController
+        new AddRecipeController(connection);
     }
 
     /**
