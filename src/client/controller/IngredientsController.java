@@ -15,21 +15,29 @@ import java.util.ArrayList;
  * The IngredientsController class manages interactions with ingredients in the database.
  */
 public class IngredientsController {
-    private RecipeController recipeController;                     // The RecipeController object
-    private ArrayList<Ingredient> ingredients;                     // The list of ingredients
-    private ArrayList<Ingredient> relevantIngredients;             //the list of ingredients sorted by compatability with your base drink
-    private ArrayList<Ingredient> chosenIngredients;               // The list of chosen ingredients
-    private Connection connection;                                 // The database connection
-    private AlcDrinkScreenManager alcDrinkScreenManager;           // The AlcDrinkScreenManager object
-    private NonAlcDrinkScreenManager nonAlcDrinkScreenManager;     // The NonAlcDrinkScreenManager object
-    private DiscoverDrinkScreenManager discoverDrinkScreenManager; // The DiscoverDrinkScreenManager object
+    //The RecipeController object
+    private RecipeController recipeController;
+    //The list of ingredients
+    private ArrayList<Ingredient> ingredients;
+    //The list of ingredients sorted by compatability with your base drink
+    private ArrayList<Ingredient> relevantIngredients;
+    //The list of chosen ingredients
+    private ArrayList<Ingredient> chosenIngredients;
+    //The database connection
+    private Connection connection;
+    //The AlcDrinkScreenManager object
+    private AlcDrinkScreenManager alcDrinkScreenManager;
+    //The NonAlcDrinkScreenManager object
+    private NonAlcDrinkScreenManager nonAlcDrinkScreenManager;
+    //The DiscoverDrinkScreenManager object
+    private DiscoverDrinkScreenManager discoverDrinkScreenManager;
 
     /**
      * Constructs an IngredientsController object and initializes the database connection.
      */
     public IngredientsController(Connection connection) {
         this.connection = connection;
-        // Retrieve all ingredients from the database
+        //Retrieve all ingredients from the database
         getAllIngredientsFromDatabase();
         chosenIngredients = new ArrayList<>();
     }
