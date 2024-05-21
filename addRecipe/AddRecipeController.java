@@ -12,7 +12,8 @@ import java.util.List;
  * It interacts with the database to insert recipe details and related ingredients.
  */
 public class AddRecipeController {
-    private Connection connection;  // Connection to the database
+    // Connection to the database
+    private Connection connection;
 
     /**
      * Constructs a new AddRecipeController with the specified database connection.
