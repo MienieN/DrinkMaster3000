@@ -16,6 +16,9 @@ import java.util.*;
  * The RecipeController class manages the recipes and their interactions with the GUI.
  */
 public class RecipeController {
+    // The IngredientsController object //TODO check if we need this
+    private IngredientsController ingredientsController;
+
     // Database connection
     private Connection connection;
 
@@ -43,8 +46,6 @@ public class RecipeController {
     private ArrayList<String> matchesWithoutBaseDrink = new ArrayList<>();
 
 
-    // The IngredientsController object //TODO check if we need this
-    private IngredientsController ingredientsController;
 
     /**
      * Constructs a RecipeController object and initializes the database connection.

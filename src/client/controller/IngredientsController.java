@@ -17,20 +17,23 @@ import java.util.ArrayList;
 public class IngredientsController {
     // The RecipeController object
     private RecipeController recipeController;
-    // The list of ingredients
-    private ArrayList<Ingredient> ingredients;
-    // The list of ingredients sorted by compatability with your base drink
-    private ArrayList<Ingredient> relevantIngredients;
-    // The list of chosen ingredients
-    private ArrayList<Ingredient> chosenIngredients;
+
     // The database connection
     private Connection connection;
+
     // The AlcDrinkScreenManager object
     private AlcDrinkScreenManager alcDrinkScreenManager;
     // The NonAlcDrinkScreenManager object
     private NonAlcDrinkScreenManager nonAlcDrinkScreenManager;
     // The DiscoverDrinkScreenManager object
     private DiscoverDrinkScreenManager discoverDrinkScreenManager;
+
+    // The list of ingredients
+    private ArrayList<Ingredient> ingredients;
+    // The list of ingredients sorted by compatability with your base drink
+    private ArrayList<Ingredient> relevantIngredients;
+    // The list of chosen ingredients
+    private ArrayList<Ingredient> chosenIngredients;
 
     /**
      * Constructs an IngredientsController object and initializes the database connection.
