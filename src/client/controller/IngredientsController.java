@@ -59,7 +59,7 @@ public class IngredientsController {
     // TODO either get 2 lists or sort the list based on alc content
     public void getAllIngredientsFromDatabase() {
         ingredients = new ArrayList<>();
-        String allIngredients = "select * from ingredients order by frequency desc";
+        String allIngredients = "SELECT * FROM ingredients ORDER BY frequency DESC ";
 
         try (PreparedStatement statement = connection.prepareStatement(allIngredients)) {
             ResultSet resultSet = statement.executeQuery();
@@ -85,18 +85,18 @@ public class IngredientsController {
      */
     public void getIngredientsBasedOnBaseDrink(String baseDrinkName) {
         relevantIngredients = new ArrayList<>();
-        String relevantIngredientsSQL = "with recipe_ingredients as " +
-                "(select * from ingredients where ingredient_name in" +
-                "(select ingredient_name from recipes_ingredients where recipe_name in" +
-                "(select recipe_name from recipes_ingredients where " +
-                "ingredient_name in (?)) and ingredient_name != ?) " +
-                "order by frequency desc), " +
-                "remaining_ingredients as " +
-                "(select * from ingredients where ingredient_name not in " +
-                "(select ingredient_name from recipes_ingredients where recipe_name in " +
-                "(select recipe_name from recipes_ingredients where ingredient_name in (?))) " +
-                "order by frequency desc) " +
-                "select * from recipe_ingredients union all select * from remaining_ingredients";
+        String relevantIngredientsSQL = "WITH recipe_ingredients AS " +
+                "(SELECT * FROM ingredients WHERE ingredient_name IN" +
+                "(SELECT ingredient_name FROM recipes_ingredients WHERE recipe_name IN " +
+                "(SELECT recipe_name FROM recipes_ingredients WHERE " +
+                "ingredient_name IN (?)) AND ingredient_name != ?) " +
+                "ORDER BY frequency DESC), " +
+                "remaining_ingredients AS " +
+                "(SELECT * FROM ingredients WHERE ingredient_name NOT IN " +
+                "(SELECT ingredient_name FROM recipes_ingredients WHERE recipe_name IN " +
+                "(SELECT recipe_name FROM recipes_ingredients WHERE ingredient_name IN (?))) " +
+                "ORDER BY frequency DESC) " +
+                "SELECT * FROM recipe_ingredients UNION ALL SELECT * FROM remaining_ingredients";
 
         try (PreparedStatement statement = connection.prepareStatement(relevantIngredientsSQL)) {
             statement.setString(1, baseDrinkName);
