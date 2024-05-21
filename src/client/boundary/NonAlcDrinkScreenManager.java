@@ -24,29 +24,44 @@ import java.util.Collections;
  * The NonAlcDrinkScreenManager class is responsible for managing the GUI for the non-alcoholic drink selection screen.
  */
 public class NonAlcDrinkScreenManager {
-    private String screen = "non-alc";                      // The screen identifier
-    private Stage stage;                                    // The stage for the scene
-    private Scene scene;                                    // The scene of the GUI
-    private Parent root;                                    // The root node of the scene
-    private ArrayList<String> ingredientNames;              //The list of all ingredients
-    private IngredientsController ingredientsController;    // The controller for managing ingredients
-    private RecipeController recipeController;              // The controller for managing recipes
-    private InstructionScreenManager instructionScreen;     // The instruction screen manager
+    // The screen identifier
+    private String screen = "non-alc";
+    // The stage for the scene
+    private Stage stage;
+    // The scene of the GUI
+    private Scene scene;
+    // The root node of the scene
+    private Parent root;
+    // The list of all ingredients
+    private ArrayList<String> ingredientNames;
+    // The controller for managing ingredients
+    private IngredientsController ingredientsController;
+    // The controller for managing recipes
+    private RecipeController recipeController;
+    // The instruction screen manager
+    private InstructionScreenManager instructionScreen;
 
+    // Button for removing ingredients
     @FXML
-    private Button removeIngredientsChoiceButton;           // Button for removing ingredients
+    private Button removeIngredientsChoiceButton;
+    // Button for choosing ingredients
     @FXML
-    private Button ingredientChoiceButton1;                 // Button for choosing ingredients
+    private Button ingredientChoiceButton1;
+    // Button for choosing ingredients
     @FXML
-    private Button ingredientChoiceButton2;                 // Button for choosing ingredients
+    private Button ingredientChoiceButton2;
+    // Button for choosing ingredients
     @FXML
-    private Button ingredientChoiceButton3;                 // Button for choosing ingredients
+    private Button ingredientChoiceButton3;
+    // Button for choosing ingredients
     @FXML
-    private Button ingredientChoiceButton4;                 // Button for choosing ingredients
+    private Button ingredientChoiceButton4;
+    // List view for displaying recipes
     @FXML
-    private ListView<String> matchList;                     // List view for displaying recipes
+    private ListView<String> matchList;
+    // List view for displaying chosen ingredients
     @FXML
-    private ListView<String> chosenIngredientsList;         // List view for displaying chosen ingredients
+    private ListView<String> chosenIngredientsList;
 
     /**
      * Constructs a AlcDrinkScreenManager object.

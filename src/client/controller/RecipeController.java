@@ -16,29 +16,29 @@ import java.util.*;
  * The RecipeController class manages the recipes and their interactions with the GUI.
  */
 public class RecipeController {
-    //HashMap to store recipes and their ingredients
+    // HashMap to store recipes and their ingredients
     private HashMap<String, ArrayList<Ingredient>> recipes;
-    //All the recipes containing the chosen base drink.
+    // All the recipes containing the chosen base drink.
     private HashMap<String, ArrayList<Ingredient>> validRecipes = new HashMap<>();
-    //HashMap to store recipes and their ingredients
+    // HashMap to store recipes and their ingredients
     private HashMap<String, ArrayList<Ingredient>> discoverRecipes;
-    //HashMap to store recipes and their instructions
+    // HashMap to store recipes and their instructions
     private HashMap<String, String> recipeInstructions = new HashMap<>();
-    //GUI controller for displaying alcoholic recipes
+    // GUI controller for displaying alcoholic recipes
     private AlcDrinkScreenManager alcDrinkScreenManager;
-    //GUI controller for displaying non-alcoholic recipes
+    // GUI controller for displaying non-alcoholic recipes
     private NonAlcDrinkScreenManager nonAlcDrinkScreenManager;
-    //GUI controller for displaying discover recipes
+    // GUI controller for displaying discover recipes
     private DiscoverDrinkScreenManager discoverDrinkScreenManager;
-    //List of partial matches
+    // List of partial matches
     private ArrayList<String> partialMatchList;
-    //List of full matches
+    // List of full matches
     private ArrayList<String> fullMatches = new ArrayList<>();
-    //List of matches without the base drink
+    // List of matches without the base drink
     private ArrayList<String> matchesWithoutBaseDrink = new ArrayList<>();
-    //Database connection
+    // Database connection
     private Connection connection;
-    //The IngredientsController object
+    // The IngredientsController object
     private IngredientsController ingredientsController;
 
     /**
@@ -125,12 +125,12 @@ public class RecipeController {
      */
     public void getRecipeInstructionsForChosenAlcRecipe() {
         recipeInstructions.clear();
-        //  declares an SQL query string that selects the recipe_name and instructions column from the table named recipes
-        //  filtering by recipe_name. The ? is a placeholder for a parameter that will be filled in later.
+        // Declares an SQL query string that selects the recipe_name and instructions column from the table named recipes
+        // Filtering by recipe_name. The ? is a placeholder for a parameter that will be filled in later.
         String showRecipeSQL = "SELECT recipe_name, instructions FROM recipes WHERE recipe_name = ?";
 
         // This line begins a try-with-resources block. It prepares a PreparedStatement object using the SQL query
-        // string showRecipeSQL. The connection object is assumed to be a database connection.
+        // String showRecipeSQL. The connection object is assumed to be a database connection.
         try (PreparedStatement statement = connection.prepareStatement(showRecipeSQL)) {
             // This line sets the value of the first parameter (denoted by 1) in the prepared statement.
             // It sets the selected recipe name retrieved from alcDrinkScreenManager.
@@ -149,12 +149,17 @@ public class RecipeController {
                 // This line adds the recipeName and corresponding instructionsHashSet to a map named recipeInstructions.
                 recipeInstructions.put(recipeName, instructions);
 
-                //Pop up box
-                Alert alert = new Alert(Alert.AlertType.INFORMATION); //creates an alert object
-                alert.setTitle("Recipe"); //sets the title of the alert
-                alert.setHeaderText(null); //sets the header text of the alert
-                alert.setContentText("Recipe name: " + recipeName + "\nInstructions:\n" + instructions); //sets the content text of the alert
-                alert.showAndWait(); //displays the alert and waits for the user to close it
+                // Pop up box
+                //Creates an alert object
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                // Sets the title of the alert
+                alert.setTitle("Recipe");
+                // Sets the header text of the alert
+                alert.setHeaderText(null);
+                // Sets the content text of the alert
+                alert.setContentText("Recipe name: " + recipeName + "\nInstructions:\n" + instructions);
+                // Displays the alert and waits for the user to close it
+                alert.showAndWait();
             }
 
         } catch (SQLException e) {
@@ -178,7 +183,7 @@ public class RecipeController {
                 String instructions = resultSet.getString("instructions");
                 recipeInstructions.put(recipeName, instructions);
 
-                //Pop up box
+                // Pop up box
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Recipe");
                 alert.setHeaderText(null);
@@ -196,7 +201,7 @@ public class RecipeController {
      * @param chosenBaseDrink The chosen base drink.
      */
     public void getBaseDrinkCompatibleRecipesFromDatabase(String chosenBaseDrink) {
-        //A new ArrayList to store the ingredients for a recipe from the database
+        // A new ArrayList to store the ingredients for a recipe from the database
         ArrayList<Ingredient> ingredients = new ArrayList<>();
         String getRecipeIngredients = "select * from " +
                 "ingredients where ingredient_name in (select ingredient_name from " +
@@ -210,7 +215,7 @@ public class RecipeController {
             ResultSet resultSet = statementGetNames.executeQuery();
             while (resultSet.next()) {
                 String recipeName = resultSet.getString("recipe_name");
-                //alcDrinkScreenManager.receiveBaseDrinkMatches(recipeName);
+                // alcDrinkScreenManager.receiveBaseDrinkMatches(recipeName);
                 statmentGetIngredients.setString(1, recipeName);
                 ResultSet resultSetIngredients = statmentGetIngredients.executeQuery();
                 while (resultSetIngredients.next()) {
@@ -274,7 +279,7 @@ public class RecipeController {
         Iterator<Map.Entry<String, ArrayList<Ingredient>>> RecipeIterator = recipes.entrySet().iterator();
         while (RecipeIterator.hasNext()) {
             Map.Entry<String, ArrayList<Ingredient>> entry = RecipeIterator.next();
-            //Find full match
+            // Find full match
             if (chosenIngredients.containsAll(entry.getValue())) {
                 if (fullMatches.isEmpty()) {
                     fullMatches.add("Full Matches:");
@@ -296,7 +301,7 @@ public class RecipeController {
         Iterator<Map.Entry<String, ArrayList<Ingredient>>> RecipeIterator = discoverRecipes.entrySet().iterator();
         while (RecipeIterator.hasNext()) {
             Map.Entry<String, ArrayList<Ingredient>> entry = RecipeIterator.next();
-            //Find full match
+            // Find full match
             if (chosenIngredients.containsAll(entry.getValue())) {
                 if (fullMatches.isEmpty()) {
                     fullMatches.add("Full Matches:");
@@ -365,11 +370,11 @@ public class RecipeController {
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             int index = 1;
-            //statement.setString(2, chosenIngredients.get(0).getName());
+            // statement.setString(2, chosenIngredients.get(0).getName());
             for (int i = 0; i < chosenIngredients.size(); i++) {
                 statement.setString(index++, chosenIngredients.get(i).getName());
             }
-            //statement.setInt(index, chosenIngredients.size());
+            // statement.setInt(index, chosenIngredients.size());
             ResultSet resultSet = statement.executeQuery();
             partialMatchList.add("Partial Matches:");
             while (resultSet.next()) {
@@ -403,11 +408,11 @@ public class RecipeController {
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             int index = 1;
-            //statement.setString(2, chosenIngredients.get(0).getName());
+            // statement.setString(2, chosenIngredients.get(0).getName());
             for (int i = 0; i < chosenIngredients.size(); i++) {
                 statement.setString(index++, chosenIngredients.get(i).getName());
             }
-            //statement.setInt(index, chosenIngredients.size());
+            // statement.setInt(index, chosenIngredients.size());
             ResultSet resultSet = statement.executeQuery();
             partialMatchList.add("Partial Matches:");
             while (resultSet.next()) {

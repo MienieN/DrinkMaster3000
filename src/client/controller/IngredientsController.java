@@ -15,21 +15,21 @@ import java.util.ArrayList;
  * The IngredientsController class manages interactions with ingredients in the database.
  */
 public class IngredientsController {
-    //The RecipeController object
+    // The RecipeController object
     private RecipeController recipeController;
-    //The list of ingredients
+    // The list of ingredients
     private ArrayList<Ingredient> ingredients;
-    //The list of ingredients sorted by compatability with your base drink
+    // The list of ingredients sorted by compatability with your base drink
     private ArrayList<Ingredient> relevantIngredients;
-    //The list of chosen ingredients
+    // The list of chosen ingredients
     private ArrayList<Ingredient> chosenIngredients;
-    //The database connection
+    // The database connection
     private Connection connection;
-    //The AlcDrinkScreenManager object
+    // The AlcDrinkScreenManager object
     private AlcDrinkScreenManager alcDrinkScreenManager;
-    //The NonAlcDrinkScreenManager object
+    // The NonAlcDrinkScreenManager object
     private NonAlcDrinkScreenManager nonAlcDrinkScreenManager;
-    //The DiscoverDrinkScreenManager object
+    // The DiscoverDrinkScreenManager object
     private DiscoverDrinkScreenManager discoverDrinkScreenManager;
 
     /**
@@ -37,7 +37,7 @@ public class IngredientsController {
      */
     public IngredientsController(Connection connection) {
         this.connection = connection;
-        //Retrieve all ingredients from the database
+        // Retrieve all ingredients from the database
         getAllIngredientsFromDatabase();
         chosenIngredients = new ArrayList<>();
     }
@@ -56,7 +56,7 @@ public class IngredientsController {
      *
      * @return An arraylist of ingredients
      */
-    //TODO either get 2 lists or sort the list based on alc content
+    // TODO either get 2 lists or sort the list based on alc content
     public void getAllIngredientsFromDatabase() {
         ingredients = new ArrayList<>();
         String allIngredients = "select * from ingredients order by frequency desc";
