@@ -18,10 +18,10 @@ public class AddRecipeMainPanel extends JPanel {
     private AddRecipeMainFrame mainFrame;
     // Text field for entering the name of the recipe
     private JTextField recipeNameTextField;
-    // Panel containing input fields for ingredients
-    private InputPanel inputPanel;
     // Text area for entering recipe instructions
     private JTextArea instructionsTextArea;
+    // Panel containing input fields for ingredients
+    private InputPanel inputPanel;
     // Combobox for recipe name suggestions
     private JComboBox<Object> recipeNameSuggestions = new JComboBox<>();
     // Checkbox for indicating speciality recipes
@@ -201,8 +201,10 @@ public class AddRecipeMainPanel extends JPanel {
  * This panel includes a button for adding a recipe.
  */
 class ButtonPanel extends JPanel {
-    private AddRecipeMainPanel mainPanel;   // The main panel of the "Add Recipe" GUI
-    protected JButton addRecipeButton;      // Button for adding a recipe
+    // The main panel of the "Add Recipe" GUI
+    private AddRecipeMainPanel mainPanel;
+    // Button for adding a recipe
+    protected JButton addRecipeButton;
 
     /**
      * Constructs a new ButtonPanel with the specified main panel.
@@ -238,10 +240,14 @@ class ButtonPanel extends JPanel {
  * This panel includes text fields for ingredient names and checkboxes for indicating alcoholic ingredients.
  */
 class InputPanel extends JPanel {
-    private AddRecipeMainPanel mainPanel;                                           // The main panel of the "Add Recipe" GUI
-    private ArrayList<JComboBox> ingredientComboBoxes = new ArrayList<>();          // List of comboboxes for ingredient names
-    protected ArrayList<JTextField> ingredientNameTextFields = new ArrayList<>();   // List of text fields for ingredient names
-    protected ArrayList<JCheckBox> alcoholicIngredientCheckBox = new ArrayList<>(); // List of checkboxes for indicating alcoholic ingredients
+    // The main panel of the "Add Recipe" GUI
+    private AddRecipeMainPanel mainPanel;
+    // List of comboboxes for ingredient names
+    private ArrayList<JComboBox> ingredientComboBoxes = new ArrayList<>();
+    // List of text fields for ingredient names
+    protected ArrayList<JTextField> ingredientNameTextFields = new ArrayList<>();
+    // List of checkboxes for indicating alcoholic ingredients
+    protected ArrayList<JCheckBox> alcoholicIngredientCheckBox = new ArrayList<>();
 
     /**
      * Document listener for the ingredient name text fields.
