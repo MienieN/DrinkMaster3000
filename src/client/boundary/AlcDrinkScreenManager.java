@@ -32,24 +32,28 @@ import java.util.ResourceBundle;
  * It handles the selection of base drinks, ingredients, and recipes, and displays the selected ingredients and recipes.
  */
 public class AlcDrinkScreenManager implements Initializable {
+    // The controller for managing ingredients
+    private IngredientsController ingredientsController;
+    // The controller for managing recipes
+    private RecipeController recipeController;
+
+    // The manager for the instruction screen
+    private InstructionScreenManager instructionScreen;
+
+    //The list of all ingredients
+    private ArrayList<String> ingredientNames;
+    // The list of base drink names
+    private ArrayList<String> baseDrinkNames;
+
     // The screen to return to when the back button is clicked
     private String screen = "alc";
+
     // The stage for the scene
     private Stage stage;
     // The scene of the GUI
     private Scene scene;
     // The root node of the scene
     private Parent root;
-    //The list of all ingredients
-    private ArrayList<String> ingredientNames;
-    // The list of base drink names
-    private ArrayList<String> baseDrinkNames;
-    // The controller for managing ingredients
-    private IngredientsController ingredientsController;
-    // The controller for managing recipes
-    private RecipeController recipeController;
-    // The manager for the instruction screen
-    private InstructionScreenManager instructionScreen;
 
     // Dropdown menu for selecting base drinks
     @FXML
