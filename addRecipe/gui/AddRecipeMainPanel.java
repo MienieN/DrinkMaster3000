@@ -61,7 +61,7 @@ public class AddRecipeMainPanel extends JPanel {
         specialityRecipeCheckbox.setLocation(95, 100);
         add(specialityRecipeCheckbox);
 
-        //To dynamically respond to changes in the recipeNameTextField
+        // To dynamically respond to changes in the recipeNameTextField
         DocumentListener docListener = new DocumentListener() {
             public void insertUpdate(DocumentEvent e) {
                 updateSuggestions();
