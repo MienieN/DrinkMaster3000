@@ -45,8 +45,6 @@ public class RecipeController {
     // List of matches without the base drink
     private ArrayList<String> matchesWithoutBaseDrink = new ArrayList<>();
 
-
-
     /**
      * Constructs a RecipeController object and initializes the database connection.
      */

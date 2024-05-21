@@ -24,7 +24,6 @@ public class StartScreenManager {
     // The root node of the scene
     private Parent root;
 
-
     /**
      * Switches the scene to the alcoholic drink selection screen.
      *

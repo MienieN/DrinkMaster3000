@@ -45,9 +45,6 @@ public class NonAlcDrinkScreenManager {
     // The root node of the scene
     private Parent root;
 
-
-
-
     // Button for removing ingredients
     @FXML
     private Button removeIngredientsChoiceButton;
