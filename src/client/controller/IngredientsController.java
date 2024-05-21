@@ -54,6 +54,8 @@ public class IngredientsController {
         this.recipeController = recipeController;
     }
 
+
+
     /**
      * Receives all ingredients from the database and puts them in an arraylist of ingredients objects
      *

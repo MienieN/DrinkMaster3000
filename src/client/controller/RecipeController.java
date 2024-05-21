@@ -17,7 +17,7 @@ import java.util.*;
  */
 public class RecipeController {
     // The IngredientsController object //TODO check if we need this
-    private IngredientsController ingredientsController;
+    //private IngredientsController ingredientsController;
 
     // Database connection
     private Connection connection;
@@ -534,7 +534,12 @@ public class RecipeController {
      *
      * @param ingredientsController the {@link IngredientsController} created in {@clientMain}
      */
+/*
     public void setIngredientsController(IngredientsController ingredientsController) {
         this.ingredientsController = ingredientsController;
     }
+
+
+ */
+
 }
