@@ -49,6 +49,8 @@ public class ClientMain extends Application {
         primaryStage.setScene(startScene);
         // Display the primary stage
         primaryStage.show();
+        // Locks the GUI size
+        primaryStage.setResizable(false);
     }
 
     /**

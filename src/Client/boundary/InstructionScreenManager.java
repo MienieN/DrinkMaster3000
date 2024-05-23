@@ -48,6 +48,7 @@ public class InstructionScreenManager {
             scene = new Scene(root);
             helpStage.setScene(scene);
             helpStage.setAlwaysOnTop(true);
+            helpStage.setResizable(false);
             helpStage.show();
 
         } catch (IOException e) {
