@@ -179,7 +179,7 @@ public class DiscoverDrinkScreenManager {
      * Displays a popup with the selected recipe.
      */
     private void popupRecipe() {
-        recipeController.getRecipeInstructionsForChosenNonAlcRecipe();
+        recipeController.getRecipeInstructionsForChosenDiscoverRecipe();
     }
 
     /**
