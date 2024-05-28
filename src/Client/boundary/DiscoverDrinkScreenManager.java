@@ -200,6 +200,10 @@ public class DiscoverDrinkScreenManager {
         instructionScreen.openHelpWindow();
     }
 
+    public String getSelectedRecipeNameForViewingRecipe() {
+        return matchList.getSelectionModel().getSelectedItem();
+    }
+
     public void receiveChosenIngredients(ArrayList<String> chosenIngredientNames) {
         chosenIngredientsList.getItems().clear();
         chosenIngredientsList.getItems().addAll(chosenIngredientNames);
