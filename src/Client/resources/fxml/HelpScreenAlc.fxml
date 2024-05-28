@@ -20,8 +20,8 @@
          <buttons>
             <HBox alignment="CENTER" maxHeight="40.0" maxWidth="650.0" prefHeight="50.0" prefWidth="650.0">
                <children>
-                  <Button maxHeight="40.0" mnemonicParsing="false" prefHeight="40.0" text="StartScreen Help" />
-                  <Button maxHeight="40.0" mnemonicParsing="false" prefHeight="40.0" text="Discover Screen help" />
+                  <Button maxHeight="40.0" mnemonicParsing="false" onAction="#switchToStartScreenhelp" prefHeight="40.0" text="StartScreen Help" />
+                  <Button maxHeight="40.0" mnemonicParsing="false" onAction="#switchToDiscoverScreenHelp" prefHeight="40.0" text="Discover Screen help" />
                   <Button maxHeight="40.0" mnemonicParsing="false" prefHeight="40.0" text="Non Alcoholic screen help" />
                </children></HBox>
          </buttons>

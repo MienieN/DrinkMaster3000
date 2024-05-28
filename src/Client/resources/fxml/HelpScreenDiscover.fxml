@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="src.Client.resources.fxml.HelpScreenDiscover"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.client.boundary.InstructionScreenManager">
+   <children>
+      <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="420.0" maxWidth="650.0" prefHeight="420.0" prefWidth="650.0">
+         <children>
+            <Label fx:id="helpLabel" layoutX="464.0" layoutY="49.0" text="This text will never be seen, farts!" />
+            <ImageView fx:id="helpImageViewer" fitHeight="350.0" fitWidth="448.0" layoutX="7.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../helppictures/IntroductionDiscover.png" />
+               </image>
+            </ImageView>
+            <ButtonBar layoutX="-1.0" layoutY="-1.0" maxHeight="40.0" maxWidth="650.0" prefHeight="40.0" prefWidth="650.0">
+               <buttons>
+                  <HBox alignment="CENTER" maxHeight="40.0" maxWidth="650.0" prefHeight="50.0" prefWidth="650.0">
+                     <children>
+                        <Button maxHeight="40.0" mnemonicParsing="false" prefHeight="40.0" text="StartScreen Help" />
+                        <Button maxHeight="40.0" mnemonicParsing="false" prefHeight="40.0" text="Discover Screen help" />
+                        <Button maxHeight="40.0" mnemonicParsing="false" prefHeight="40.0" text="Non Alcoholic screen help" />
+                     </children>
+                  </HBox>
+               </buttons>
+            </ButtonBar>
+            <ButtonBar layoutX="3.0" layoutY="380.0" prefHeight="40.0" prefWidth="650.0">
+               <buttons>
+                  <HBox alignment="BASELINE_CENTER" maxHeight="40.0" maxWidth="650.0" prefHeight="40.0" prefWidth="650.0">
+                     <children>
+                        <Button fx:id="part1Discover" maxHeight="40.0" mnemonicParsing="false" onAction="#displayIntroDisc" prefHeight="40.0" text="Introduction" />
+                        <Button fx:id="part2Discover" maxHeight="40.0" mnemonicParsing="false" onAction="#displayIngredientHelpDisc" prefHeight="40.0" text="Choosing ingredients" />
+                        <Button fx:id="part3Discover" maxHeight="40.0" mnemonicParsing="false" onAction="#displayUndoHelpDisc" prefHeight="40.0" text="Undo/Remove" />
+                        <Button fx:id="part4Discover" maxHeight="40.0" mnemonicParsing="false" onAction="#displayChooseDrinkHelpDisc" prefHeight="40.0" text="Choosing drink" />
+                     </children>
+                  </HBox>
+               </buttons>
+            </ButtonBar>
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>

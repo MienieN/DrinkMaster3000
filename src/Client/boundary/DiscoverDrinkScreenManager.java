@@ -197,7 +197,7 @@ public class DiscoverDrinkScreenManager {
         if (instructionScreen == null) {
             instructionScreen = ClientMain.getInstructionScreen();
         }
-        instructionScreen.openHelpWindowAlc();
+        instructionScreen.openHelpWindowDisc();
     }
 
     public String getSelectedRecipeNameForViewingRecipe() {
