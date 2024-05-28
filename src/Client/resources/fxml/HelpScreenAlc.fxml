@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane maxHeight="420.0" maxWidth="650.0" prefHeight="420.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.client.boundary.InstructionScreenManager">
+   <children>
+      <Label fx:id="helpLabel" layoutX="464.0" layoutY="49.0" text="This text will never be seen, farts!" />
+      <ImageView fx:id="helpImageViewer" fitHeight="350.0" fitWidth="448.0" layoutX="7.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../helppictures/IntroductionAlcohol.png" />
+         </image>
+      </ImageView>
+      <ButtonBar layoutX="-1.0" layoutY="-1.0" maxHeight="40.0" maxWidth="650.0" prefHeight="40.0" prefWidth="650.0">
+         <buttons>
+            <HBox alignment="CENTER" maxHeight="40.0" maxWidth="650.0" prefHeight="50.0" prefWidth="650.0">
+               <children>
+                  <Button maxHeight="40.0" mnemonicParsing="false" prefHeight="40.0" text="StartScreen Help" />
+                  <Button maxHeight="40.0" mnemonicParsing="false" prefHeight="40.0" text="Discover Screen help" />
+                  <Button maxHeight="40.0" mnemonicParsing="false" prefHeight="40.0" text="Non Alcoholic screen help" />
+               </children></HBox>
+         </buttons>
+      </ButtonBar>
+      <ButtonBar layoutX="3.0" layoutY="380.0" prefHeight="40.0" prefWidth="650.0">
+        <buttons>
+            <HBox alignment="BASELINE_CENTER" maxHeight="40.0" maxWidth="650.0" prefHeight="40.0" prefWidth="650.0">
+               <children>
+                  <Button fx:id="part1" maxHeight="40.0" mnemonicParsing="false" onAction="#displayIntroAlc" prefHeight="40.0" text="Introduction" />
+                  <Button fx:id="part2" maxHeight="40.0" mnemonicParsing="false" onAction="#displayBaseHelpAlc" prefHeight="40.0" text="Base alcohol" />
+                  <Button fx:id="part3" maxHeight="40.0" mnemonicParsing="false" onAction="#displayIngredientHelpAlc" prefHeight="40.0" text="Choosing ingredients" />
+                  <Button fx:id="part4" maxHeight="40.0" mnemonicParsing="false" onAction="#displayUndoHelpAlc" prefHeight="40.0" text="Undo/Remove" />
+                  <Button fx:id="part5" maxHeight="40.0" mnemonicParsing="false" onAction="#displayChooseDrinkHelpAlc" prefHeight="40.0" text="Choosing drink" />
+               </children>
+            </HBox>
+        </buttons>
+      </ButtonBar>
+   </children>
+</AnchorPane>

@@ -28,23 +28,21 @@ public class InstructionScreenManager {
             "src/Client/resources/helppictures/Introduction.png"));
 
     public void initialize() {
-        helpLabel.setMaxWidth(160);
+        helpLabel.setMaxWidth(180);
         helpLabel.setWrapText(true);
-        helpLabel.setText("Hello and welcome to DrinkMaster3000! " +
-                "This app is made for those who " +
-                "want to make a drink, with or " +
-                "without alcohol, with whatever " +
-                "ingredients you might have at " +
-                "home but dont know a good recipe " +
-                "for. Use the buttons down below " +
-                "to navigate through this tutorial.");
+        helpLabel.setText("Welcome to the help screen for the alcoholic" +
+                " beverages generator. With this you can find drink" +
+                " recipes based on the ingredients you enter. Use the" +
+                " buttons down below to navigate through the tutorial for" +
+                " this function, or use the buttons above to get the tutorial" +
+                " for the other functions!");
     }
 
-    public void openHelpWindow() {
+    public void openHelpWindowAlc() {
         try {
             helpStage = new Stage();
             root = FXMLLoader.load(getClass().getClassLoader().getResource(
-                    "src/Client/resources/fxml/HelpScreen.fxml"));
+                    "src/Client/resources/fxml/HelpScreenAlc.fxml"));
             scene = new Scene(root);
             helpStage.setScene(scene);
             helpStage.setAlwaysOnTop(true);
@@ -56,32 +54,30 @@ public class InstructionScreenManager {
         }
     }
 
-    public void displayIntro() {
+    public void displayIntroAlc() {
         helpImage = new Image(getClass().getClassLoader().getResourceAsStream(
-                "src/Client/resources/helppictures/Introduction.png"));
+                "src/Client/resources/helppictures/IntroductionAlcohol.png"));
         helpImageViewer.setImage(helpImage);
-        helpLabel.setText("Hello and welcome to DrinkMaster3000! " +
-                "This app is made for those who " +
-                "want to make a drink, with or " +
-                "without alcohol, with whatever " +
-                "ingredients you might have at " +
-                "home but dont know a good recipe " +
-                "for. Use the buttons down below " +
-                "to navigate through this tutorial.");
+        helpLabel.setText("Welcome to the help screen for the alcoholic" +
+                " beverages generator. With this you can find drink" +
+                " recipes based on the ingredients you enter. Use the" +
+                " buttons down below to navigate through the tutorial for" +
+                " this function, or use the buttons above to get the tutorial" +
+                " for the other functions!");
     }
 
-    public void displayBaseHelp() {
+    public void displayBaseHelpAlc() {
         helpImage = new Image(getClass().getClassLoader().getResourceAsStream(
-                "src/Client/resources/helppictures/BaseDrink.png"));
+                "src/Client/resources/helppictures/ChooseBaseAlcohol.png"));
         helpImageViewer.setImage(helpImage);
         helpLabel.setText("You start by selecting a base " +
                 "alcohol for your drink in the " +
                 "drop down menu in the marked area.");
     }
 
-    public void displayIngredientHelp() {
+    public void displayIngredientHelpAlc() {
         helpImage = new Image(getClass().getClassLoader().getResourceAsStream(
-                "src/Client/resources/helppictures/IngredientHelp.png"));
+                "src/Client/resources/helppictures/ChooseIngredientsAlcohol.png"));
         helpImageViewer.setImage(helpImage);
         helpLabel.setText("After you have chosen your " +
                 "base alcohol, ingredients will " +
@@ -98,9 +94,9 @@ public class InstructionScreenManager {
                 "with new options to choose from.");
     }
 
-    public void displayChooseDrinkHelp() {
+    public void displayChooseDrinkHelpAlc() {
         helpImage = new Image(getClass().getClassLoader().getResourceAsStream(
-                "src/Client/resources/helppictures/ChooseDrink.png"));
+                "src/Client/resources/helppictures/ChooseRecipeAlcohol.png"));
         helpImageViewer.setImage(helpImage);
         helpLabel.setText("After you have chosen some ingredients, " +
                 "the marked list on the right side " +
@@ -110,5 +106,17 @@ public class InstructionScreenManager {
                 " select it in the menu and click the" +
                 " View Recipe button. This will open a" +
                 " new window with the recipe and instructions.");
+    }
+
+    public void displayUndoHelpAlc() {
+        helpImage = new Image(getClass().getClassLoader().getResourceAsStream(
+                "src/Client/resources/helppictures/RemoveIngredientsAlcohol.png"));
+        helpImageViewer.setImage(helpImage);
+        helpLabel.setText("If you wish to remove an ingredient you" +
+                " have added from the list of added ingredients, you" +
+                " can either press the Undo button as marked in the" +
+                " picture to remove the last added ingredient," +
+                " or you can select an ingredient from the marked list" +
+                " and then press the Remove button.");
     }
 }

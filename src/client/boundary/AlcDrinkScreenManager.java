@@ -285,7 +285,7 @@ public class AlcDrinkScreenManager implements Initializable {
         if (instructionScreen == null) {
             instructionScreen = ClientMain.getInstructionScreen();
         }
-        instructionScreen.openHelpWindow();
+        instructionScreen.openHelpWindowAlc();
     }
 
     /**
