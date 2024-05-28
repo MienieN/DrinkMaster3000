@@ -3,7 +3,9 @@ package addRecipe;
 import addRecipe.gui.AddRecipeMainFrame;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * The AddRecipeController class manages the addition of recipes to the database.
@@ -126,6 +128,62 @@ public class AddRecipeController {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
+        }
+    }
+    /**
+     * Queries the database for recipe names that match the given search text.
+     *
+     * @param textSearch The search text to match against recipe names.
+     * @return A list of recipe names that match the search text.
+     */
+    public List<String> queryRecipeName(String textSearch) {
+        try {
+            String autoRecipe = "SELECT * FROM recipes WHERE recipe_name LIKE ?";
+            PreparedStatement autoRecipeStatement = connection.prepareStatement(autoRecipe);
+            autoRecipeStatement.setString(1, textSearch + "%");
+
+            ResultSet resultSet = autoRecipeStatement.executeQuery();
+
+            List<String> autoRecipeNames = new ArrayList<>();
+
+            while (resultSet.next()) {
+                autoRecipeNames.add(resultSet.getString("recipe_name"));
+            }
+
+            System.out.println(autoRecipeNames);
+            return autoRecipeNames;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * Queries the database for ingredient names that match the given search text.
+     *
+     * @param textSearch The search text to match against ingredient names.
+     * @return A list of ingredient names that match the search text.
+     */
+    public List<String> queryIngredientsName(String textSearch) {
+        try {
+            String autoRecipe = "SELECT * FROM ingredients WHERE ingredient_name LIKE ?";
+            PreparedStatement autoIngredientStatement = connection.prepareStatement(autoRecipe);
+            autoIngredientStatement.setString(1, textSearch + "%");
+
+            ResultSet resultSet = autoIngredientStatement.executeQuery();
+
+            List<String> autoIngredientNames = new ArrayList<>();
+
+            while (resultSet.next()) {
+                autoIngredientNames.add(resultSet.getString("ingredient_name"));
+            }
+
+            System.out.println(autoIngredientNames);
+            return autoIngredientNames;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
