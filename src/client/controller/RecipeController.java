@@ -197,7 +197,7 @@ public class RecipeController {
     }
 
     /**
-     * Gets the recipe instructions for the chosen non-alcoholic recipe and displays them in an alert pop-up box.
+     * Gets the recipe instructions for the chosen speciality recipe and displays them in an alert pop-up box.
      */
     public void getRecipeInstructionsForChosenDiscoverRecipe() {
         recipeInstructions.clear();
