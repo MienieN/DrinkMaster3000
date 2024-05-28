@@ -41,4 +41,6 @@ public class AddRecipeMainFrame extends JFrame {
     public void addRecipeToDatabase(String name, HashMap<String, Boolean> ingredients, String instructions) {
         controller.addRecipe(name, ingredients, instructions);
     }
+
+
 }

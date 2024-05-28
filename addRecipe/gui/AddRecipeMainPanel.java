@@ -1,5 +1,7 @@
 package addRecipe.gui;
 
+import addRecipe.AddRecipeController;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -16,6 +18,7 @@ public class AddRecipeMainPanel extends JPanel {
     private JTextField recipeNameTextField;     // Text field for entering the name of the recipe
     private InputPanel inputPanel;              // Panel containing input fields for ingredients
     private JTextArea instructionsTextArea;     // Text area for entering recipe instructions
+    private AddRecipeController controller;
 
     /**
      * Constructs a new AddRecipeMainPanel with the specified main frame, width, and height.
@@ -100,6 +103,10 @@ public class AddRecipeMainPanel extends JPanel {
         recipeInstructionsLabel.setSize(recipeInstructionsLabel.getPreferredSize());
         recipeInstructionsLabel.setLocation(300, 20);
         add(recipeInstructionsLabel);
+    }
+
+    public AddRecipeController getController() {
+        return this.controller;
     }
 }
 
@@ -221,6 +228,51 @@ class InputPanel extends JPanel{
         }
     }
     public void updateSuggestions(JTextField textField, JComboBox comboBox) {
+        String searchText = textField.getText();
+        comboBox.removeAllItems();
+
+        if (!searchText.isEmpty()) {
+            String temp = searchText.substring(0, 1).toUpperCase() + searchText.substring(1);
+            searchText = temp;
+
+            if (mainPanel != null && mainPanel.getController() != null) {
+                for (String suggestion : mainPanel.getController().queryIngredientsName(searchText)) {
+                    comboBox.addItem(suggestion);
+                }
+                if (comboBox.getItemCount() > 0) {
+                    comboBox.setVisible(true);
+                    comboBox.showPopup();
+                } else {
+                 comboBox.setVisible(false);
+                }
+            }
+            else {
+                System.out.println("Controller is null noob");
+            }
+        } else {
+            comboBox.setVisible(false);
+        }
+    }
+
+/*
+    private List getMatchingIngredientSuggestions (String input) {
+        List<String> matchingIngredients = new ArrayList<>();
+
 
     }
+
+        if (!(searchText == null || searchText.equals(""))) {
+            String temp = searchText.substring(0, 1).toUpperCase() + searchText.substring(1);
+            searchText = temp;
+        }
+
+        System.out.println(searchText);
+        comboBox.removeAllItems();
+
+        for (String suggestion : mainPanel.getController().queryIngredientsName(searchText)) {
+            comboBox.addItem(suggestion);
+        }
+
+
+ */
 }
