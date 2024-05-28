@@ -197,6 +197,34 @@ public class RecipeController {
     }
 
     /**
+     * Gets the recipe instructions for the chosen speciality recipe and displays them in an alert pop-up box.
+     */
+    public void getRecipeInstructionsForChosenDiscoverRecipe() {
+        recipeInstructions.clear();
+        String showRecipeSQL = "SELECT recipe_name, instructions FROM recipes WHERE recipe_name = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(showRecipeSQL)) {
+            statement.setString(1, discoverDrinkScreenManager.getSelectedRecipeNameForViewingRecipe());
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                String recipeName = resultSet.getString("recipe_name");
+                String instructions = resultSet.getString("instructions");
+                recipeInstructions.put(recipeName, instructions);
+
+                // Pop up box
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Recipe");
+                alert.setHeaderText(null);
+                alert.setContentText("Recipe name: " + recipeName + "\nInstructions:\n" + instructions);
+                alert.showAndWait();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
      * Gets the recipe names from the database and sends them to the GUI controller.
      *
      * @param chosenBaseDrink The chosen base drink.

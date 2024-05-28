@@ -179,7 +179,7 @@ public class DiscoverDrinkScreenManager {
      * Displays a popup with the selected recipe.
      */
     private void popupRecipe() {
-        recipeController.getRecipeInstructionsForChosenNonAlcRecipe();
+        recipeController.getRecipeInstructionsForChosenDiscoverRecipe();
     }
 
     /**
@@ -198,6 +198,10 @@ public class DiscoverDrinkScreenManager {
             instructionScreen = ClientMain.getInstructionScreen();
         }
         instructionScreen.openHelpWindow();
+    }
+
+    public String getSelectedRecipeNameForViewingRecipe() {
+        return matchList.getSelectionModel().getSelectedItem();
     }
 
     public void receiveChosenIngredients(ArrayList<String> chosenIngredientNames) {
