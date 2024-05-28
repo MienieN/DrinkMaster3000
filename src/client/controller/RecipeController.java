@@ -204,7 +204,7 @@ public class RecipeController {
         String showRecipeSQL = "SELECT recipe_name, instructions FROM recipes WHERE recipe_name = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(showRecipeSQL)) {
-            statement.setString(1, nonAlcDrinkScreenManager.getSelectedRecipeNameForViewingRecipe());
+            statement.setString(1, discoverDrinkScreenManager.getSelectedRecipeNameForViewingRecipe());
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
