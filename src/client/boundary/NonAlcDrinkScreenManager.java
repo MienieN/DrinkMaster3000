@@ -206,7 +206,7 @@ public class NonAlcDrinkScreenManager {
         if (instructionScreen == null) {
             instructionScreen = ClientMain.getInstructionScreen();
         }
-        instructionScreen.openHelpWindow();
+        instructionScreen.openHelpWindowAlcohol();
     }
 
     /**

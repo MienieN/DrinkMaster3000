@@ -25,8 +25,9 @@ public class InstructionScreenManager {
     private Label helpLabel;
     // Image of instructions/help
     private Image helpImage = new Image(getClass().getClassLoader().getResourceAsStream(
-            "src/Client/resources/helppictures/Introduction.png"));
+            "src/Client/resources/helppictures/IntroductionAlcohol.png"));
 
+    @FXML
     public void initialize() {
         helpLabel.setMaxWidth(160);
         helpLabel.setWrapText(true);
@@ -40,7 +41,8 @@ public class InstructionScreenManager {
                 "to navigate through this tutorial.");
     }
 
-    public void openHelpWindow() {
+    @FXML
+    public void openHelpWindowAlcohol() {
         try {
             helpStage = new Stage();
             root = FXMLLoader.load(getClass().getClassLoader().getResource(
@@ -56,32 +58,34 @@ public class InstructionScreenManager {
         }
     }
 
-    public void displayIntro() {
+    @FXML
+    public void displayIntroAlcohol() {
         helpImage = new Image(getClass().getClassLoader().getResourceAsStream(
-                "src/Client/resources/helppictures/Introduction.png"));
+                "src/Client/resources/helppictures/IntroductionAlcohol.png"));
         helpImageViewer.setImage(helpImage);
-        helpLabel.setText("Hello and welcome to DrinkMaster3000! " +
-                "This app is made for those who " +
-                "want to make a drink, with or " +
-                "without alcohol, with whatever " +
-                "ingredients you might have at " +
-                "home but dont know a good recipe " +
-                "for. Use the buttons down below " +
-                "to navigate through this tutorial.");
+        helpLabel.setText("This is the help screen for the alcoholic+" +
+                " beverages screen. It is going to help you find +" +
+                "drink recipes based on which ingredients you add. +" +
+                "Use the buttons down below to navigate through the +" +
+                "tutorial, or select one of the buttons above correlating+" +
+                " to different screens for learning how to use the other recipe+" +
+                " generators.");
     }
 
-    public void displayBaseHelp() {
+    @FXML
+    public void displayBaseHelpAlcohol() {
         helpImage = new Image(getClass().getClassLoader().getResourceAsStream(
-                "src/Client/resources/helppictures/BaseDrink.png"));
+                "src/Client/resources/helppictures/ChooseBaseAlcohol.png"));
         helpImageViewer.setImage(helpImage);
         helpLabel.setText("You start by selecting a base " +
                 "alcohol for your drink in the " +
                 "drop down menu in the marked area.");
     }
 
-    public void displayIngredientHelp() {
+    @FXML
+    public void displayIngredientHelpAlcohol() {
         helpImage = new Image(getClass().getClassLoader().getResourceAsStream(
-                "src/Client/resources/helppictures/IngredientHelp.png"));
+                "src/Client/resources/helppictures/ChooseIngredientsAlcohol.png"));
         helpImageViewer.setImage(helpImage);
         helpLabel.setText("After you have chosen your " +
                 "base alcohol, ingredients will " +
@@ -98,9 +102,10 @@ public class InstructionScreenManager {
                 "with new options to choose from.");
     }
 
-    public void displayChooseDrinkHelp() {
+    @FXML
+    public void displayChooseDrinkHelpAlcohol() {
         helpImage = new Image(getClass().getClassLoader().getResourceAsStream(
-                "src/Client/resources/helppictures/ChooseDrink.png"));
+                "src/Client/resources/helppictures/ChooseRecipeAlcohol.png"));
         helpImageViewer.setImage(helpImage);
         helpLabel.setText("After you have chosen some ingredients, " +
                 "the marked list on the right side " +
@@ -110,5 +115,18 @@ public class InstructionScreenManager {
                 " select it in the menu and click the" +
                 " View Recipe button. This will open a" +
                 " new window with the recipe and instructions.");
+    }
+
+    @FXML
+    public void undoIngredientHelpAlcohol() {
+        helpImage = new Image(getClass().getClassLoader().getResourceAsStream(
+                "src/Client/resources/helppictures/RemoveIngredientsAlcohol.png"));
+        helpImageViewer.setImage(helpImage);
+        helpLabel.setText("You can remove ingredients from the +" +
+                " marked list of ingredients in two ways. Firstly, +" +
+                " you can press the Undo button to remove the +" +
+                "last added ingredient. Secondly, you can select+" +
+                " an ingredient from the added ingredients list,+" +
+                " and then press remove.");
     }
 }
