@@ -26,6 +26,7 @@ public class InstructionScreenManager {
     // Label for text help
     @FXML
     private Label helpLabel;
+    @FXML
     // Image of instructions/help
     private Image helpImage = new Image(getClass().getClassLoader().getResourceAsStream(
             "src/Client/resources/helppictures/Introduction.png"));
