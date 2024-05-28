@@ -1,6 +1,8 @@
 package addRecipe.gui;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -146,7 +148,7 @@ class InputPanel extends JPanel{
     private AddRecipeMainPanel mainPanel;                                           // The main panel of the "Add Recipe" GUI
     protected ArrayList<JTextField> ingredientNameTextFields = new ArrayList<>();   // List of text fields for ingredient names
     protected ArrayList<JCheckBox> alcoholicIngredientCheckBox = new ArrayList<>(); // List of checkboxes for indicating alcoholic ingredients
-
+    protected ArrayList<JComboBox> ingredientSuggestionComboboxes = new ArrayList<>();
     /**
      * Constructs a new InputPanel with the specified main panel, width, and height.
      *
@@ -157,6 +159,7 @@ class InputPanel extends JPanel{
     public InputPanel(AddRecipeMainPanel mainPanel, int width, int height) {
         this.mainPanel = mainPanel;
 
+
         // Set layout to grid bag layout for organized positioning of components
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
         setLayout(new GridBagLayout());
@@ -164,17 +167,60 @@ class InputPanel extends JPanel{
 
         for (int i = 0; i < 12; i++) {
             // Create text field for ingredient name
-            ingredientNameTextFields.add(new JTextField(10));
+            JTextField ingredientNameTextField = new JTextField(10);
+            ingredientNameTextFields.add(ingredientNameTextField);//new JTextField(10));
             gridBagConstraints.gridx=0;
             gridBagConstraints.gridy =i;
             gridBagConstraints.anchor = GridBagConstraints.WEST;
-            add(ingredientNameTextFields.get(i), gridBagConstraints);
+            //add(ingredientNameTextFields.get(i), gridBagConstraints);
+            add(ingredientNameTextField, gridBagConstraints);
 
             // Create checkbox for indicating alcoholic ingredient
             alcoholicIngredientCheckBox.add(new JCheckBox("Alcoholic?"));
             gridBagConstraints.gridx=1;
             gridBagConstraints.gridy =i;
             add(alcoholicIngredientCheckBox.get(i), gridBagConstraints);
+
+            //Create combox for suggestions
+            JComboBox<String> ingredientCombobox = new JComboBox<>();
+            ingredientSuggestionComboboxes.add(ingredientCombobox);
+            ingredientCombobox.setEditable(false);
+            ingredientCombobox.setSize(ingredientNameTextField.getPreferredSize());
+            ingredientCombobox.setVisible(false);
+            gridBagConstraints.gridx=1;
+            gridBagConstraints.gridy =i;
+            add(ingredientCombobox, gridBagConstraints);
+
+            // Add a document listener on the ingredient text field
+            ingredientNameTextField.getDocument().addDocumentListener(new DocumentListener() {
+                @Override
+                public void insertUpdate(DocumentEvent e) {
+                    updateSuggestions(ingredientNameTextField, ingredientCombobox);
+
+                }
+
+                @Override
+                public void removeUpdate(DocumentEvent e) {
+                    updateSuggestions(ingredientNameTextField, ingredientCombobox);
+
+                }
+
+                @Override
+                public void changedUpdate(DocumentEvent e) {
+                    updateSuggestions(ingredientNameTextField, ingredientCombobox);
+
+                }
+            });
+
+            ingredientCombobox.addActionListener(e -> {
+                if(ingredientCombobox.getSelectedItem() != null) {
+                    ingredientNameTextField.setText(ingredientCombobox.getSelectedItem().toString());
+                    ingredientCombobox.setVisible(false);
+                }
+            });
         }
+    }
+    public void updateSuggestions(JTextField textField, JComboBox comboBox) {
+
     }
 }
