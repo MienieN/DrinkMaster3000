@@ -151,6 +151,7 @@ public class NonAlcDrinkScreenManager {
             stage = (Stage) ((Node) backToStartButtonEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
+            stage.setTitle("Start Screen");
             stage.show();
             ingredientsController.resetChosenIngredients();
             recipeController.resetRecipes();

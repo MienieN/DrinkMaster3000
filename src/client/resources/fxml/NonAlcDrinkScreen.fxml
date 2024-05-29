@@ -9,13 +9,6 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #F09B59;" styleClass="DarkBrown" stylesheets="@../css/Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.client.boundary.NonAlcDrinkScreenManager">
     <children>
-            <Button fx:id="HelpButton" disable="false" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#startInstructions" style="-fx-background-color: #E67F35;" stylesheets="@../css/Styles.css" text="Help" AnchorPane.bottomAnchor="361.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="508.0" AnchorPane.topAnchor="14.0">
-            <styleClass>
-                <String fx:value="shadow" />
-                <String fx:value="DarkBrown" />
-                <String fx:value="WhiteText" />
-                <String fx:value="BorderOrange" />
-            </styleClass></Button>
         <Button fx:id="ingredientChoiceButton1" layoutX="27.0" layoutY="103.0" mnemonicParsing="false" onAction="#clickIngredientChoiceButton" prefHeight="87.0" prefWidth="141.0" style="-fx-background-color: #E67F35;" stylesheets="@../css/Styles.css" textAlignment="CENTER" wrapText="true">
             <styleClass>
                 <String fx:value="DarkBrown" />
@@ -85,9 +78,9 @@
                 <String fx:value="shadow" />
             </styleClass>
         </Button>
-      <Label layoutX="134.0" layoutY="43.0" styleClass="WhiteText" stylesheets="@../css/Styles.css" text="Choose Your Ingredients :">
+      <Label layoutX="85.0" layoutY="38.0" styleClass="WhiteText" stylesheets="@../css/Styles.css" text="Choose Your Ingredients :">
          <font>
-            <Font size="14.0" />
+            <Font size="20.0" />
          </font>
       </Label>
       <Button fx:id="undoButton" layoutX="300.0" layoutY="361.0" mnemonicParsing="false" onAction="#undoIngredientChoice" prefHeight="25.0" prefWidth="84.0" snapToPixel="false" style="-fx-background-color: #E67F35;" stylesheets="@../css/Styles.css" text="Undo">

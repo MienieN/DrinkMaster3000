@@ -16,7 +16,6 @@ import java.util.Objects;
 public class StartScreenManager {
     // The instruction screen manager
     private static InstructionScreenManager instructionscreen;
-
     // The stage for the scene
     private Stage stage;
     // The scene of the GUI
@@ -40,6 +39,7 @@ public class StartScreenManager {
             scene = new Scene(root);
             // Set the scene of the stage
             stage.setScene(scene);
+            stage.setTitle("Alcoholic");
             // Show the stage
             stage.show();
 
@@ -63,6 +63,7 @@ public class StartScreenManager {
             scene = new Scene(root);
             // Set the scene of the stage
             stage.setScene(scene);
+            stage.setTitle("Non-Alcoholic");
             // Show the stage
             stage.show();
 
@@ -86,6 +87,7 @@ public class StartScreenManager {
             scene = new Scene(root);
             // Set the scene of the stage
             stage.setScene(scene);
+            stage.setTitle("Discover Non-Alcoholic");
             // Show the stage
             stage.show();
 
