@@ -36,7 +36,7 @@ public class RecipeController {
     private HashMap<String, String> recipeInstructions = new HashMap<>();
 
     // List of partial matches
-    private ArrayList<String> partialMatchList;
+    private ArrayList<String> partialMatchList = new ArrayList<>();
     // List of full matches
     private ArrayList<String> fullMatches = new ArrayList<>();
     // List of matches without the base drink
@@ -349,7 +349,6 @@ public class RecipeController {
      *                          drinks contains the chosen base drink aswell
      */
     public void checkPartialMatchesIncludingBaseDrink(ArrayList<Ingredient> chosenIngredients) {
-        partialMatchList = new ArrayList<>();
         String sql = "SELECT recipe_name, count (DISTINCT ingredient_name) FROM (SELECT * FROM recipes_ingredients " +
                 "WHERE recipe_name IN ((SELECT recipe_name FROM recipes_ingredients " +
                 "WHERE ingredient_name = ?))) AS recipes " +
@@ -385,7 +384,6 @@ public class RecipeController {
      * @param chosenIngredients The list of chosen ingredients.
      */
     public void checkPartialMatchesOfNonAlcDrinks(ArrayList<Ingredient> chosenIngredients) {
-        partialMatchList = new ArrayList<>();
         String sql = "SELECT recipe_name, count (DISTINCT ingredient_name) FROM (SELECT * FROM recipes_ingredients " +
                 "WHERE recipe_name NOT IN ((SELECT recipe_name " +
                 "FROM recipes_ingredients INNER JOIN " +
@@ -423,7 +421,6 @@ public class RecipeController {
      * @param chosenIngredients The list of chosen ingredients.
      */
     public void checkPartialMatchesOfDiscoverDrinks(ArrayList<Ingredient> chosenIngredients) {
-        partialMatchList = new ArrayList<>();
         String sql = "SELECT recipe_name, count (DISTINCT ingredient_name) FROM (SELECT * FROM recipes_ingredients " +
                 "WHERE recipe_name NOT IN ((SELECT recipe_name " +
                 "FROM recipes_ingredients INNER JOIN " +
@@ -550,6 +547,7 @@ public class RecipeController {
      * Resets the recipes.
      */
     public void resetRecipes() {
+        matchesWithoutBaseDrink.clear();
         fullMatches.clear();
         partialMatchList.clear();
     }
