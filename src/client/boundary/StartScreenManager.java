@@ -99,6 +99,6 @@ public class StartScreenManager {
      */
     public void initializeInstructions() {
         instructionscreen = ClientMain.getInstructionScreen();
-        instructionscreen.openHelpWindow();
+        instructionscreen.openHelpWindowStart();
     }
 }
