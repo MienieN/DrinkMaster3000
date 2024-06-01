@@ -28,23 +28,18 @@ public class NonAlcDrinkScreenManager {
     private IngredientsController ingredientsController;
     // The controller for managing recipes
     private RecipeController recipeController;
-
     // The instruction screen manager
     private HelpScreenManager instructionScreen;
-
     // The list of all ingredients
     private ArrayList<String> ingredientNames;
-
     // The screen identifier
     private String screen = "non-alc";
-
     // The stage for the scene
     private Stage stage;
     // The scene of the GUI
     private Scene scene;
     // The root node of the scene
     private Parent root;
-
     // Button for removing ingredients
     @FXML
     private Button removeIngredientsChoiceButton;

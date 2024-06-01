@@ -36,6 +36,7 @@ public class AddRecipeController {
                           String instructions, Boolean speciality) {
         // Set a savepoint for transaction rollback
         Savepoint savepoint = null;
+
         try {
             savepoint = connection.setSavepoint();
 
@@ -46,6 +47,7 @@ public class AddRecipeController {
 
         // Insert recipe details into the 'recipes' table
         String insertRecipe = "INSERT INTO recipes VALUES (?, ?, ?)";
+
         try (PreparedStatement statement = connection.prepareStatement(insertRecipe)) {
             statement.setString(1, recipeName);
             statement.setString(2, instructions);
@@ -110,6 +112,7 @@ public class AddRecipeController {
                     }
                 }
             }
+
             System.out.println("Array elements inserted successfully.");
 
         } catch (SQLException se) {
@@ -137,6 +140,7 @@ public class AddRecipeController {
                     }
                 }
             }
+
             // Commit the transaction
             connection.commit();
         }
@@ -204,6 +208,7 @@ public class AddRecipeController {
 
             System.out.println(autoIngredientNames);
             return autoIngredientNames;
+
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

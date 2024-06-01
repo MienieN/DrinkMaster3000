@@ -36,25 +36,20 @@ public class AlcDrinkScreenManager implements Initializable {
     private IngredientsController ingredientsController;
     // The controller for managing recipes
     private RecipeController recipeController;
-
     // The manager for the instruction screen
     private HelpScreenManager instructionScreen;
-
     //The list of all ingredients
     private ArrayList<String> ingredientNames;
     // The list of base drink names
     private ArrayList<String> baseDrinkNames;
-
     // The screen to return to when the back button is clicked
     private String screen = "alc";
-
     // The stage for the scene
     private Stage stage;
     // The scene of the GUI
     private Scene scene;
     // The root node of the scene
     private Parent root;
-
     // Dropdown menu for selecting base drinks
     @FXML
     private ComboBox<String> baseDrinkDropdownMenu;
@@ -148,6 +143,7 @@ public class AlcDrinkScreenManager implements Initializable {
             String temp = ingredientNames.get(0);
             button.setText(temp);
             ingredientNames.remove(temp);
+
         } else {
             button.setText("End");
             button.setDisable(true);
@@ -182,7 +178,6 @@ public class AlcDrinkScreenManager implements Initializable {
      * based on which key is pressed, puts those in a new list which is then presented
      * in the combobox.
      */
-    //TODO make it not possible to be null value
     public void filterBaseIngredientByFirstLetter () {
         baseDrinkDropdownMenu.setOnKeyReleased(event -> {
             String inputLetter;
@@ -190,12 +185,16 @@ public class AlcDrinkScreenManager implements Initializable {
 
             if (event.getCode().isLetterKey()) {
                 inputLetter = event.getText().toUpperCase();
+
                 for (String item : baseDrinkNames) {
+
                     if (item.startsWith(inputLetter)) {
                         filteredList.add(item);
                     }
                 }
+
                 baseDrinkDropdownMenu.setItems(FXCollections.observableArrayList(filteredList));
+
             } else if (event.getCode() == KeyCode.BACK_SPACE) {
                 baseDrinkDropdownMenu.setItems(FXCollections.observableArrayList(baseDrinkNames));
             }
@@ -217,6 +216,7 @@ public class AlcDrinkScreenManager implements Initializable {
             stage.show();
             ingredientsController.resetChosenIngredients();
             recipeController.resetRecipes();
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -285,6 +285,7 @@ public class AlcDrinkScreenManager implements Initializable {
         if (instructionScreen == null) {
             instructionScreen = ClientMain.getInstructionScreen();
         }
+
         instructionScreen.openHelpWindowAlc();
     }
 

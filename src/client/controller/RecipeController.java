@@ -18,14 +18,12 @@ import java.util.*;
 public class RecipeController {
     // Database connection
     private Connection connection;
-
     // GUI controller for displaying alcoholic recipes
     private AlcDrinkScreenManager alcDrinkScreenManager;
     // GUI controller for displaying non-alcoholic recipes
     private NonAlcDrinkScreenManager nonAlcDrinkScreenManager;
     // GUI controller for displaying discover recipes
     private DiscoverDrinkScreenManager discoverDrinkScreenManager;
-
     // HashMap to store recipes and their ingredients
     private HashMap<String, ArrayList<Ingredient>> recipes;
     // All the recipes containing the chosen base drink.
@@ -34,7 +32,6 @@ public class RecipeController {
     private HashMap<String, ArrayList<Ingredient>> discoverRecipes;
     // HashMap to store recipes and their instructions
     private HashMap<String, String> recipeInstructions = new HashMap<>();
-
     // List of partial matches
     private ArrayList<String> partialMatchList = new ArrayList<>();
     // List of full matches
@@ -551,4 +548,5 @@ public class RecipeController {
         fullMatches.clear();
         partialMatchList.clear();
     }
+
 }

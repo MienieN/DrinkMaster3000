@@ -13,7 +13,6 @@ import java.util.HashMap;
 public class AddRecipeMainFrame extends JFrame {
     // The controller managing interactions with the recipe database
     private AddRecipeController controller;
-
     // Main panel of the frame
     private JPanel mainPanel;
 
@@ -25,7 +24,7 @@ public class AddRecipeMainFrame extends JFrame {
      * @param controller The AddRecipeController instance responsible for
      *                   managing interactions with the recipe database.
      */
-    public AddRecipeMainFrame(int width, int height, AddRecipeController controller){
+    public AddRecipeMainFrame(int width, int height, AddRecipeController controller) {
         this.controller = controller;
         mainPanel = new AddRecipeMainPanel(this, width, height);
         setSize(width, height);

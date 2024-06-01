@@ -21,10 +21,14 @@ import java.sql.SQLException;
 //TODO: check how to correctly remove "static" from methods and variables whilst
 // keeping the connection to the javafx stuff
 public class ClientMain extends Application {
-    private static IngredientsController ingredientsController;     // Controller for managing ingredients
-    private static RecipeController recipeController;               // Controller for managing recipes
-    private static Connection connection;                           // Connection to the database
-    private static HelpScreenManager instructionScreen;      // Manager for the instruction screen
+    // Controller for managing ingredients
+    private static IngredientsController ingredientsController;
+    // Controller for managing recipes
+    private static RecipeController recipeController;
+    // Connection to the database
+    private static Connection connection;
+    // Manager for the instruction screen
+    private static HelpScreenManager instructionScreen;
 
     /**
      * Retrieves the RecipeController instance.

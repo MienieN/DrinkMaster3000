@@ -17,17 +17,14 @@ import java.util.ArrayList;
 public class IngredientsController {
     // The RecipeController object
     private RecipeController recipeController;
-
     // The database connection
     private Connection connection;
-
     // The AlcDrinkScreenManager object
     private AlcDrinkScreenManager alcDrinkScreenManager;
     // The NonAlcDrinkScreenManager object
     private NonAlcDrinkScreenManager nonAlcDrinkScreenManager;
     // The DiscoverDrinkScreenManager object
     private DiscoverDrinkScreenManager discoverDrinkScreenManager;
-
     // The list of ingredients
     private ArrayList<Ingredient> ingredients;
     // The list of ingredients sorted by compatability with your base drink
@@ -54,14 +51,11 @@ public class IngredientsController {
         this.recipeController = recipeController;
     }
 
-
-
     /**
      * Receives all ingredients from the database and puts them in an arraylist of ingredients objects
      *
      * @return An arraylist of ingredients
      */
-    // TODO either get 2 lists or sort the list based on alc content
     public void getAllIngredientsFromDatabase() {
         ingredients = new ArrayList<>();
         String allIngredients = "SELECT * FROM ingredients ORDER BY frequency DESC ";
@@ -309,4 +303,5 @@ public class IngredientsController {
     public void setDiscoverGUI(DiscoverDrinkScreenManager discoverGUIController) {
         this.discoverDrinkScreenManager = discoverGUIController;
     }
+
 }
