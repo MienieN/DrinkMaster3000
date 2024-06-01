@@ -4,8 +4,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import src.client.boundary.InstructionScreenManager;
+import src.client.boundary.HelpScreenManager;
 import src.client.controller.IngredientsController;
 import src.client.controller.RecipeController;
 
@@ -23,7 +24,7 @@ public class ClientMain extends Application {
     private static IngredientsController ingredientsController;     // Controller for managing ingredients
     private static RecipeController recipeController;               // Controller for managing recipes
     private static Connection connection;                           // Connection to the database
-    private static InstructionScreenManager instructionScreen;      // Manager for the instruction screen
+    private static HelpScreenManager instructionScreen;      // Manager for the instruction screen
 
     /**
      * Retrieves the RecipeController instance.
@@ -63,8 +64,7 @@ public class ClientMain extends Application {
         ingredientsController = new IngredientsController(connection);
         recipeController = new RecipeController(connection);
         ingredientsController.setRecipeController(recipeController);
-
-        instructionScreen = new InstructionScreenManager();
+        instructionScreen = new HelpScreenManager();
         // Launch the JavaFX application
         launch();
     }
@@ -83,7 +83,7 @@ public class ClientMain extends Application {
      *
      * @return The instruction screen manager.
      */
-    public static InstructionScreenManager getInstructionScreen(){
+    public static HelpScreenManager getInstructionScreen(){
         return instructionScreen;
     }
 

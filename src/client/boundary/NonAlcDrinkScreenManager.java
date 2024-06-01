@@ -30,7 +30,7 @@ public class NonAlcDrinkScreenManager {
     private RecipeController recipeController;
 
     // The instruction screen manager
-    private InstructionScreenManager instructionScreen;
+    private HelpScreenManager instructionScreen;
 
     // The list of all ingredients
     private ArrayList<String> ingredientNames;

@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 public class StartScreenManager {
     // The instruction screen manager
-    private static InstructionScreenManager instructionscreen;
+    private static HelpScreenManager instructionscreen;
 
     // The stage for the scene
     private Stage stage;
@@ -97,8 +97,18 @@ public class StartScreenManager {
     /**
      * Initializes the instructions screen.
      */
-    public void initializeInstructions() {
-        instructionscreen = ClientMain.getInstructionScreen();
-        instructionscreen.openHelpWindowStart();
+    public void openHelpWindowStart() {
+        try {
+            stage = new Stage();
+            root = FXMLLoader.load(getClass().getClassLoader().getResource(
+                    "src/Client/resources/fxml/HelpScreenStart.fxml"));
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setAlwaysOnTop(true);
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

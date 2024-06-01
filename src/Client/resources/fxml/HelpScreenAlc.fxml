@@ -8,24 +8,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane maxHeight="420.0" maxWidth="650.0" prefHeight="420.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.client.boundary.InstructionScreenManager">
+<AnchorPane maxHeight="420.0" maxWidth="650.0" prefHeight="420.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.client.boundary.HelpScreenManager">
    <children>
-      <Label fx:id="helpLabel" layoutX="464.0" layoutY="49.0" text="This text will never be seen, farts!" />
+      <Label fx:id="helpLabel" layoutX="464.0" layoutY="49.0" />
       <ImageView fx:id="helpImageViewer" fitHeight="350.0" fitWidth="448.0" layoutX="7.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../helppictures/IntroductionAlcohol.png" />
          </image>
       </ImageView>
-      <ButtonBar layoutX="-1.0" layoutY="-1.0" maxHeight="40.0" maxWidth="650.0" prefHeight="40.0" prefWidth="650.0">
-         <buttons>
-            <HBox alignment="CENTER" maxHeight="40.0" maxWidth="650.0" prefHeight="50.0" prefWidth="650.0">
-               <children>
-                  <Button disable="true" maxHeight="40.0" mnemonicParsing="false" onAction="#switchToStartScreenhelp" prefHeight="40.0" text="StartScreen Help" />
-                  <Button disable="true" maxHeight="40.0" mnemonicParsing="false" onAction="#switchToDiscoverScreenHelp" prefHeight="40.0" text="Discover Screen help" />
-                  <Button disable="true" maxHeight="40.0" mnemonicParsing="false" prefHeight="40.0" text="Non Alcoholic screen help" />
-               </children></HBox>
-         </buttons>
-      </ButtonBar>
+      <ButtonBar layoutX="-1.0" layoutY="-1.0" maxHeight="40.0" maxWidth="650.0" prefHeight="40.0" prefWidth="650.0" />
       <ButtonBar layoutX="3.0" layoutY="380.0" prefHeight="40.0" prefWidth="650.0">
         <buttons>
             <HBox alignment="BASELINE_CENTER" maxHeight="40.0" maxWidth="650.0" prefHeight="40.0" prefWidth="650.0">

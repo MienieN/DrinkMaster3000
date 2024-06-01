@@ -1,9 +1,7 @@
 package src.client.boundary;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -11,9 +9,8 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import java.io.IOException;
-import java.util.Objects;
 
-public class InstructionScreenManager {
+public class HelpScreenManager {
     // Stage for the help
     private Stage helpStage;
     // Scene for the help
@@ -27,17 +24,14 @@ public class InstructionScreenManager {
     @FXML
     private Label helpLabel;
     // Image of instructions/help
-    private Image helpImage = new Image(getClass().getClassLoader().getResourceAsStream(
-            "src/Client/resources/helppictures/Introduction.png"));
+    private Image helpImage;
+
 
     public void initialize() {
         helpLabel.setMaxWidth(180);
         helpLabel.setWrapText(true);
-        helpLabel.setText("Welcome to the help screen! Use" +
-                " the buttons down below to navigate the" +
-                " tutorial for this particular function, or" +
-                " use the buttons above to see the tutorial" +
-                " for any chosen function!");
+        helpLabel.setText("Select an option from the tabs below to see " +
+                "instructions ");
     }
 
     public void openHelpWindowAlc() {
@@ -262,27 +256,37 @@ public class InstructionScreenManager {
                 " marked in the picture.");
     }
 
-    public void openHelpWindowStart() {
-        try {
-            helpStage = new Stage();
-            root = FXMLLoader.load(getClass().getClassLoader().getResource(
-                    "src/Client/resources/fxml/HelpScreenStart.fxml"));
-            scene = new Scene(root);
-            helpStage.setScene(scene);
-            helpStage.setAlwaysOnTop(true);
-            helpStage.setResizable(false);
-            helpStage.show();
-            helpLabel.setText("Welcome to the help screen! What you see" +
-                    " in the picture is the start screen which have some" +
-                    " options. Discover New Drinks will find you recipes" +
-                    " for drinks with no alcoholic version. Non Alcoholic" +
-                    " will let you find non alcoholic versions of drinks" +
-                    " that would otherwise contain alcohol. Alcoholic will" +
-                    " let you find recipes for drinks containing alcohol. " +
-                    "Press the buttons above to find the tutorial for the" +
-                    " different functions.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void displayStartDiscoverNewInfo() {
+        helpImage = new Image(getClass().getClassLoader().getResourceAsStream(
+                "src/Client/resources/helppictures/StartScreenHelp.png"));
+        helpImageViewer.setImage(helpImage);
+        helpLabel.setText("Welcome to the help screen! \n" +
+                "Discover New Drinks will help you find recipes" +
+                " for drinks that are traditionally non-alcoholic, " +
+                " these drinks have no alcoholic equivalents. "
+        );
     }
+
+    public void displayStartNonAlcInfo() {
+        helpImage = new Image(getClass().getClassLoader().getResourceAsStream(
+                "src/Client/resources/helppictures/StartScreenHelp.png"));
+        helpImageViewer.setImage(helpImage);
+        helpLabel.setText("Welcome to the help screen! " +
+                "Non Alcoholic will let you find non-alcoholic " +
+                " versions of alcoholic drinks aka 'Mocktail' "
+        );
+    }
+
+    public void displayStartAlcInfo() {
+        helpImage = new Image(getClass().getClassLoader().getResourceAsStream(
+                "src/Client/resources/helppictures/StartScreenHelp.png"));
+        helpImageViewer.setImage(helpImage);
+        helpLabel.setText("Welcome to the help screen! \n" +
+                "Alcoholic will let you find recipes for " +
+                "drinks containing alcohol. "
+        );
+    }
+
+
+
 }

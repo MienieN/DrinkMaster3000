@@ -38,7 +38,7 @@ public class AlcDrinkScreenManager implements Initializable {
     private RecipeController recipeController;
 
     // The manager for the instruction screen
-    private InstructionScreenManager instructionScreen;
+    private HelpScreenManager instructionScreen;
 
     //The list of all ingredients
     private ArrayList<String> ingredientNames;
