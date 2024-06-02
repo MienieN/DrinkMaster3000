@@ -17,3 +17,5 @@ This program uses the following and may require that the user has them installed
 4. SceneBuilder
 
 This has been developed in IntelliJ
+
+The link to GitHub: https://github.com/MienieN/DrinkMaster3000/tree/Main-Copy
