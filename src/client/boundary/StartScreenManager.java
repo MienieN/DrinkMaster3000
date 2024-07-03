@@ -5,7 +5,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import src.client.ClientMain;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -99,6 +98,21 @@ public class StartScreenManager {
             stage = new Stage();
             root = FXMLLoader.load(getClass().getClassLoader().getResource(
                     "src/Client/resources/fxml/HelpScreenStart.fxml"));
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setAlwaysOnTop(true);
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openRegisterUser() {
+        try {
+            stage = new Stage();
+            root = FXMLLoader.load(getClass().getClassLoader().getResource(
+                    "src/Client/resources/fxml/UserScreen.fxml"));
             scene = new Scene(root);
             stage.setScene(scene);
             stage.setAlwaysOnTop(true);
