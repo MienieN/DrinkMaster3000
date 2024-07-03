@@ -108,18 +108,21 @@ public class StartScreenManager {
         }
     }
 
-    public void openRegisterUser() {
+    public void openRegisterUser(javafx.event.ActionEvent registerUserEvent) {
         try {
-            stage = new Stage();
-            root = FXMLLoader.load(getClass().getClassLoader().getResource(
-                    "src/Client/resources/fxml/UserScreen.fxml"));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource(
+                    "src/client/resources/fxml/UserScreen.fxml")));
+            // Get the stage from the source of the event
+            stage = (Stage)((Node)registerUserEvent.getSource()).getScene().getWindow();
+            // Create a new scene with the loaded FXML content
             scene = new Scene(root);
+            // Set the scene of the stage
             stage.setScene(scene);
-            stage.setAlwaysOnTop(true);
-            stage.setResizable(false);
+            // Show the stage
             stage.show();
+
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }
