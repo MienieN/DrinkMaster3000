@@ -108,6 +108,11 @@ public class StartScreenManager {
         }
     }
 
+    /**
+     * Switches the scene to the user screen.
+     *
+     * @param registerUserEvent The ActionEvent object representing the click event on the register user button.
+     */
     public void openRegisterUser(javafx.event.ActionEvent registerUserEvent) {
         try {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource(

@@ -74,7 +74,6 @@ public class ClientMain extends Application {
         recipeController = new RecipeController(connection);
         ingredientsController.setRecipeController(recipeController);
         instructionScreen = new HelpScreenManager();
-        userController = new UserController(connection);
         // Launch the JavaFX application
         launch();
     }
