@@ -113,5 +113,6 @@
             <String fx:value="BorderPink" />
          </styleClass>
       </Button>
+      <Button fx:id="RecFav" layoutX="98.0" layoutY="362.0" mnemonicParsing="false" onAction="#openRecFav" text="Recent/Favorites" />
     </children>
 </AnchorPane>
