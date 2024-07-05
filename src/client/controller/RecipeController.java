@@ -6,6 +6,7 @@ import src.client.boundary.DiscoverDrinkScreenManager;
 import src.client.boundary.NonAlcDrinkScreenManager;
 import src.client.entity.Ingredient;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -547,6 +548,48 @@ public class RecipeController {
         matchesWithoutBaseDrink.clear();
         fullMatches.clear();
         partialMatchList.clear();
+    }
+
+    public ArrayList<String> getAllRecipeNames() {
+        ArrayList<String> recipeNames = new ArrayList<>();
+        String sql = "SELECT recipe_name FROM recipes";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                recipeNames.add(resultSet.getString("recipe_name"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return recipeNames;
+    }
+
+    public void getRecipeInstructionsForChosenRecipe(String recName) {
+        recipeInstructions.clear();
+        String showRecipeSQL = "SELECT recipe_name, instructions FROM recipes WHERE recipe_name = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(showRecipeSQL)) {
+            statement.setString(1, recName);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                String recipeName = resultSet.getString("recipe_name");
+                String instructions = resultSet.getString("instructions");
+                recipeInstructions.put(recipeName, instructions);
+
+                // Pop up box
+//                ImageIcon icon = new ImageIcon("src/Client/resources/pictures/DrinkIcon.png");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Recipe");
+                alert.setHeaderText(null);
+                alert.setContentText("Recipe name: " + recipeName + "\nInstructions:\n" + instructions);
+                alert.showAndWait();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

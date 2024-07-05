@@ -346,7 +346,10 @@ public class AlcDrinkScreenManager implements Initializable {
         recFavMan = new RecentFavoritesManager();
         System.out.println(recentList);
         recFavMan.setRecent(recentList);
-        recFavMan.setAlcMan(this);
+        recFavMan.setRecController(recipeController);
+        ObservableList<String> allRecipeNames = FXCollections.observableArrayList(recipeController.getAllRecipeNames());
+        recFavMan.setAllList(allRecipeNames);
+        //System.out.print(allRecipeNames);
         recFavMan.openRecFav();
     }
 }
