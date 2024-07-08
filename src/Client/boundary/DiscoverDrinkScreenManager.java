@@ -3,6 +3,8 @@ package src.client.boundary;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -63,6 +65,11 @@ public class DiscoverDrinkScreenManager {
     // The listview displaying the chosen ingredients
     @FXML
     private ListView<String> chosenIngredientsList;
+    // Buttons that opens the recent/all drinks list
+    @FXML
+    private Button RecFav;
+    // The manager for the recent and all drinks list
+    private src.client.boundary.RecentAllDrinksManager recFavMan;
 
     /**
      * Constructs a AlcDrinkScreenManager object.
@@ -78,6 +85,7 @@ public class DiscoverDrinkScreenManager {
         ArrayList<String> nonAlcoholicIngredients = ingredientsController.getNonAlcoholicIngredientNames();
         Collections.sort(nonAlcoholicIngredients);
         ingredientNames = ingredientsController.getNonAlcoholicIngredientNames();
+        recFavMan = ClientMain.getRecFavMan();
     }
 
     /**
@@ -201,6 +209,10 @@ public class DiscoverDrinkScreenManager {
     }
 
     public String getSelectedRecipeNameForViewingRecipe() {
+        if(matchList.getSelectionModel().getSelectedItem() != null && matchList.getSelectionModel().getSelectedItem() != "")
+        {
+            recFavMan.addRecList(matchList.getSelectionModel().getSelectedItem());
+        }
         return matchList.getSelectionModel().getSelectedItem();
     }
 
@@ -226,5 +238,15 @@ public class DiscoverDrinkScreenManager {
         if (chosenIngredientsList.getSelectionModel().getSelectedItem() != null) {
             removeIngredientsChoiceButton.setDisable(false);
         }
+    }
+    /**
+     * Opens the Recent/All drinks list
+     */
+    public void openRecFav(){
+        //System.out.println(recentList);
+        recFavMan.setRecController(recipeController);
+        ObservableList<String> allRecipeNames = FXCollections.observableArrayList(recipeController.getAllRecipeNames());
+        recFavMan.setAllList(allRecipeNames);
+        recFavMan.openRecFav();
     }
 }

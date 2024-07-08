@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import src.client.boundary.HelpScreenManager;
 import src.client.controller.IngredientsController;
@@ -29,6 +28,8 @@ public class ClientMain extends Application {
     private static Connection connection;
     // Manager for the instruction screen
     private static HelpScreenManager instructionScreen;
+    //Manager for recent and all drinks
+    private static src.client.boundary.RecentAllDrinksManager recFavMan;
 
     /**
      * Retrieves the RecipeController instance.
@@ -69,6 +70,7 @@ public class ClientMain extends Application {
         recipeController = new RecipeController(connection);
         ingredientsController.setRecipeController(recipeController);
         instructionScreen = new HelpScreenManager();
+        recFavMan = new src.client.boundary.RecentAllDrinksManager();
         // Launch the JavaFX application
         launch();
     }
@@ -104,5 +106,13 @@ public class ClientMain extends Application {
             System.out.println("Error in connection");
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Getter for the RecentFavoritesManager
+     * @return The RecentFavorites manager
+     */
+    public static src.client.boundary.RecentAllDrinksManager getRecFavMan() {
+        return recFavMan;
     }
 }

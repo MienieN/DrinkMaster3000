@@ -5,7 +5,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import src.client.ClientMain;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -20,6 +19,7 @@ public class StartScreenManager {
     private Scene scene;
     // The root node of the scene
     private Parent root;
+    private src.client.boundary.RecentAllDrinksManager recFavMan = new src.client.boundary.RecentAllDrinksManager();
 
     /**
      * Switches the scene to the alcoholic drink selection screen.
@@ -107,5 +107,9 @@ public class StartScreenManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public src.client.boundary.RecentAllDrinksManager getRecFavMan(){
+        return this.recFavMan;
     }
 }

@@ -7,7 +7,7 @@
 <AnchorPane prefHeight="239.0" prefWidth="190.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ListView fx:id="recFavViewer" onMouseReleased="#getRecipeInstructions" prefHeight="200.0" prefWidth="200.0" />
-      <Button fx:id="Favorites" layoutX="14.0" layoutY="207.0" mnemonicParsing="false" onAction="#displayAllList" text="Favorites" />
+      <Button fx:id="All" layoutX="14.0" layoutY="207.0" mnemonicParsing="false" onAction="#displayAllList" text="All" />
       <Button fx:id="Recent" layoutX="133.0" layoutY="207.0" mnemonicParsing="false" onAction="#displayRecentList" text="Recent" />
    </children>
 </AnchorPane>

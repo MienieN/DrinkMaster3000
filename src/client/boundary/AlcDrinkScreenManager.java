@@ -17,7 +17,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import src.client.boundary.RecentFavoritesManager;
 import src.client.ClientMain;
 import src.client.controller.IngredientsController;
 import src.client.controller.RecipeController;
@@ -79,10 +78,11 @@ public class AlcDrinkScreenManager implements Initializable {
     // Button for removing ingredients
     @FXML
     private Button removeIngredientsChoiceButton;
+    //Button for opening the Recents and all drinks list
     @FXML
     private Button RecFav;
-    private RecentFavoritesManager recFavMan;
-    private ObservableList<String> recentList;
+    //The manager for the recent and all drinks list
+    private src.client.boundary.RecentAllDrinksManager recFavMan;
 
     /**
      * Constructs a AlcDrinkScreenManager object.
@@ -96,7 +96,7 @@ public class AlcDrinkScreenManager implements Initializable {
         baseDrinkNames = alcoholicIngredients;
         ingredientsController.setAlcGUI(this);
         recipeController.setAlcGUI(this);
-        recentList = FXCollections.observableArrayList();
+        recFavMan = ClientMain.getRecFavMan();
     }
 
     /**
@@ -283,7 +283,7 @@ public class AlcDrinkScreenManager implements Initializable {
     public String getSelectedRecipeNameForViewingRecipe() {
         if(matchList.getSelectionModel().getSelectedItem() != null && matchList.getSelectionModel().getSelectedItem() != "")
         {
-            recentList.add(matchList.getSelectionModel().getSelectedItem());
+            recFavMan.addRecList(matchList.getSelectionModel().getSelectedItem());
         }
         return matchList.getSelectionModel().getSelectedItem();
     }
@@ -342,14 +342,15 @@ public class AlcDrinkScreenManager implements Initializable {
     public void addBackIngredient(String name) {
         ingredientNames.add(name);
     }
+
+    /**
+     * Opens the Recent/All drinks list
+     */
     public void openRecFav(){
-        recFavMan = new RecentFavoritesManager();
-        System.out.println(recentList);
-        recFavMan.setRecent(recentList);
+        //System.out.println(recentList);
         recFavMan.setRecController(recipeController);
         ObservableList<String> allRecipeNames = FXCollections.observableArrayList(recipeController.getAllRecipeNames());
         recFavMan.setAllList(allRecipeNames);
-        //System.out.print(allRecipeNames);
         recFavMan.openRecFav();
     }
 }
