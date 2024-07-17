@@ -29,7 +29,7 @@ public class ClientMain extends Application {
     private static Connection connection;
     // Manager for the instruction screen
     private static HelpScreenManager instructionScreen;
-    private static UserController userController;
+    private static UserController userController = new UserController();
 
     /**
      * Retrieves the RecipeController instance.
@@ -38,10 +38,6 @@ public class ClientMain extends Application {
      */
     public static RecipeController getRecipeController() {
         return recipeController;
-    }
-
-    public static Connection getConnection() {
-        return connection;
     }
 
     /**
