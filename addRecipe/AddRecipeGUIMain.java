@@ -24,7 +24,7 @@ public class AddRecipeGUIMain extends Application {
         AddRecipeController controller = new AddRecipeController(connection);
         //mainpane
         //Group root = new Group();
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("AddRecipeGUI.fxml")));
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("AddRecipeScreenManager.fxml")));
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("Admin window - Add Recipe");

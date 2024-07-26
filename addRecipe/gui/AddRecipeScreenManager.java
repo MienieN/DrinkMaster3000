@@ -28,7 +28,7 @@ public class AddRecipeScreenManager {
     }
 
     private void addRecipeButton() {
-        controller.addRecipe(); //complement with all the args
+        //controller.addRecipe(); //complement with all the args
     }
 
 }
