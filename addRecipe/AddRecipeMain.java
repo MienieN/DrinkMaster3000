@@ -6,9 +6,12 @@ import java.sql.*;
  * The AddRecipeMain class serves as the entry point for the "Add Recipe" application.
  * It establishes a connection to the database and initializes the AddRecipeController.
  */
+
+
 public class AddRecipeMain {
     // Connection object for connecting to the database
     private static Connection connection;
+    private static AddRecipeController controller;
 
     /**
      * The main method of the AddRecipeMain class.
@@ -20,7 +23,7 @@ public class AddRecipeMain {
         // Connect to the database
         connect();
         // Initialize the AddRecipeController
-        new AddRecipeController(connection);
+        controller = new AddRecipeController(connection);
     }
 
     /**
@@ -40,4 +43,10 @@ public class AddRecipeMain {
             System.out.println("Error connecting controller to the database");
         }
     }
+
+    public static AddRecipeController getAddRecipeController() {
+        return controller;
+    }
 }
+
+

@@ -31,7 +31,7 @@ public class RecentAllDrinksManager {
     // RecipeController
     private src.client.controller.RecipeController recController;
     // List that holds the recent drinks
-    private ObservableList<String> recentList = FXCollections.observableArrayList();'
+    private ObservableList<String> recentList = FXCollections.observableArrayList();
     // List that holds all the drinks available
     private ObservableList<String> allList;
 
