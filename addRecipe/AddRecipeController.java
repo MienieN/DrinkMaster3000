@@ -1,4 +1,3 @@
-
 package addRecipe;
 
 import addRecipe.gui.AddRecipeMainFrame;
@@ -23,7 +22,6 @@ public class AddRecipeController {
      */
     public AddRecipeController(Connection connection) {
         this.connection = connection;
-        new AddRecipeMainFrame(500, 600, this);
     }
 
     /**
