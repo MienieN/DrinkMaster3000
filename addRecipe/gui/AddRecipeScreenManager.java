@@ -1,7 +1,7 @@
 package addRecipe.gui;
 
 import addRecipe.AddRecipeController;
-import addRecipe.AddRecipeMain;
+import addRecipe.AddRecipeGUIMain;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,7 +24,7 @@ public class AddRecipeScreenManager {
     private Button addRecipeButton;
 
     public AddRecipeScreenManager() {
-        controller = AddRecipeMain.getAddRecipeController();
+        controller = AddRecipeGUIMain.getAddRecipeController();
     }
 
     private void addRecipeButton() {
