@@ -100,7 +100,18 @@ public class AdminScreenManager implements Initializable {
 
     private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
         for (Node node : gridPane.getChildren()) {
-            if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
+            Integer colIndex = GridPane.getColumnIndex(node);
+            Integer rowIndex = GridPane.getRowIndex(node);
+
+            // Default to zero if the index is null
+            if (colIndex == null) colIndex = 0;
+            if (rowIndex == null) rowIndex = 0;
+
+            // Print debug information
+            System.out.println("Node: " + node + ", Column: " + colIndex + ", Row: " + rowIndex);
+
+            // Match the column and row indices
+            if (colIndex == col && rowIndex == row) {
                 return node;
             }
         }
@@ -147,17 +158,27 @@ public class AdminScreenManager implements Initializable {
         for (int i = 0; i < 12; i++) {
             TextField ingredientNameTextField = (TextField) getNodeFromGridPane(inputGridPane, 0, i);
             CheckBox alcoholicIngredientCheckBox = (CheckBox) getNodeFromGridPane(inputGridPane, 1, i);
-            String ingredientName = ingredientNameTextField.getText().trim();
-            if (!ingredientName.isEmpty()) {
-                boolean isAlcoholic = alcoholicIngredientCheckBox.isSelected();
-                ingredients.put(ingredientName, isAlcoholic);
+
+            if( ingredientNameTextField != null ) {
+                String ingredientName = ingredientNameTextField.getText().trim();
+                if (!ingredientName.isEmpty() && alcoholicIngredientCheckBox != null) {
+                    boolean isAlcoholic = alcoholicIngredientCheckBox.isSelected();
+                    ingredients.put(ingredientName, isAlcoholic);
+                }
             }
+
         }
 
         System.out.println("Recipe Name: " + name);
         System.out.println("Speciality: " + speciality);
         System.out.println("Instructions: " + instructions);
         System.out.println("Ingredients:");
-        ingredients.forEach((ingredient, isAlcoholic) ->
-                System.out.println(" - " + ingredient + " (Alcoholic: " + isAlcoholic + ")"));    }
+
+        if (ingredients.isEmpty()) {
+            System.out.println("No ingredients found");
+        } else {
+            ingredients.forEach((ingredient, isAlcoholic) ->
+                    System.out.println(" - " + ingredient + " (Alcoholic: " + isAlcoholic + ")"));
+        }
+    }
 }
