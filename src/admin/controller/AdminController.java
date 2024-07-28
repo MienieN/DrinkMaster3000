@@ -54,26 +54,27 @@ public class AdminController {
      * @return A list of ingredient names that match the search text.
      */
     public List<String> queryIngredientsName(String textSearch) {
+        List<String> autoIngredientNames = new ArrayList<>();
         try {
-            String autoRecipe = "SELECT * FROM ingredients WHERE ingredient_name LIKE ?";
-            PreparedStatement autoIngredientStatement = connection.prepareStatement(autoRecipe);
+            String autoIngredient = "SELECT * FROM ingredients WHERE ingredient_name LIKE ?";
+            PreparedStatement autoIngredientStatement = connection.prepareStatement(autoIngredient);
             autoIngredientStatement.setString(1, textSearch + "%");
 
+            System.out.println("executing ingredients query " + autoIngredient);
             ResultSet resultSet = autoIngredientStatement.executeQuery();
-
-            List<String> autoIngredientNames = new ArrayList<>();
 
             while (resultSet.next()) {
                 autoIngredientNames.add(resultSet.getString("ingredient_name"));
             }
 
             System.out.println(autoIngredientNames);
-            return autoIngredientNames;
+            //return autoIngredientNames;
 
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
+        return autoIngredientNames;
     }
 
     /**
