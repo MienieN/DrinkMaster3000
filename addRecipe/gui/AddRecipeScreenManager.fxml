@@ -15,7 +15,7 @@
       <TextField id="recipeNameInput" layoutX="15.0" layoutY="40.0" />
       <Text layoutX="362.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipe Instructions" wrappingWidth="129.13671875" />
       <Text layoutX="15.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipe Name:" />
-      <Button id="addRecipeToDatabase" layoutX="276.0" layoutY="361.0" mnemonicParsing="false" text="Add Recipe" />
+      <Button id="addRecipeButton" layoutX="276.0" layoutY="361.0" mnemonicParsing="false" text="Add Recipe" />
       <Text layoutX="15.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingredient Name" />
       <GridPane layoutX="14.0" layoutY="143.0" prefHeight="243.0" prefWidth="254.0">
         <columnConstraints>
@@ -55,5 +55,6 @@
          </children>
       </GridPane>
       <CheckBox layoutX="15.0" layoutY="79.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="Specialty?" />
+      <Button id="testButton" layoutX="242.0" layoutY="40.0" mnemonicParsing="false" text="Test" />
    </children>
 </AnchorPane>

@@ -2,6 +2,7 @@ package addRecipe.gui;
 
 import addRecipe.AddRecipeController;
 import addRecipe.AddRecipeGUIMain;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,4 +32,6 @@ public class AddRecipeScreenManager {
         //controller.addRecipe(); //complement with all the args
     }
 
+    public void testAddRecipe(ActionEvent actionEvent) {
+    }
 }

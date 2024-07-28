@@ -2,9 +2,11 @@ package src.admin.boundary;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -15,9 +17,10 @@ import src.admin.controller.AdminController;
 import src.client.ClientMain;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 
-public class AdminScreenManager {
+public class AdminScreenManager implements Initializable {
     // Controller for managing recipe additions
     private AdminController adminController;
     // The stage for the scene
@@ -37,6 +40,11 @@ public class AdminScreenManager {
     private CheckBox specialityCheckbox;
     @FXML
     private GridPane inputGridPane;
+    @FXML
+    private Button addRecipeButton;
+
+    @FXML
+    private Button testButton;
 
 
     /**
@@ -47,8 +55,8 @@ public class AdminScreenManager {
         adminController = AdminMain.getAdminController();
     }
 
-    @FXML
-    public void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         recipeNameTextField.textProperty().addListener((observable, oldValue, newValue) -> updateSuggestions());
 
         // Dynamically create input fields for ingredients
@@ -126,4 +134,33 @@ public class AdminScreenManager {
 
         adminController.addRecipe(name, ingredients, instructions, speciality);
     }
+
+    @FXML
+    private void testAddRecipe() {
+        String name = recipeNameTextField.getText().trim();
+        String instructions = recipeInstructionsTextField.getText().trim();
+        boolean speciality = specialityCheckbox.isSelected();
+
+        if (name.isEmpty()) {
+            System.out.println("Recipe name is empty");
+            return;
+        }
+
+        HashMap<String, Boolean> ingredients = new HashMap<>();
+        for (int i = 0; i < 12; i++) {
+            TextField ingredientNameTextField = (TextField) getNodeFromGridPane(inputGridPane, 0, i);
+            CheckBox alcoholicIngredientCheckBox = (CheckBox) getNodeFromGridPane(inputGridPane, 2, i);
+            String ingredientName = ingredientNameTextField.getText().trim();
+            if (!ingredientName.isEmpty()) {
+                boolean isAlcoholic = alcoholicIngredientCheckBox.isSelected();
+                ingredients.put(ingredientName, isAlcoholic);
+            }
+        }
+
+        System.out.println("Recipe Name: " + name);
+        System.out.println("Speciality: " + speciality);
+        System.out.println("Instructions: " + instructions);
+        System.out.println("Ingredients:");
+        ingredients.forEach((ingredient, isAlcoholic) ->
+                System.out.println(" - " + ingredient + " (Alcoholic: " + isAlcoholic + ")"));    }
 }
