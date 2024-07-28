@@ -14,7 +14,6 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import src.admin.AdminMain;
 import src.admin.controller.AdminController;
-import src.client.ClientMain;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,7 +41,6 @@ public class AdminScreenManager implements Initializable {
     private GridPane inputGridPane;
     @FXML
     private Button addRecipeButton;
-
     @FXML
     private Button testButton;
 
@@ -57,24 +55,23 @@ public class AdminScreenManager implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        recipeNameTextField.textProperty().addListener((observable, oldValue, newValue) -> updateSuggestions());
+        //recipeNameTextField.textProperty().addListener((observable, oldValue, newValue) -> updateSuggestions());
 
         // Dynamically create input fields for ingredients
         for (int i = 0; i < 9; i++) {
             int index = i;
             TextField ingredientNameTextField = new TextField();
-            ingredientNameTextField.setPromptText("Ingredient name");
-            ingredientNameTextField.textProperty().addListener((observable, oldValue, newValue) ->
-                    updateIngredientSuggestions(index));
+            //ingredientNameTextField.setPromptText("Ingredient name");
+            //ingredientNameTextField.textProperty().addListener((observable, oldValue, newValue) -> updateIngredientSuggestions(index));
 
-            ComboBox<String> ingredientComboBox = new ComboBox<>();
-            ingredientComboBox.setEditable(true);
+            //ComboBox<String> ingredientComboBox = new ComboBox<>();
+            //ingredientComboBox.setEditable(true);
 
-            CheckBox alcoholicIngredientCheckBox = new CheckBox("Alcoholic?");
+             CheckBox alcoholicIngredientCheckBox = new CheckBox("Alcoholic?");
 
-            inputGridPane.add(ingredientNameTextField, 0, i);
-            inputGridPane.add(ingredientComboBox, 1, i);
-            inputGridPane.add(alcoholicIngredientCheckBox, 2, i);
+            inputGridPane.add(ingredientNameTextField, 0, index);
+            //inputGridPane.add(ingredientComboBox, 1, i);
+            inputGridPane.add(alcoholicIngredientCheckBox, 1, index);
         }
     }
 
@@ -149,7 +146,7 @@ public class AdminScreenManager implements Initializable {
         HashMap<String, Boolean> ingredients = new HashMap<>();
         for (int i = 0; i < 12; i++) {
             TextField ingredientNameTextField = (TextField) getNodeFromGridPane(inputGridPane, 0, i);
-            CheckBox alcoholicIngredientCheckBox = (CheckBox) getNodeFromGridPane(inputGridPane, 2, i);
+            CheckBox alcoholicIngredientCheckBox = (CheckBox) getNodeFromGridPane(inputGridPane, 1, i);
             String ingredientName = ingredientNameTextField.getText().trim();
             if (!ingredientName.isEmpty()) {
                 boolean isAlcoholic = alcoholicIngredientCheckBox.isSelected();
