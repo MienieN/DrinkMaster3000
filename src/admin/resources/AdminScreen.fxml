@@ -21,7 +21,6 @@
             <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="155.0" />
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="99.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="99.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -36,6 +35,7 @@
             </rowConstraints>
             <children>
                 <CheckBox fx:id="alcoholic0" mnemonicParsing="false" text="Alcoholic?" GridPane.columnIndex="1" />
+                <CheckBox fx:id="alcoholic1" layoutX="165.0" layoutY="14.0" mnemonicParsing="false" text="Alcoholic?" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <CheckBox fx:id="alcoholic2" mnemonicParsing="false" text="Alcoholic?" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <CheckBox fx:id="alcoholic3" mnemonicParsing="false" text="Alcoholic?" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                 <CheckBox fx:id="alcoholic4" mnemonicParsing="false" text="Alcoholic?" GridPane.columnIndex="1" GridPane.rowIndex="4" />
@@ -43,7 +43,6 @@
                 <CheckBox fx:id="alcoholic6" mnemonicParsing="false" text="Alcoholic?" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                 <CheckBox fx:id="alcoholic7" mnemonicParsing="false" text="Alcoholic?" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                 <CheckBox fx:id="alcoholic8" mnemonicParsing="false" text="Alcoholic?" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                <CheckBox fx:id="alcoholic1" layoutX="165.0" layoutY="14.0" mnemonicParsing="false" text="Alcoholic?" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <TextField fx:id="ingredientName0" />
                 <TextField fx:id="ingredientName1" GridPane.rowIndex="1" />
                 <TextField fx:id="ingredientName2" GridPane.rowIndex="2" />
