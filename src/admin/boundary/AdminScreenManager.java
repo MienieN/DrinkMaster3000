@@ -57,6 +57,9 @@ public class AdminScreenManager implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //recipeNameTextField.textProperty().addListener((observable, oldValue, newValue) -> updateSuggestions());
 
+
+        GridPane inputGridPane = new GridPane();
+
         // Dynamically create input fields for ingredients
         for (int i = 0; i < 9; i++) {
             int index = i;
@@ -69,9 +72,12 @@ public class AdminScreenManager implements Initializable {
 
              CheckBox alcoholicIngredientCheckBox = new CheckBox("Alcoholic?");
 
-            inputGridPane.add(ingredientNameTextField, 0, index);
+            inputGridPane.add(ingredientNameTextField, 0, i);
             //inputGridPane.add(ingredientComboBox, 1, i);
-            inputGridPane.add(alcoholicIngredientCheckBox, 1, index);
+            inputGridPane.add(alcoholicIngredientCheckBox, 1, i);
+
+            //debugging
+            System.out.println("added textfield and checkboc at row " + i);
         }
     }
 
@@ -106,9 +112,6 @@ public class AdminScreenManager implements Initializable {
             // Default to zero if the index is null
             if (colIndex == null) colIndex = 0;
             if (rowIndex == null) rowIndex = 0;
-
-            // Print debug information
-            System.out.println("Node: " + node + ", Column: " + colIndex + ", Row: " + rowIndex);
 
             // Match the column and row indices
             if (colIndex == col && rowIndex == row) {
@@ -155,16 +158,26 @@ public class AdminScreenManager implements Initializable {
         }
 
         HashMap<String, Boolean> ingredients = new HashMap<>();
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 9; i++) {
             TextField ingredientNameTextField = (TextField) getNodeFromGridPane(inputGridPane, 0, i);
             CheckBox alcoholicIngredientCheckBox = (CheckBox) getNodeFromGridPane(inputGridPane, 1, i);
 
-            if( ingredientNameTextField != null ) {
+            if(ingredientNameTextField != null ) {
                 String ingredientName = ingredientNameTextField.getText().trim();
-                if (!ingredientName.isEmpty() && alcoholicIngredientCheckBox != null) {
-                    boolean isAlcoholic = alcoholicIngredientCheckBox.isSelected();
-                    ingredients.put(ingredientName, isAlcoholic);
+                System.out.println(ingredientName);
+                if (!ingredientName.isEmpty()) {
+                    if(alcoholicIngredientCheckBox != null) {
+                        boolean isAlcoholic = alcoholicIngredientCheckBox.isSelected();
+                        ingredients.put(ingredientName, isAlcoholic);
+                        System.out.println("added " + ingredientName + " has value: " + isAlcoholic);
+                    }
                 }
+                else {
+                    System.out.println("skipped empty field at row: " + i);
+                }
+            }
+            else {
+                System.out.println("skipped missing field at row: " + i);
             }
 
         }
@@ -173,6 +186,8 @@ public class AdminScreenManager implements Initializable {
         System.out.println("Speciality: " + speciality);
         System.out.println("Instructions: " + instructions);
         System.out.println("Ingredients:");
+
+
 
         if (ingredients.isEmpty()) {
             System.out.println("No ingredients found");
