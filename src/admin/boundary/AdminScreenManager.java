@@ -15,13 +15,17 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import src.admin.AdminMain;
 import src.admin.controller.AdminController;
+import src.admin.controller.MockAdminController;
 
 import java.net.URL;
 import java.util.*;
 
 public class AdminScreenManager implements Initializable {
     // Controller for managing recipe additions
-    private AdminController adminController;
+     private AdminController adminController;
+    // mock controller
+    //private MockAdminController adminController;
+
     // The stage for the scene
     private Stage stage;
     // The scene of the GUI
@@ -55,6 +59,7 @@ public class AdminScreenManager implements Initializable {
      */
     public AdminScreenManager() {
         adminController = AdminMain.getAdminController();
+        //adminController = new MockAdminController(null);
     }
 
     @Override
@@ -66,7 +71,7 @@ public class AdminScreenManager implements Initializable {
         //GridPane inputGridPane = new GridPane();
 
         // Dynamically create input fields for ingredients
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 10; i++) {
             //int index = i;
             HBox ingredientRow = new HBox();
             TextField ingredientNameTextField = new TextField();
@@ -107,7 +112,7 @@ public class AdminScreenManager implements Initializable {
                 recipeNameSuggestions.getItems().add(item);
             }
             //recipeNameSuggestions.getItems().addAll(suggestions);
-            recipeNameSuggestions.show(recipeInstructionsTextField, Side.BOTTOM, 0,0);
+            recipeNameSuggestions.show(recipeNameTextField, Side.RIGHT, 0,0);
         }
         else {
             recipeNameSuggestions.hide();
@@ -273,8 +278,6 @@ public class AdminScreenManager implements Initializable {
         System.out.println("Speciality: " + speciality);
         System.out.println("Instructions: " + instructions);
         System.out.println("Ingredients:");
-
-
 
         if (ingredients.isEmpty()) {
             System.out.println("No ingredients found");
