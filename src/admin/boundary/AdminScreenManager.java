@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import src.admin.AdminMain;
@@ -40,6 +41,8 @@ public class AdminScreenManager implements Initializable {
     @FXML
     private GridPane inputGridPane;
     @FXML
+    private VBox ingredientVBox;
+    @FXML
     private Button addRecipeButton;
     @FXML
     private Button testButton;
@@ -69,19 +72,22 @@ public class AdminScreenManager implements Initializable {
             ingredientNameTextField.textProperty().addListener((observable, oldValue, newValue) ->
             {
                 System.out.println("Text changed:" + newValue);
-                updateIngredientSuggestions(index, ingredientNameSuggestions);
+                handleIngredientTextChange(ingredientNameSuggestions, ingredientNameTextField);
+                //updateIngredientSuggestions(index, ingredientNameSuggestions);
             });
+
+            ingredientVBox.getChildren().add(ingredientNameTextField);
 
             //ComboBox<String> ingredientComboBox = new ComboBox<>();
             //ingredientComboBox.setEditable(true);
 
-            CheckBox alcoholicIngredientCheckBox = new CheckBox("Alcoholic?");
+            //CheckBox alcoholicIngredientCheckBox = new CheckBox("Alcoholic?");
 
-            inputGridPane.add(ingredientNameTextField, 0, i);
-            inputGridPane.add(alcoholicIngredientCheckBox, 1, i);
+            //inputGridPane.add(ingredientNameTextField, 0, i);
+            //inputGridPane.add(alcoholicIngredientCheckBox, 1, i);
 
             //debugging
-            System.out.println("added textfield and checkboc at row " + i);
+            //System.out.println("added textfield and checkboc at row " + i);
         }
     }
 
@@ -104,27 +110,36 @@ public class AdminScreenManager implements Initializable {
         }
     }
 
-    private void updateIngredientSuggestions(int index, ContextMenu ingredientNameSuggestions) {
-        TextField ingredientNameTextField = (TextField) getNodeFromGridPane(inputGridPane, 0, index);
-        //ComboBox<String> ingredientComboBox = (ComboBox<String>) getNodeFromGridPane(inputGridPane, 1, index);
-
+    private void handleIngredientTextChange(ContextMenu ingredientNameSuggestions, TextField ingredientNameTextField) {
         PauseTransition pause = new PauseTransition(Duration.millis(300));
         pause.setOnFinished(event -> {
+            String searchText = ingredientNameTextField.getText().trim();
+            //debugging
+            System.out.println("search text: " + searchText);
+            updateIngredientSuggestions(ingredientNameSuggestions, searchText, ingredientNameTextField);
+        });
+        pause.play();
+    }
 
+    private void updateIngredientSuggestions(ContextMenu ingredientNameSuggestions, String searchText, TextField ingredientNameTextField) {//int index, ContextMenu ingredientNameSuggestions) {
+        //TextField ingredientNameTextField = (TextField) getNodeFromGridPane(inputGridPane, 0, index);
+        //ComboBox<String> ingredientComboBox = (ComboBox<String>) getNodeFromGridPane(inputGridPane, 1, index);
 
+        //pause.setOnFinished(event -> {
 
-        String searchText = ingredientNameTextField.getText();
+        //searchText = ingredientNameTextField.getText().trim();
         //debugging
         System.out.println("search text: " + searchText);
         ingredientNameSuggestions.getItems().clear();
         System.out.println("suggestions have been reset");
 
-        if (searchText.isEmpty()) {
+        if (!searchText.isEmpty()) {
             //debugging
             System.out.println("searching for " + searchText);
             List<String> suggestions = adminController.queryIngredientsName(searchText);
             System.out.println("suggestions: " + suggestions);
             //ingredientComboBox.getItems().addAll(suggestions);
+
             for(String suggestion : suggestions) {
                 MenuItem item = new MenuItem(suggestion);
                 item.setOnAction(happen -> ingredientNameTextField.setText(suggestion));
@@ -133,15 +148,9 @@ public class AdminScreenManager implements Initializable {
             ingredientNameSuggestions.show(ingredientNameTextField, Side.BOTTOM, 0,0);
         }
         else {
+            System.out.println("search text is empty, hiding suggestions");
             ingredientNameSuggestions.hide();
         }
-        });
-
-
-        ingredientNameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            pause.playFromStart();
-        });
-
 
     }
 
