@@ -7,11 +7,12 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="478.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.admin.boundary.AdminScreenManager">
     <children>
-        <TextField fx:id="recipeInstructionsTextField" alignment="TOP_LEFT" layoutX="308.0" layoutY="40.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="424.0" prefWidth="270.0" />
+        <TextField fx:id="recipeInstructionsTextField" alignment="TOP_LEFT" layoutX="308.0" layoutY="40.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="158.0" prefWidth="270.0" />
         <TextField fx:id="recipeNameTextField" layoutX="15.0" layoutY="40.0" />
         <Text layoutX="308.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipe Instructions" wrappingWidth="129.13671875" />
         <Text layoutX="15.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipe Name:" />
@@ -56,5 +57,6 @@
         </GridPane>
         <CheckBox fx:id="specialityCheckbox" layoutX="15.0" layoutY="79.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="Speciality?" />
       <Button fx:id="testButton" layoutX="122.0" layoutY="422.0" mnemonicParsing="false" onAction="#testAddRecipe" text="Test" />
+      <VBox fx:id="ingredientVBox" layoutX="289.0" layoutY="265.0" prefHeight="200.0" prefWidth="296.0" />
     </children>
 </AnchorPane>

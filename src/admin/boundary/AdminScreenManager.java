@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -65,9 +66,11 @@ public class AdminScreenManager implements Initializable {
         //GridPane inputGridPane = new GridPane();
 
         // Dynamically create input fields for ingredients
-        for (int i = 0; i < 9; i++) {
-            int index = i;
+        for (int i = 0; i < 8; i++) {
+            //int index = i;
+            HBox ingredientRow = new HBox();
             TextField ingredientNameTextField = new TextField();
+            CheckBox ingredientCheckbox = new CheckBox("Alcoholic?");
             ContextMenu ingredientNameSuggestions = new ContextMenu();
             ingredientNameTextField.textProperty().addListener((observable, oldValue, newValue) ->
             {
@@ -76,7 +79,8 @@ public class AdminScreenManager implements Initializable {
                 //updateIngredientSuggestions(index, ingredientNameSuggestions);
             });
 
-            ingredientVBox.getChildren().add(ingredientNameTextField);
+            ingredientRow.getChildren().addAll(ingredientNameTextField, ingredientCheckbox);
+            ingredientVBox.getChildren().add(ingredientRow);
 
             //ComboBox<String> ingredientComboBox = new ComboBox<>();
             //ingredientComboBox.setEditable(true);
@@ -118,7 +122,7 @@ public class AdminScreenManager implements Initializable {
             System.out.println("search text: " + searchText);
             updateIngredientSuggestions(ingredientNameSuggestions, searchText, ingredientNameTextField);
         });
-        pause.play();
+        pause.playFromStart();
     }
 
     private void updateIngredientSuggestions(ContextMenu ingredientNameSuggestions, String searchText, TextField ingredientNameTextField) {//int index, ContextMenu ingredientNameSuggestions) {
@@ -128,10 +132,12 @@ public class AdminScreenManager implements Initializable {
         //pause.setOnFinished(event -> {
 
         //searchText = ingredientNameTextField.getText().trim();
-        //debugging
-        System.out.println("search text: " + searchText);
+
         ingredientNameSuggestions.getItems().clear();
+        //debugging
         System.out.println("suggestions have been reset");
+        System.out.println("search text: " + searchText);
+
 
         if (!searchText.isEmpty()) {
             //debugging
@@ -145,7 +151,8 @@ public class AdminScreenManager implements Initializable {
                 item.setOnAction(happen -> ingredientNameTextField.setText(suggestion));
                 ingredientNameSuggestions.getItems().add(item);
             }
-            ingredientNameSuggestions.show(ingredientNameTextField, Side.BOTTOM, 0,0);
+            ingredientNameSuggestions.show(ingredientNameTextField, Side.RIGHT, 0,0);
+            System.out.println("the suggestions are somewhere");
         }
         else {
             System.out.println("search text is empty, hiding suggestions");
@@ -208,6 +215,34 @@ public class AdminScreenManager implements Initializable {
         }
 
         HashMap<String, Boolean> ingredients = new HashMap<>();
+        for (Node node : ingredientVBox.getChildren()) {
+            if (node instanceof HBox) {
+                HBox ingredientRow = (HBox) node;
+                TextField ingredientNameTextField = (TextField) ingredientRow.getChildren().get(0);
+                CheckBox alcoholicCheckBox = (CheckBox) ingredientRow.getChildren().get(1);
+
+                if (ingredientNameTextField != null) {
+                    String ingredientName = ingredientNameTextField.getText().trim();
+                    System.out.println(ingredientName);
+
+                    if (!ingredientName.isEmpty()) {
+                        if (alcoholicCheckBox != null) {
+                            boolean isAlcoholic = alcoholicCheckBox.isSelected();
+                            ingredients.put(ingredientName, isAlcoholic);
+                            System.out.println("added " + ingredientName + " has alcohol? " + isAlcoholic);
+                        }
+                    }
+                    else {
+                        System.out.println("skipped empty field");
+                    }
+                }
+                else {
+                    System.out.println("skipped missing field");
+                }
+            }
+        }
+
+        /*
         for (int i = 0; i < 9; i++) {
             TextField ingredientNameTextField = (TextField) getNodeFromGridPane(inputGridPane, 0, i);
             CheckBox alcoholicIngredientCheckBox = (CheckBox) getNodeFromGridPane(inputGridPane, 1, i);
@@ -231,6 +266,8 @@ public class AdminScreenManager implements Initializable {
             }
 
         }
+
+         */
 
         System.out.println("Recipe Name: " + name);
         System.out.println("Speciality: " + speciality);
