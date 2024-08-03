@@ -16,29 +16,45 @@ import src.admin.controller.AdminController;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * The AdminScreenManager class is responsible for managing the user interface for adding recipes.
+ * It provides methods for handling user interactions and database operations related to recipe management.
+ */
+
 public class AdminScreenManager implements Initializable {
     // Controller for managing recipe additions
      private AdminController adminController;
 
+    // Text field for recipe names
     @FXML
     private TextField recipeNameTextField;
+    // A context menu to store suggested recipe names when typing
     @FXML
     private ContextMenu recipeNameSuggestions;
+    // Text field for instruction input
     @FXML
     private TextField recipeInstructionsTextField;
+    // Checkbox with boolean for speciality indicator
     @FXML
     private CheckBox specialityCheckbox;
+    // A VBox for ingredient text fields
     @FXML
     private VBox ingredientVBox;
 
     /**
-     * Constructs a AlcDrinkScreenManager object.
-     * Initializes the controllers and retrieves the list of ingredient names.
+     * Constructs an AdminScreenManager object.
+     * Initializes the controllers and retrieves the list of ingredient and recipe names.
      */
     public AdminScreenManager() {
         adminController = AdminMain.getAdminController();
     }
 
+    /**
+     * Initializes the controller class.
+     * This method is automatically called after the FXML file has been loaded.
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         recipeNameSuggestions = new ContextMenu();
@@ -61,6 +77,9 @@ public class AdminScreenManager implements Initializable {
         }
     }
 
+    /**
+     * Updates the recipe suggestions in the context menu based on the text entered in the recipe name text field.
+     */
     private void updateRecipeSuggestions() {
         String searchText = recipeNameTextField.getText().trim();
         recipeNameSuggestions.getItems().clear();
@@ -79,6 +98,12 @@ public class AdminScreenManager implements Initializable {
         }
     }
 
+    /**
+     * Handles changes to the ingredient name text field and updates suggestions based on the input.
+     *
+     * @param ingredientNameSuggestions The context menu to show suggestions for ingredient names.
+     * @param ingredientNameTextField The text field where the user enters the ingredient name.
+     */
     private void handleIngredientTextChange(ContextMenu ingredientNameSuggestions, TextField ingredientNameTextField) {
         PauseTransition pause = new PauseTransition(Duration.millis(300));
         pause.setOnFinished(event -> {
@@ -90,6 +115,13 @@ public class AdminScreenManager implements Initializable {
         pause.playFromStart();
     }
 
+    /**
+     * Updates the ingredient suggestions in the context menu based on the text entered in the ingredient name text field.
+     *
+     * @param ingredientNameSuggestions The context menu to show suggestions for ingredient names.
+     * @param searchText The text to search for matching ingredient names.
+     * @param ingredientNameTextField The text field where the user enters the ingredient name.
+     */
     private void updateIngredientSuggestions(ContextMenu ingredientNameSuggestions, String searchText, TextField ingredientNameTextField) {//int index, ContextMenu ingredientNameSuggestions) {
         ingredientNameSuggestions.getItems().clear();
         //debugging
@@ -102,7 +134,6 @@ public class AdminScreenManager implements Initializable {
             System.out.println("searching for " + searchText);
             List<String> suggestions = adminController.queryIngredientsName(searchText);
             System.out.println("suggestions: " + suggestions);
-            //ingredientComboBox.getItems().addAll(suggestions);
 
             for(String suggestion : suggestions) {
                 MenuItem item = new MenuItem(suggestion);
@@ -119,6 +150,10 @@ public class AdminScreenManager implements Initializable {
 
     }
 
+    /**
+     * Adds a recipe to the database by gathering input data from the UI fields.
+     * This operation is performed in a background thread to avoid blocking the UI.
+     */
     @FXML
     private void addRecipeToDatabase() {
         Task<Void> task = new Task<Void>() {
@@ -172,7 +207,10 @@ public class AdminScreenManager implements Initializable {
         new Thread(task).start();
     }
 
-
+    /**
+     * Tests adding a recipe by printing the input data to the console.
+     * This method is useful for debugging and verifying the input handling logic.
+     */
     @FXML
     private void testAddRecipe() {
         String name = recipeNameTextField.getText().trim();
