@@ -56,7 +56,6 @@ public class AdminMain extends Application {
      */
     public static void main(String[] args) {
         connect();
-        //adminController = new AdminController(connection);
         adminController = new AdminController();
         adminScreen = new AdminScreenManager();
         // Launch the JavaFX application
