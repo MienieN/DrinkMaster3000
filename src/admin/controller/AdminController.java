@@ -13,14 +13,6 @@ public class AdminController {
 
     /**
      * Constructs a new AddRecipeController with the specified database connection.
-     *
-     * @param connection The Connection object representing the database connection.
-     */
-    /*
-    public AdminController(Connection connection) {
-        this.connection = connection;
-    }
-
      */
     public AdminController() {
         try {
@@ -209,7 +201,6 @@ public class AdminController {
             // Commit the transaction
             connection.commit();
         }
-
         // Rollback transaction in case of error
         catch (SQLException se) {
 
@@ -221,6 +212,4 @@ public class AdminController {
             }
         }
     }
-
-
 }
