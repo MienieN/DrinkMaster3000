@@ -23,12 +23,6 @@ import java.util.*;
 public class AdminScreenManager implements Initializable {
     // Controller for managing recipe additions
      private AdminController adminController;
-    // The stage for the scene
-    private Stage stage;
-    // The scene of the GUI
-    private Scene scene;
-    // The root node of the scene
-    private Parent root;
 
     @FXML
     private TextField recipeNameTextField;
