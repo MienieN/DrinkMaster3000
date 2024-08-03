@@ -1,6 +1,7 @@
 package src.admin.boundary;
 
 import javafx.animation.PauseTransition;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
@@ -15,7 +16,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import src.admin.AdminMain;
 import src.admin.controller.AdminController;
-import src.admin.controller.MockAdminController;
 
 import java.net.URL;
 import java.util.*;
@@ -185,6 +185,58 @@ public class AdminScreenManager implements Initializable {
 
     @FXML
     private void addRecipeToDatabase() {
+        Task<Void> task = new Task<Void>() {
+
+            @Override
+            protected Void call() throws Exception {
+                String name = recipeNameTextField.getText().trim();
+                String instructions = recipeInstructionsTextField.getText().trim();
+                boolean speciality = specialityCheckbox.isSelected();
+
+                if (name.isEmpty()) {
+                    System.out.println("Recipe name is empty");
+                    return null;
+                }
+
+                HashMap<String, Boolean> ingredients = new HashMap<>();
+                for (Node node : ingredientVBox.getChildren()) {
+                    if (node instanceof HBox) {
+                        HBox ingredientRow = (HBox) node;
+                        TextField ingredientNameTextField = (TextField) ingredientRow.getChildren().get(0);
+                        CheckBox alcoholicCheckBox = (CheckBox) ingredientRow.getChildren().get(1);
+
+                        if (ingredientNameTextField != null) {
+                            String ingredientName = ingredientNameTextField.getText().trim();
+                            System.out.println(ingredientName);
+
+                            if (!ingredientName.isEmpty()) {
+                                if (alcoholicCheckBox != null) {
+                                    boolean isAlcoholic = alcoholicCheckBox.isSelected();
+                                    ingredients.put(ingredientName, isAlcoholic);
+                                    System.out.println("added " + ingredientName + " has alcohol? " + isAlcoholic);
+                                }
+                            }
+                            else {
+                                System.out.println("skipped empty field");
+                            }
+                        }
+                        else {
+                            System.out.println("skipped missing field");
+                        }
+                    }
+                }
+                adminController.addRecipe(name, ingredients, instructions, speciality);
+                return null;
+            }
+        };
+
+        task.setOnSucceeded(e -> System.out.println("Recipe added successfully"));
+        task.setOnFailed(e -> System.out.println("Failed to add recipe" + task.getException().getMessage()));
+
+        new Thread(task).start();
+
+
+        /*
         String name = recipeNameTextField.getText().trim();
         String instructions = recipeInstructionsTextField.getText().trim();
         boolean speciality = specialityCheckbox.isSelected();
@@ -195,6 +247,8 @@ public class AdminScreenManager implements Initializable {
         }
 
         HashMap<String, Boolean> ingredients = new HashMap<>();
+
+         */
         /*
         for (int i = 0; i < 12; i++) {
             TextField ingredientNameTextField = (TextField) getNodeFromGridPane(inputGridPane, 0, i);
@@ -207,7 +261,7 @@ public class AdminScreenManager implements Initializable {
         }
 
          */
-
+        /*
         for (Node node : ingredientVBox.getChildren()) {
             if (node instanceof HBox) {
                 HBox ingredientRow = (HBox) node;
@@ -235,7 +289,9 @@ public class AdminScreenManager implements Initializable {
             }
         }
 
-        adminController.addRecipe(name, ingredients, instructions, speciality);
+         */
+
+        //adminController.addRecipe(name, ingredients, instructions, speciality);
     }
 
     @FXML

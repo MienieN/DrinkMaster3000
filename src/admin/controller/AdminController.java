@@ -1,5 +1,7 @@
 package src.admin.controller;
 
+import src.admin.resources.DatabaseConnection;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,8 +16,19 @@ public class AdminController {
      *
      * @param connection The Connection object representing the database connection.
      */
+    /*
     public AdminController(Connection connection) {
         this.connection = connection;
+    }
+
+     */
+    public AdminController() {
+        try {
+            this.connection = DatabaseConnection.getConnection();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
