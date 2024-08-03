@@ -23,9 +23,6 @@ import java.util.*;
 public class AdminScreenManager implements Initializable {
     // Controller for managing recipe additions
      private AdminController adminController;
-    // mock controller
-    //private MockAdminController adminController;
-
     // The stage for the scene
     private Stage stage;
     // The scene of the GUI
@@ -38,20 +35,11 @@ public class AdminScreenManager implements Initializable {
     @FXML
     private ContextMenu recipeNameSuggestions;
     @FXML
-    private ContextMenu ingredientNameSuggestions;
-    @FXML
     private TextField recipeInstructionsTextField;
     @FXML
     private CheckBox specialityCheckbox;
     @FXML
-    private GridPane inputGridPane;
-    @FXML
     private VBox ingredientVBox;
-    @FXML
-    private Button addRecipeButton;
-    @FXML
-    private Button testButton;
-
 
     /**
      * Constructs a AlcDrinkScreenManager object.
@@ -59,7 +47,6 @@ public class AdminScreenManager implements Initializable {
      */
     public AdminScreenManager() {
         adminController = AdminMain.getAdminController();
-        //adminController = new MockAdminController(null);
     }
 
     @Override
@@ -67,12 +54,8 @@ public class AdminScreenManager implements Initializable {
         recipeNameSuggestions = new ContextMenu();
         recipeNameTextField.textProperty().addListener((observable, oldValue, newValue) -> updateRecipeSuggestions());
 
-
-        //GridPane inputGridPane = new GridPane();
-
         // Dynamically create input fields for ingredients
         for (int i = 0; i < 10; i++) {
-            //int index = i;
             HBox ingredientRow = new HBox();
             TextField ingredientNameTextField = new TextField();
             CheckBox ingredientCheckbox = new CheckBox("Alcoholic?");
@@ -81,22 +64,10 @@ public class AdminScreenManager implements Initializable {
             {
                 System.out.println("Text changed:" + newValue);
                 handleIngredientTextChange(ingredientNameSuggestions, ingredientNameTextField);
-                //updateIngredientSuggestions(index, ingredientNameSuggestions);
             });
 
             ingredientRow.getChildren().addAll(ingredientNameTextField, ingredientCheckbox);
             ingredientVBox.getChildren().add(ingredientRow);
-
-            //ComboBox<String> ingredientComboBox = new ComboBox<>();
-            //ingredientComboBox.setEditable(true);
-
-            //CheckBox alcoholicIngredientCheckBox = new CheckBox("Alcoholic?");
-
-            //inputGridPane.add(ingredientNameTextField, 0, i);
-            //inputGridPane.add(alcoholicIngredientCheckBox, 1, i);
-
-            //debugging
-            //System.out.println("added textfield and checkboc at row " + i);
         }
     }
 
@@ -111,7 +82,6 @@ public class AdminScreenManager implements Initializable {
                 item.setOnAction(event -> recipeNameTextField.setText(suggestion));
                 recipeNameSuggestions.getItems().add(item);
             }
-            //recipeNameSuggestions.getItems().addAll(suggestions);
             recipeNameSuggestions.show(recipeNameTextField, Side.RIGHT, 0,0);
         }
         else {
@@ -131,13 +101,6 @@ public class AdminScreenManager implements Initializable {
     }
 
     private void updateIngredientSuggestions(ContextMenu ingredientNameSuggestions, String searchText, TextField ingredientNameTextField) {//int index, ContextMenu ingredientNameSuggestions) {
-        //TextField ingredientNameTextField = (TextField) getNodeFromGridPane(inputGridPane, 0, index);
-        //ComboBox<String> ingredientComboBox = (ComboBox<String>) getNodeFromGridPane(inputGridPane, 1, index);
-
-        //pause.setOnFinished(event -> {
-
-        //searchText = ingredientNameTextField.getText().trim();
-
         ingredientNameSuggestions.getItems().clear();
         //debugging
         System.out.println("suggestions have been reset");
@@ -164,23 +127,6 @@ public class AdminScreenManager implements Initializable {
             ingredientNameSuggestions.hide();
         }
 
-    }
-
-    private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
-        for (Node node : gridPane.getChildren()) {
-            Integer colIndex = GridPane.getColumnIndex(node);
-            Integer rowIndex = GridPane.getRowIndex(node);
-
-            // Default to zero if the index is null
-            if (colIndex == null) colIndex = 0;
-            if (rowIndex == null) rowIndex = 0;
-
-            // Match the column and row indices
-            if (colIndex == col && rowIndex == row) {
-                return node;
-            }
-        }
-        return null;
     }
 
     @FXML
@@ -234,65 +180,8 @@ public class AdminScreenManager implements Initializable {
         task.setOnFailed(e -> System.out.println("Failed to add recipe" + task.getException().getMessage()));
 
         new Thread(task).start();
-
-
-        /*
-        String name = recipeNameTextField.getText().trim();
-        String instructions = recipeInstructionsTextField.getText().trim();
-        boolean speciality = specialityCheckbox.isSelected();
-
-        if (name.isEmpty()) {
-            System.out.println("Recipe name is empty");
-            return;
-        }
-
-        HashMap<String, Boolean> ingredients = new HashMap<>();
-
-         */
-        /*
-        for (int i = 0; i < 12; i++) {
-            TextField ingredientNameTextField = (TextField) getNodeFromGridPane(inputGridPane, 0, i);
-            CheckBox alcoholicIngredientCheckBox = (CheckBox) getNodeFromGridPane(inputGridPane, 2, i);
-            String ingredientName = ingredientNameTextField.getText().trim();
-            if (!ingredientName.isEmpty()) {
-                boolean isAlcoholic = alcoholicIngredientCheckBox.isSelected();
-                ingredients.put(ingredientName, isAlcoholic);
-            }
-        }
-
-         */
-        /*
-        for (Node node : ingredientVBox.getChildren()) {
-            if (node instanceof HBox) {
-                HBox ingredientRow = (HBox) node;
-                TextField ingredientNameTextField = (TextField) ingredientRow.getChildren().get(0);
-                CheckBox alcoholicCheckBox = (CheckBox) ingredientRow.getChildren().get(1);
-
-                if (ingredientNameTextField != null) {
-                    String ingredientName = ingredientNameTextField.getText().trim();
-                    System.out.println(ingredientName);
-
-                    if (!ingredientName.isEmpty()) {
-                        if (alcoholicCheckBox != null) {
-                            boolean isAlcoholic = alcoholicCheckBox.isSelected();
-                            ingredients.put(ingredientName, isAlcoholic);
-                            System.out.println("added " + ingredientName + " has alcohol? " + isAlcoholic);
-                        }
-                    }
-                    else {
-                        System.out.println("skipped empty field");
-                    }
-                }
-                else {
-                    System.out.println("skipped missing field");
-                }
-            }
-        }
-
-         */
-
-        //adminController.addRecipe(name, ingredients, instructions, speciality);
     }
+
 
     @FXML
     private void testAddRecipe() {
@@ -332,34 +221,6 @@ public class AdminScreenManager implements Initializable {
                 }
             }
         }
-
-        /*
-        for (int i = 0; i < 9; i++) {
-            TextField ingredientNameTextField = (TextField) getNodeFromGridPane(inputGridPane, 0, i);
-            CheckBox alcoholicIngredientCheckBox = (CheckBox) getNodeFromGridPane(inputGridPane, 1, i);
-
-            if(ingredientNameTextField != null ) {
-                String ingredientName = ingredientNameTextField.getText().trim();
-                System.out.println(ingredientName);
-                if (!ingredientName.isEmpty()) {
-                    if(alcoholicIngredientCheckBox != null) {
-                        boolean isAlcoholic = alcoholicIngredientCheckBox.isSelected();
-                        ingredients.put(ingredientName, isAlcoholic);
-                        System.out.println("added " + ingredientName + " has value: " + isAlcoholic);
-                    }
-                }
-                else {
-                    System.out.println("skipped empty field at row: " + i);
-                }
-            }
-            else {
-                System.out.println("skipped missing field at row: " + i);
-            }
-
-        }
-
-         */
-
         System.out.println("Recipe Name: " + name);
         System.out.println("Speciality: " + speciality);
         System.out.println("Instructions: " + instructions);
