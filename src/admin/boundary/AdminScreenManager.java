@@ -201,10 +201,37 @@ public class AdminScreenManager implements Initializable {
             }
         };
 
-        task.setOnSucceeded(e -> System.out.println("Recipe added successfully"));
+        task.setOnSucceeded(e -> {
+            System.out.println("Recipe added successfully");
+            clearInputs();
+        });
         task.setOnFailed(e -> System.out.println("Failed to add recipe" + task.getException().getMessage()));
 
         new Thread(task).start();
+    }
+
+    /**
+     * Clears all input fields and resets the UI to its initial state
+     */
+    private void clearInputs() {
+        // Clear recipe name and instruction text fields
+        recipeNameTextField.clear();
+        recipeInstructionsTextField.clear();
+
+        // Uncheck speciality checkbox
+        specialityCheckbox.setSelected(false);
+
+        // Clear all ingredient name fields and uncheck alcoholic checkboxes
+        for (Node node : ingredientVBox.getChildren()) {
+            if (node instanceof HBox) {
+                HBox ingredientRow = (HBox) node;
+                TextField ingredientNameTextField = (TextField) ingredientRow.getChildren().get(0);
+                CheckBox alcoholicCheckBox = (CheckBox) ingredientRow.getChildren().get(1);
+
+                ingredientNameTextField.clear();
+                alcoholicCheckBox.setSelected(false);
+            }
+        }
     }
 
     /**
