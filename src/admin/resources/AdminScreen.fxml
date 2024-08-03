@@ -13,7 +13,7 @@
         <TextField fx:id="recipeNameTextField" layoutX="15.0" layoutY="40.0" />
         <Text layoutX="308.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipe Instructions" wrappingWidth="129.13671875" />
         <Text layoutX="15.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipe Name:" />
-        <Button fx:id="addRecipeButton" disable="true" layoutX="152.0" layoutY="435.0" mnemonicParsing="false" onAction="#addRecipeToDatabase" prefHeight="25.0" prefWidth="113.0" text="Add Recipe" />
+        <Button fx:id="addRecipeButton" disable="false" layoutX="152.0" layoutY="435.0" mnemonicParsing="false" onAction="#addRecipeToDatabase" prefHeight="25.0" prefWidth="113.0" text="Add Recipe" />
         <Text layoutX="15.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingredient Name" />
         <CheckBox fx:id="specialityCheckbox" layoutX="15.0" layoutY="79.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="Speciality?" />
       <Button fx:id="testButton" layoutX="32.0" layoutY="435.0" mnemonicParsing="false" onAction="#testAddRecipe" text="Test" />

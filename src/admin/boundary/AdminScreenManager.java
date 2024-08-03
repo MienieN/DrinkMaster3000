@@ -195,6 +195,7 @@ public class AdminScreenManager implements Initializable {
         }
 
         HashMap<String, Boolean> ingredients = new HashMap<>();
+        /*
         for (int i = 0; i < 12; i++) {
             TextField ingredientNameTextField = (TextField) getNodeFromGridPane(inputGridPane, 0, i);
             CheckBox alcoholicIngredientCheckBox = (CheckBox) getNodeFromGridPane(inputGridPane, 2, i);
@@ -202,6 +203,35 @@ public class AdminScreenManager implements Initializable {
             if (!ingredientName.isEmpty()) {
                 boolean isAlcoholic = alcoholicIngredientCheckBox.isSelected();
                 ingredients.put(ingredientName, isAlcoholic);
+            }
+        }
+
+         */
+
+        for (Node node : ingredientVBox.getChildren()) {
+            if (node instanceof HBox) {
+                HBox ingredientRow = (HBox) node;
+                TextField ingredientNameTextField = (TextField) ingredientRow.getChildren().get(0);
+                CheckBox alcoholicCheckBox = (CheckBox) ingredientRow.getChildren().get(1);
+
+                if (ingredientNameTextField != null) {
+                    String ingredientName = ingredientNameTextField.getText().trim();
+                    System.out.println(ingredientName);
+
+                    if (!ingredientName.isEmpty()) {
+                        if (alcoholicCheckBox != null) {
+                            boolean isAlcoholic = alcoholicCheckBox.isSelected();
+                            ingredients.put(ingredientName, isAlcoholic);
+                            System.out.println("added " + ingredientName + " has alcohol? " + isAlcoholic);
+                        }
+                    }
+                    else {
+                        System.out.println("skipped empty field");
+                    }
+                }
+                else {
+                    System.out.println("skipped missing field");
+                }
             }
         }
 
