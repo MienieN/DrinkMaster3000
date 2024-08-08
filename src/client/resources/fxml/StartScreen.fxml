@@ -49,6 +49,14 @@
                   <String fx:value="shadow" />
                </styleClass>
             </Button>
+            <Button fx:id="registerUser" layoutX="516.0" layoutY="14.0" mnemonicParsing="false" onAction="#openRegisterUser" prefHeight="29.0" prefWidth="78.0" style="-fx-background-color: #353F2E;" stylesheets="@../css/Styles.css" text="Register">
+               <styleClass>
+                  <String fx:value="DarkBrown" />
+                  <String fx:value="BorderDarkGreen" />
+                  <String fx:value="WhiteText" />
+                  <String fx:value="shadow" />
+               </styleClass>
+            </Button>
          </children></Pane>
    </children>
 </AnchorPane>

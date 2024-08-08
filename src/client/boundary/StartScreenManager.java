@@ -112,4 +112,27 @@ public class StartScreenManager {
     public src.client.boundary.RecentAllDrinksManager getRecFavMan(){
         return this.recFavMan;
     }
+
+    /**
+     * Switches the scene to the user screen.
+     *
+     * @param registerUserEvent The ActionEvent object representing the click event on the register user button.
+     */
+    public void openRegisterUser(javafx.event.ActionEvent registerUserEvent) {
+        try {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource(
+                    "src/client/resources/fxml/UserScreen.fxml")));
+            // Get the stage from the source of the event
+            stage = (Stage)((Node)registerUserEvent.getSource()).getScene().getWindow();
+            // Create a new scene with the loaded FXML content
+            scene = new Scene(root);
+            // Set the scene of the stage
+            stage.setScene(scene);
+            // Show the stage
+            stage.show();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

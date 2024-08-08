@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import src.client.boundary.HelpScreenManager;
 import src.client.controller.IngredientsController;
 import src.client.controller.RecipeController;
+import src.client.controller.UserController;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -30,6 +31,7 @@ public class ClientMain extends Application {
     private static HelpScreenManager instructionScreen;
     //Manager for recent and all drinks
     private static src.client.boundary.RecentAllDrinksManager recFavMan;
+    private static UserController userController = new UserController();
 
     /**
      * Retrieves the RecipeController instance.
@@ -91,6 +93,10 @@ public class ClientMain extends Application {
      */
     public static HelpScreenManager getInstructionScreen(){
         return instructionScreen;
+    }
+
+    public static UserController getUserController() {
+        return userController;
     }
 
     /**
