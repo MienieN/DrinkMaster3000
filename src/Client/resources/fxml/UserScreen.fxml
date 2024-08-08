@@ -22,8 +22,8 @@
                   <String fx:value="WhiteText" />
                </styleClass>
             </Label>
-            <PasswordField layoutX="238.0" layoutY="251.0" promptText="Password" />
-            <TextField layoutX="238.0" layoutY="165.0" promptText="Username" />
+            <PasswordField fx:id="passwordField" layoutX="238.0" layoutY="251.0" promptText="Password" />
+            <TextField fx:id="usernameField" layoutX="238.0" layoutY="165.0" promptText="Username" />
             <Label alignment="TOP_CENTER" layoutX="95.0" layoutY="160.0" prefHeight="25.0" prefWidth="135.0" stylesheets="@../css/Styles.css" text="Username:" textFill="#fcfcfc">
                <font>
                   <Font size="24.0" />
@@ -43,6 +43,11 @@
                </styleClass>
             </Label>
             <Button layoutX="459.0" layoutY="178.0" mnemonicParsing="false" onAction="#handleRegisterAction" prefHeight="82.0" prefWidth="110.0" text="Register">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button layoutX="158.0" layoutY="341.0" mnemonicParsing="false" onAction="#switchToStartScreen" prefHeight="45.0" prefWidth="310.0" text="Back to start screen">
                <font>
                   <Font size="18.0" />
                </font>
