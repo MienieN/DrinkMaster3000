@@ -16,7 +16,7 @@
         <Button fx:id="addRecipeButton" disable="false" layoutX="152.0" layoutY="435.0" mnemonicParsing="false" onAction="#addRecipeToDatabase" prefHeight="25.0" prefWidth="113.0" text="Add Recipe" />
         <Text layoutX="15.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingredient Name" />
         <CheckBox fx:id="specialityCheckbox" layoutX="15.0" layoutY="79.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="Speciality?" />
-      <Button fx:id="testButton" layoutX="32.0" layoutY="435.0" mnemonicParsing="false" onAction="#testAddRecipe" text="Test" />
+      <Button fx:id="testButton" disable="true" layoutX="32.0" layoutY="435.0" mnemonicParsing="false" onAction="#testAddRecipe" text="Test" />
       <VBox fx:id="ingredientVBox" layoutX="12.0" layoutY="139.0" prefHeight="290.0" prefWidth="253.0" />
     </children>
 </AnchorPane>
