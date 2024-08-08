@@ -18,7 +18,8 @@ import java.util.*;
 
 /**
  * The AdminScreenManager class is responsible for managing the user interface for adding recipes.
- * It provides methods for handling user interactions and database operations related to recipe management.
+ * It provides methods for handling user interactions and database operations related to recipe management**.
+ * **Recipe management currently consists of adding recipes, additional functionality can be implemented.
  */
 
 public class AdminScreenManager implements Initializable {
@@ -60,7 +61,8 @@ public class AdminScreenManager implements Initializable {
         recipeNameSuggestions = new ContextMenu();
         recipeNameTextField.textProperty().addListener((observable, oldValue, newValue) -> updateRecipeSuggestions());
 
-        // Dynamically create input fields for ingredients
+        // Dynamically create input fields for ingredients using VBox and HBox
+        // Text fields, checkboxes and a contextmenu are put into the VBox container
         for (int i = 0; i < 10; i++) {
             HBox ingredientRow = new HBox();
             TextField ingredientNameTextField = new TextField();
@@ -122,7 +124,8 @@ public class AdminScreenManager implements Initializable {
      * @param searchText The text to search for matching ingredient names.
      * @param ingredientNameTextField The text field where the user enters the ingredient name.
      */
-    private void updateIngredientSuggestions(ContextMenu ingredientNameSuggestions, String searchText, TextField ingredientNameTextField) {//int index, ContextMenu ingredientNameSuggestions) {
+    private void updateIngredientSuggestions(ContextMenu ingredientNameSuggestions, String searchText,
+                                             TextField ingredientNameTextField) {
         ingredientNameSuggestions.getItems().clear();
         //debugging
         System.out.println("suggestions have been reset");
@@ -135,12 +138,14 @@ public class AdminScreenManager implements Initializable {
             List<String> suggestions = adminController.queryIngredientsName(searchText);
             System.out.println("suggestions: " + suggestions);
 
+            // Check if the suggestion matches, if suggestion is clicked the suggestion text will show in text field
             for(String suggestion : suggestions) {
                 MenuItem item = new MenuItem(suggestion);
                 item.setOnAction(happen -> ingredientNameTextField.setText(suggestion));
                 ingredientNameSuggestions.getItems().add(item);
             }
             ingredientNameSuggestions.show(ingredientNameTextField, Side.RIGHT, 0,0);
+            // debugging
             System.out.println("the suggestions are somewhere");
         }
         else {
